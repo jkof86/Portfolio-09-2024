@@ -2,6 +2,8 @@ package com.jkof86.models;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "foods")
 public class Food {
@@ -13,196 +15,76 @@ public class Food {
 
     private String name;
 
-    private boolean available;
-
-    //quantity in grams
-    private int quantity;
-
     //calories in kcal
+    @Column(nullable = true)
     private int calories;
 
     //macronutrients in grams
-    private float protein;
-    private float carbs;
-    private float fat;
+    @Column(nullable = true)
+    private int protein;
+
+    @Column(nullable = true)
+    private int carbs;
+
+    @Column(nullable = true)
+    private int fat;
 
     //micronutrients
-    private float fiber;
-    private float sugar;
-    private float cholesterol;
-    private float sodium;
-    private float potassium;
-    private float vitaminA;
-    private float vitaminC;
-    private float calcium;
-    private float iron;
+    @Column(nullable = true)
+    private int fiber;
+
+    @Column(nullable = true)
+    private int sugar;
+
+    @Column(nullable = true)
+    private int cholesterol;
+
+    @Column(nullable = true)
+    private int sodium;
+
+    @Column(nullable = true)
+    private int potassium;
+
+    @Column(nullable = true)
+    private int vitaminA;
+
+    @Column(nullable = true)
+    private int vitaminC;
+
+    @Column(nullable = true)
+    private int calcium;
+
+    @Column(nullable = true)
+    private int iron;
+
+    @ManyToOne
+    @JoinColumn(name = "a_id")
+    private Account account;
+
 
     //constructors
-    public Food(){}
-
-    public Food(int id, String name) {
-        this.id = id;
-        this.name = name;
+    public Food() {
+        super();
     }
 
-    public Food(int id,String name, int quantity, int calories, float protein, float carbs, float fat) {
+    public Food(int id, String name, int calories, int protein, int carbs,
+                int fat, int fiber, int sugar, int cholesterol, int sodium,
+                int potassium, int vitaminA, int vitaminC, int calcium, int iron) {
         this.id = id;
         this.name = name;
-        this.quantity = quantity;
         this.calories = calories;
         this.protein = protein;
         this.carbs = carbs;
         this.fat = fat;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
-
-    // Getters/Setters and toString
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public int getCalories() {
-        return calories;
-    }
-
-    public void setCalories(int calories) {
-        this.calories = calories;
-    }
-
-    public float getProtein() {
-        return protein;
-    }
-
-    public void setProtein(float protein) {
-        this.protein = protein;
-    }
-
-    public float getCarbs() {
-        return carbs;
-    }
-
-    public void setCarbs(float carbs) {
-        this.carbs = carbs;
-    }
-
-    public float getFat() {
-        return fat;
-    }
-
-    public void setFat(float fat) {
-        this.fat = fat;
-    }
-
-    public float getFiber() {
-        return fiber;
-    }
-
-    public void setFiber(int fiber) {
         this.fiber = fiber;
-    }
-
-    public float getSugar() {
-        return sugar;
-    }
-
-    public void setSugar(int sugar) {
         this.sugar = sugar;
-    }
-
-    public float getCholesterol() {
-        return cholesterol;
-    }
-
-    public void setCholesterol(int cholesterol) {
         this.cholesterol = cholesterol;
-    }
-
-    public float getSodium() {
-        return sodium;
-    }
-
-    public void setSodium(int sodium) {
         this.sodium = sodium;
-    }
-
-    public float getPotassium() {
-        return potassium;
-    }
-
-    public void setPotassium(int potassium) {
         this.potassium = potassium;
-    }
-
-    public float getVitaminA() {
-        return vitaminA;
-    }
-
-    public void setVitaminA(int vitaminA) {
         this.vitaminA = vitaminA;
-    }
-
-    public float getVitaminC() {
-        return vitaminC;
-    }
-
-    public void setVitaminC(int vitaminC) {
         this.vitaminC = vitaminC;
-    }
-
-    public float getCalcium() {
-        return calcium;
-    }
-
-    public void setCalcium(int calcium) {
         this.calcium = calcium;
-    }
-
-    public float getIron() {
-        return iron;
-    }
-
-    public void setIron(int iron) {
         this.iron = iron;
-    }
-
-    @Override
-    public String toString() {
-        return "Food { " +
-                "name='" + this.name+ '\'' +
-                ", quantity=" + this.quantity +
-                ", calories=" + this.calories +
-                ", protein=" + this.protein +
-                ", carbs=" + this.carbs +
-                ", fat=" + this.fat +
-                ", fiber=" + this.fiber +
-                ", sugar=" + this.sugar +
-                ", cholesterol=" + this.cholesterol +
-                ", sodium=" + this.sodium +
-                ", potassium=" + this.potassium +
-                ", vitaminA=" + this.vitaminA +
-                ", vitaminC=" + this.vitaminC +
-                ", calcium=" + this.calcium +
-                ", iron=" + this.iron +
-                " }";
     }
 
     public int getId() {
@@ -213,4 +95,149 @@ public class Food {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getCholesterol() {
+        return cholesterol;
+    }
+
+    public void setCholesterol(int cholesterol) {
+        this.cholesterol = cholesterol;
+    }
+
+    public int getSugar() {
+        return sugar;
+    }
+
+    public void setSugar(int sugar) {
+        this.sugar = sugar;
+    }
+
+    public int getFiber() {
+        return fiber;
+    }
+
+    public void setFiber(int fiber) {
+        this.fiber = fiber;
+    }
+
+    public int getFat() {
+        return fat;
+    }
+
+    public void setFat(int fat) {
+        this.fat = fat;
+    }
+
+    public int getCarbs() {
+        return carbs;
+    }
+
+    public void setCarbs(int carbs) {
+        this.carbs = carbs;
+    }
+
+    public int getProtein() {
+        return protein;
+    }
+
+    public void setProtein(int protein) {
+        this.protein = protein;
+    }
+
+    public int getCalories() {
+        return calories;
+    }
+
+    public void setCalories(int calories) {
+        this.calories = calories;
+    }
+
+    public int getSodium() {
+        return sodium;
+    }
+
+    public void setSodium(int sodium) {
+        this.sodium = sodium;
+    }
+
+    public int getPotassium() {
+        return potassium;
+    }
+
+    public void setPotassium(int potassium) {
+        this.potassium = potassium;
+    }
+
+    public int getVitaminA() {
+        return vitaminA;
+    }
+
+    public void setVitaminA(int vitaminA) {
+        this.vitaminA = vitaminA;
+    }
+
+    public int getVitaminC() {
+        return vitaminC;
+    }
+
+    public void setVitaminC(int vitaminC) {
+        this.vitaminC = vitaminC;
+    }
+
+    public int getCalcium() {
+        return calcium;
+    }
+
+    public void setCalcium(int calcium) {
+        this.calcium = calcium;
+    }
+
+    public int getIron() {
+        return iron;
+    }
+
+    public void setIron(int iron) {
+        this.iron = iron;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Food food = (Food) o;
+        return id == food.id && calories == food.calories && protein == food.protein && carbs == food.carbs && fat == food.fat && fiber == food.fiber && sugar == food.sugar && cholesterol == food.cholesterol && sodium == food.sodium && potassium == food.potassium && vitaminA == food.vitaminA && vitaminC == food.vitaminC && calcium == food.calcium && iron == food.iron && Objects.equals(name, food.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, calories, protein, carbs, fat, fiber, sugar, cholesterol, sodium, potassium, vitaminA, vitaminC, calcium, iron);
+    }
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", calories=" + calories +
+                ", protein=" + protein +
+                ", carbs=" + carbs +
+                ", fat=" + fat +
+                ", fiber=" + fiber +
+                ", sugar=" + sugar +
+                ", cholesterol=" + cholesterol +
+                ", sodium=" + sodium +
+                ", potassium=" + potassium +
+                ", vitaminA=" + vitaminA +
+                ", vitaminC=" + vitaminC +
+                ", calcium=" + calcium +
+                ", iron=" + iron +
+                '}';
+    }
 }
