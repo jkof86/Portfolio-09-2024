@@ -11,7 +11,7 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
-    private AccountRepo ar;
+    AccountRepo ar;
 
     @Override
     public List<Account> getAllAccounts() {
