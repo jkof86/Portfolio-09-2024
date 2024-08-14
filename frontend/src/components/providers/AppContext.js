@@ -2,7 +2,7 @@ import { createContext, useState } from "react"
 
 export const AppContext = createContext();
 
-export default function AppProvider({ props }) {
+export default function AppProvider({ children }) {
 
     const [foodItems, setFoodItems] = useState('apple', 'orange', 'banana');
 
@@ -20,7 +20,7 @@ export default function AppProvider({ props }) {
     return (<>
         {/* here we can pass down props to any child components wrapped in the Provider */}
         <AppContext.Provider value={data}>
-            {props}
+            {children}
         </AppContext.Provider>
     </>)
 }
