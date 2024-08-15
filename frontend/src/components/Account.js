@@ -1,9 +1,9 @@
 import { Box } from "@mui/material";
 
-export default function Home() {
+export default function Account() {
 
     return (<>
-    <center>
+         <center>
         <Box component="section" sx={{
             textAlign: 'center', 
             justifyContent: 'center',
@@ -14,7 +14,7 @@ export default function Home() {
             margin: '10px',
             padding: '10px',
             width: '50%' }}>
-            <h1>Nutrition App</h1>
+            <h1>Account</h1>
         </Box>
         </center>
     </>);
