@@ -19,8 +19,7 @@ export default function Navbar() {
                 //this rgb value is semi transparent
                 flexGrow: 1, background: 'rgba(0,0,0,0.5)',
                 color: 'white', fontSize: '32px',
-                justifyContent: 'center',
-                border: '1px solid white',
+                justifyContent: 'center',   
                 margin: '2px'
             }}
                 variant="menu"
