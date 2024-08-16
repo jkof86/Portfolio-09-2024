@@ -23,26 +23,19 @@ public class Account {
 
     private String pw;
 
-    @Column(nullable = true)
     private int age;
 
-    @Column(nullable = true)
     private int height; //in cm
 
-    @Column(nullable = true)
     private int weight; //in lbs
 
     //daily calorie and macronutrient goals
-    @Column(nullable = true)
     private int calorieLimit;
 
-    @Column(nullable = true)
     private float proteinPercent;
 
-    @Column(nullable = true)
     private float carbPercent;
 
-    @Column(nullable = true)
     private float fatPercent;
 
     @OneToMany(mappedBy = "account")

@@ -17,13 +17,9 @@ public class FoodController {
     @Autowired
     FoodService fs;
 
-    @Autowired
-    List<String> foodList;
-
-
     @GetMapping
     private ResponseEntity<List<String>> getAll() {
-        foodList = fs.getAllFoods();
+        List<String> foodList = fs.getAllFoods();
         System.out.println("Retrieving List of Food Items: " + foodList);
         return new ResponseEntity<>(foodList, foodList != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
@@ -51,15 +47,17 @@ public class FoodController {
 
     @DeleteMapping
     private ResponseEntity<Boolean> remove(@PathParam("name") String name) {
+        Boolean food = fs.removeFood(name);
         System.out.println("Attempting Food Deletion");
         //tertiary condition based on result of food item removal
-        return new ResponseEntity<>(fs.removeFood(name) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(food, food ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     @PutMapping
     private ResponseEntity<Boolean> update(@RequestBody Food f) {
+        Boolean food = fs.updateFood(f);
         System.out.println("Attempting Food Item Update");
         //tertiary condition based on result of food item removal
-        return new ResponseEntity<>(fs.updateFood(f) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(food, food ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 }

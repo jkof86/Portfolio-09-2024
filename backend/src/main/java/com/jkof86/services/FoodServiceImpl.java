@@ -13,16 +13,14 @@ public class FoodServiceImpl implements FoodService {
     @Autowired
     private FoodRepo fr;
 
-    @Autowired
-    List<String> foodNameList;
 
     //rather than returning a list of Food objects
     //we only need a list of the food names
     @Override
     public List<String> getAllFoods() {
 
-//        List<Food> foodNameList = null;
-        for(Food f : fr.findAll()) {
+        List<String> foodNameList = null;
+        for (Food f : fr.findAll()) {
             foodNameList.add(f.getName());
         }
         return foodNameList;
@@ -48,7 +46,7 @@ public class FoodServiceImpl implements FoodService {
         if (fr.existsFoodByName(name)) {
             try {
                 fr.delete(getFoodByName(name));
-            } catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Error Removing Food: " + fr);
                 e.printStackTrace();
                 return false;

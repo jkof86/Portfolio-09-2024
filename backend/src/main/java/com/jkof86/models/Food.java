@@ -16,45 +16,32 @@ public class Food {
     private String name;
 
     //calories in kcal
-    @Column(nullable = true)
     private int calories;
 
     //macronutrients in grams
-    @Column(nullable = true)
     private int protein;
 
-    @Column(nullable = true)
     private int carbs;
 
-    @Column(nullable = true)
     private int fat;
 
     //micronutrients
-    @Column(nullable = true)
     private int fiber;
 
-    @Column(nullable = true)
     private int sugar;
 
-    @Column(nullable = true)
     private int cholesterol;
 
-    @Column(nullable = true)
     private int sodium;
 
-    @Column(nullable = true)
     private int potassium;
 
-    @Column(nullable = true)
     private int vitaminA;
 
-    @Column(nullable = true)
     private int vitaminC;
 
-    @Column(nullable = true)
     private int calcium;
 
-    @Column(nullable = true)
     private int iron;
 
     @ManyToOne
