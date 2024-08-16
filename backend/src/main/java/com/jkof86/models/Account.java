@@ -1,6 +1,7 @@
 package com.jkof86.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
 import java.util.Objects;
@@ -10,32 +11,39 @@ import java.util.Objects;
 public class Account {
 
     @Id //makes this a Primary Key
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "a_id", updatable = false)
     private int id;
+
+    @Column(unique = true)
+    private String email;
 
     private String fname;
 
     private String lname;
 
-    @Column(unique = true)
-    private String email;
-
     private String pw;
 
+    @ColumnDefault("0")
     private int age;
 
+    @ColumnDefault("0")
     private int height; //in cm
 
+    @ColumnDefault("0")
     private int weight; //in lbs
 
     //daily calorie and macronutrient goals
+    @ColumnDefault("0")
     private int calorieLimit;
 
+    @ColumnDefault("0")
     private float proteinPercent;
 
+    @ColumnDefault("0")
     private float carbPercent;
 
+    @ColumnDefault("0")
     private float fatPercent;
 
     @OneToMany(mappedBy = "account")

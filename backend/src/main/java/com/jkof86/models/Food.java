@@ -1,6 +1,8 @@
 package com.jkof86.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
+
 import java.util.Objects;
 
 @Entity
@@ -8,7 +10,7 @@ import java.util.Objects;
 public class Food {
 
     @Id //makes this a Primary Key
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "f_id", updatable = false)
     private int id;
 
@@ -16,32 +18,45 @@ public class Food {
     private String name;
 
     //calories in kcal
+    @ColumnDefault("0")
     private int calories;
 
     //macronutrients in grams
+    @ColumnDefault("0")
     private int protein;
 
+    @ColumnDefault("0")
     private int carbs;
 
+    @ColumnDefault("0")
     private int fat;
 
     //micronutrients
+    @ColumnDefault("0")
     private int fiber;
 
+    @ColumnDefault("0")
     private int sugar;
 
+    @ColumnDefault("0")
     private int cholesterol;
 
+    @ColumnDefault("0")
     private int sodium;
 
+    @ColumnDefault("0")
     private int potassium;
 
+    @ColumnDefault("0")
     private int vitaminA;
 
+    @ColumnDefault("0")
     private int vitaminC;
 
+    @ColumnDefault("0")
     private int calcium;
 
+    @ColumnDefault("0")
     private int iron;
 
     @ManyToOne

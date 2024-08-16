@@ -19,10 +19,15 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public List<String> getAllFoods() {
 
+        //first we retrieve the List of Food Items
+        List<Food> foodList = fr.findAll();
+
+        //then we use Stream API to iterate through the food list
+        //and retrieve just the names of the items
         List<String> foodNameList = null;
-        for (Food f : fr.findAll()) {
-            foodNameList.add(f.getName());
-        }
+        foodList.stream()
+                .forEach(food -> foodNameList.add(food.getName()));
+
         return foodNameList;
     }
 
