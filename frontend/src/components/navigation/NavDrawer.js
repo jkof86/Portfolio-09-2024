@@ -154,7 +154,6 @@ export default function NavDrawer() {
 
       </Drawer>
     </Toolbar>
-    <hr style={{ marginLeft: "8px", marginRight: "8px" }} />
 
   </>
   );
