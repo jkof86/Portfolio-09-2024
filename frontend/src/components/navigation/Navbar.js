@@ -19,23 +19,38 @@ export default function Navbar() {
                 //this rgb value is semi transparent
                 flexGrow: 1, background: 'rgba(0,0,0,0.5)',
                 color: 'white', fontSize: '32px',
-                justifyContent: 'center',   
+                justifyContent: 'center',
                 margin: '2px'
             }}
                 variant="menu"
                 position="static"
             >
-                <Button variant='contained' sx={{ margin: '10px' }}
+                <Button variant='contained' sx={{
+                    backgroundColor: 'grey',
+                    borderRadius: '0px',
+                    margin: '0px',
+                    marginTop: '10px'
+                }}
                     component={Link} to='/'>
                     Home
                 </Button>
-                <Button variant='contained' sx={{ margin: '10px' }}
+                <Button variant='contained' sx={{
+                    backgroundColor: 'grey',
+                    borderRadius: '0px',
+                    margin: '0px',
+                    marginTop: '10px'
+                }}
                     component={Link} to='/register'
                 >
                     Register
                 </Button>
 
-                <Button variant='contained' sx={{ margin: '10px' }}
+                <Button variant='contained' sx={{
+                    backgroundColor: 'grey',
+                    borderRadius: '0px',
+                    margin: '0px',
+                    marginTop: '10px'
+                }}
                     component={Link} to='/signin'>
                     Login
                 </Button>
