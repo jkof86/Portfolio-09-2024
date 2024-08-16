@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Scanner;
 
 @Entity
 @Table(name = "accounts")
@@ -19,6 +18,7 @@ public class Account {
 
     private String lname;
 
+    @Column(unique = true)
     private String email;
 
     private String pw;

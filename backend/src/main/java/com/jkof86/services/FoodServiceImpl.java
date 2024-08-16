@@ -13,9 +13,19 @@ public class FoodServiceImpl implements FoodService {
     @Autowired
     private FoodRepo fr;
 
+    @Autowired
+    List<String> foodNameList;
+
+    //rather than returning a list of Food objects
+    //we only need a list of the food names
     @Override
-    public List<Food> getAllFoods() {
-        return fr.findAll();
+    public List<String> getAllFoods() {
+
+//        List<Food> foodNameList = null;
+        for(Food f : fr.findAll()) {
+            foodNameList.add(f.getName());
+        }
+        return foodNameList;
     }
 
     @Override

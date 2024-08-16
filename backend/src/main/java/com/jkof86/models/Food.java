@@ -1,7 +1,6 @@
 package com.jkof86.models;
 
 import jakarta.persistence.*;
-
 import java.util.Objects;
 
 @Entity
@@ -13,6 +12,7 @@ public class Food {
     @Column(name = "f_id", updatable = false)
     private int id;
 
+    @Column(unique = true)
     private String name;
 
     //calories in kcal
