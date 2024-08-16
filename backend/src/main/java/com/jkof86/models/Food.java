@@ -1,6 +1,8 @@
 package com.jkof86.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
+
 import java.util.Objects;
 
 @Entity
@@ -8,7 +10,7 @@ import java.util.Objects;
 public class Food {
 
     @Id //makes this a Primary Key
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "f_id", updatable = false)
     private int id;
 
@@ -16,45 +18,45 @@ public class Food {
     private String name;
 
     //calories in kcal
-    @Column(nullable = true)
+    @ColumnDefault("0")
     private int calories;
 
     //macronutrients in grams
-    @Column(nullable = true)
+    @ColumnDefault("0")
     private int protein;
 
-    @Column(nullable = true)
+    @ColumnDefault("0")
     private int carbs;
 
-    @Column(nullable = true)
+    @ColumnDefault("0")
     private int fat;
 
     //micronutrients
-    @Column(nullable = true)
+    @ColumnDefault("0")
     private int fiber;
 
-    @Column(nullable = true)
+    @ColumnDefault("0")
     private int sugar;
 
-    @Column(nullable = true)
+    @ColumnDefault("0")
     private int cholesterol;
 
-    @Column(nullable = true)
+    @ColumnDefault("0")
     private int sodium;
 
-    @Column(nullable = true)
+    @ColumnDefault("0")
     private int potassium;
 
-    @Column(nullable = true)
+    @ColumnDefault("0")
     private int vitaminA;
 
-    @Column(nullable = true)
+    @ColumnDefault("0")
     private int vitaminC;
 
-    @Column(nullable = true)
+    @ColumnDefault("0")
     private int calcium;
 
-    @Column(nullable = true)
+    @ColumnDefault("0")
     private int iron;
 
     @ManyToOne

@@ -13,18 +13,21 @@ public class FoodServiceImpl implements FoodService {
     @Autowired
     private FoodRepo fr;
 
-    @Autowired
-    List<String> foodNameList;
 
     //rather than returning a list of Food objects
     //we only need a list of the food names
     @Override
     public List<String> getAllFoods() {
 
-//        List<Food> foodNameList = null;
-        for(Food f : fr.findAll()) {
-            foodNameList.add(f.getName());
-        }
+        //first we retrieve the List of Food Items
+        List<Food> foodList = fr.findAll();
+
+        //then we use Stream API to iterate through the food list
+        //and retrieve just the names of the items
+        List<String> foodNameList = null;
+        foodList.stream()
+                .forEach(food -> foodNameList.add(food.getName()));
+
         return foodNameList;
     }
 
@@ -48,7 +51,7 @@ public class FoodServiceImpl implements FoodService {
         if (fr.existsFoodByName(name)) {
             try {
                 fr.delete(getFoodByName(name));
-            } catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Error Removing Food: " + fr);
                 e.printStackTrace();
                 return false;
