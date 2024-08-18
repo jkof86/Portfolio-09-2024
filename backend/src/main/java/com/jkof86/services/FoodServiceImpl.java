@@ -75,38 +75,40 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public boolean removeFood(String name) {
+        System.out.println("Attempting Food Deletion");
         if (fr.existsFoodByName(name)) {
             try {
                 fr.delete(getFoodByName(name));
             } catch (Exception e) {
-                System.out.println("Error Removing Food: " + fr);
+                System.out.println("Error Removing Food: " + name);
                 e.printStackTrace();
                 return false;
             }
-            System.out.println("Food removed successfully: " + fr);
+            System.out.println("Food removed successfully: " + name);
             return true;
         }
-        System.out.println("Food doesn't exist: " + fr);
+        System.out.println("Food doesn't exist: " + name);
         return false;
     }
 
     @Override
     public boolean updateFood(Food f) {
+        System.out.println("Attempting Food Item Update");
         if (fr.existsFoodByName(f.getName())) {
-            //we add the new food
+            //we remove the old food item
             try {
-                fr.save(f);
+                removeFood(f.getName());
             } catch (Exception e) {
-                System.out.println("Error Removing food: " + fr);
+                System.out.println("Error Removing food: " + f.getName());
                 e.printStackTrace();
                 return false;
             }
-            //if all checks pass, we then remove the old food
-            removeFood(f.getName());
-            System.out.println("Food updated successfully: " + fr);
+            //if all checks pass, we then add the updated food item
+            fr.save(f);
+            System.out.println("Food updated successfully: " + f);
             return true;
         }
-        System.out.println("Food doesn't exist: " + fr);
+        System.out.println("Food doesn't exist: " + f.getName());
         return false;
     }
 }
