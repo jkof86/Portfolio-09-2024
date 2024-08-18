@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Account {
 
     @Id //makes this a Primary Key
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "a_id", updatable = false)
     private int id;
 

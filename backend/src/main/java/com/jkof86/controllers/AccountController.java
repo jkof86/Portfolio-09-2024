@@ -48,7 +48,6 @@ public class AccountController {
     @DeleteMapping
     private ResponseEntity<Boolean> remove(@PathParam("email") String email) {
         Boolean result = as.removeAccount(email);
-        System.out.println("Attempting Account Deletion");
         //tertiary condition based on result of account removal
         return new ResponseEntity<>(result, result ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
@@ -56,7 +55,6 @@ public class AccountController {
     @PutMapping
     private ResponseEntity<Boolean> update(@RequestBody Account a) {
         Boolean result = as.updateAccount(a);
-        System.out.println("Attempting Account Update");
         //tertiary condition based on result of account removal
         return new ResponseEntity<>(result, result ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }

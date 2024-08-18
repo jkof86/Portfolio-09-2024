@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Food {
 
     @Id //makes this a Primary Key
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "f_id", updatable = false)
     private int id;
 
