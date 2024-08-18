@@ -4,7 +4,7 @@ import com.jkof86.models.Food;
 import java.util.List;
 
 public interface FoodService {
-    public List<String> getAllFoods();
+    public List<String> getAllFoods() throws Exception;
     public Food getFoodById(int id);
     public Food getFoodByName(String name);
     public Food addFood(Food f);

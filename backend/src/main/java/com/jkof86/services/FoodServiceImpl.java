@@ -5,7 +5,10 @@ import com.jkof86.repositories.FoodRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 public class FoodServiceImpl implements FoodService {
@@ -17,16 +20,40 @@ public class FoodServiceImpl implements FoodService {
     //rather than returning a list of Food objects
     //we only need a list of the food names
     @Override
-    public List<String> getAllFoods() {
+    public List<String> getAllFoods() throws Exception {
 
         //first we retrieve the List of Food Items
         List<Food> foodList = fr.findAll();
 
-        //then we use Stream API to iterate through the food list
+        //then we initialize the List of names
+        List<String> foodNameList = new ArrayList<>();
+
+        //and build the List of names
+        for (Food f : foodList) {
+            foodNameList.add(f.getName());
+        }
+
+        //we use Stream API to iterate through the food list
         //and retrieve just the names of the items
-        List<String> foodNameList = null;
-        foodList.stream()
-                .forEach(food -> foodNameList.add(food.getName()));
+        //we use Optional to bypass NullPointerException
+
+//        foodList.forEach( f -> foodList.add(f.getName())
+//                    .map(Object::toString);
+//                );
+
+//        String result = list.stream()
+//                .filter(x -> x.length() == 1)
+//                .findFirst()  // returns Optional
+//                .map(Object::toString)
+//                .orElse("");
+
+
+//
+//        List<Optional<String>> foodNameList;
+//
+//        foodList.stream()
+//                        .flatMap()
+//                );
 
         return foodNameList;
     }

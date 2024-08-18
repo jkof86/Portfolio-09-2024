@@ -18,8 +18,9 @@ public class FoodController {
     FoodService fs;
 
     @GetMapping
-    private ResponseEntity<List<String>> getAll() {
-        List<String> foodList = fs.getAllFoods();
+    private ResponseEntity<List<String>> getAll() throws Exception {
+        List<String> foodList =
+                fs.getAllFoods();
         System.out.println("Retrieving List of Food Items: " + foodList);
         return new ResponseEntity<>(foodList, foodList != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
