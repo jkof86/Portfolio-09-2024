@@ -3,12 +3,59 @@ import {
     Button, Grid, Divider, Card, CardActions, CardActionArea,
     CardContent, CardMedia
 } from "@mui/material";
+import { useState } from "react";
 
 export default function Calculator() {
 
-    const [calorieLimit, proteinPercent, carbPercent, fatPercent] = "";
+    const [calorieLimit, setCalorieLimit] = useState('');
+    const [proteinPercent, setProteinPercent] = useState('');
+    const [carbPercent, setCarbPercent] = useState('');
+    const [fatPercent, setFatPercent] = useState('');
 
-    const CalcResults = () => {
+    function handleClick() {
+        // event.preventDefault();
+        console.log('Calorie Limit: ', calorieLimit,
+            'Protein Percent: ', proteinPercent,
+            'Carb Percent: ', carbPercent,
+            'Fat Percent: ', fatPercent)
+        // ..code to submit form to backend here...
+    }
+
+    const calculateMacros = () => {
+        console.log('Calculate Macros Button Test...');
+        handleClick();
+    }
+
+    const ShowGraph = () => {
+        return (
+            <Card sx={{
+                maxWidthidth: '340',
+                borderRadius: '25px',
+                margin: '10px',
+                padding: '10px',
+                textAlign: 'center'
+            }}>
+                <CardActionArea>
+
+                    <CardMedia
+                        component="img"
+                        alt="Protein/Carbs/Fat - Pie Chart"
+                        image={require("../images/pie_chart_example.jpg")}
+                    >
+                    </CardMedia>
+                    <CardContent>
+
+
+                    </CardContent>
+
+                </CardActionArea>
+
+            </Card >
+        )
+    }
+
+
+    const ShowResults = () => {
         return (
             <Card sx={{
                 border: '2px solid black',
@@ -18,34 +65,34 @@ export default function Calculator() {
                 padding: '10px',
                 textAlign: 'center'
             }}>
-                <CardMedia
-                    component="img"
-                    alt="Protein/Carbs/Fat - Pie Chart"
-                    image={require("../images/macros.jpg")}
-                >
-                </CardMedia>
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                        Macronutrient Results
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        Lorem ipsum odor amet, consectetuer adipiscing elit.
-                    </Typography>
-                </CardContent>
+                <CardActionArea>
+
+                    <CardMedia
+                        component="img"
+                        alt="Macronutrient Image"
+                        image={require("../images/macros.jpg")}
+                    >
+                    </CardMedia>
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                            Macronutrient Results
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Lorem ipsum odor amet, consectetuer adipiscing elit.
+                            Lorem ipsum odor amet, consectetuer adipiscing elit.
+                            Lorem ipsum odor amet, consectetuer adipiscing elit.
+                        </Typography>
+                    </CardContent>
+
+                </CardActionArea>
 
                 <CardActions>
-                    <Box sx={{ border: '1px solid black', textAlign: 'center' }}>
-                        <Button size="small">Share</Button>
-                        <Button size="small">Learn More</Button>
-                    </Box>
+                    <Button size="small">Share</Button>
+                    <Button size="small">Learn More</Button>
                 </CardActions>
 
-            </Card>
+            </Card >
         )
-    }
-
-    const calculateMacros = () => {
-
     }
 
     return (<>
@@ -76,17 +123,21 @@ export default function Calculator() {
                 border: '1px solid black',
                 boxShadow: '0px 0px 2px 2px white',
                 padding: '10px',
+                margin: '10px',
                 width: '100%'
             }}>
 
+                {/* for each TextField, we use onInput to store the values */}
                 <Grid container spacing={2}>
                     <Grid item xs={4}
                         sx={{ alignContent: 'center' }}>
                         <TextField id="calorieLimitInput"
-                            required='true'
+                            required={true}
                             type="number"
                             label="Calorie Limit"
-                            variant="standard" sx={{
+                            variant="standard"
+                            onInput={e => setCalorieLimit(e.target.value)}
+                            sx={{
                                 color: 'white',
                                 margin: '5px'
                             }} InputProps={{
@@ -96,10 +147,12 @@ export default function Calculator() {
                             }} />
 
                         <TextField id="proteinPercentInput"
-                            required='true'
+                            required={true}
                             type="number"
                             label="Protein Percentage"
-                            variant="standard" sx={{
+                            variant="standard"
+                            onInput={e => setProteinPercent(e.target.value)}
+                            sx={{
                                 margin: '5px'
                             }} InputProps={{
                                 endAdornment: <InputAdornment position='end'>
@@ -108,10 +161,12 @@ export default function Calculator() {
                             }} />
 
                         <TextField id="carbPercentInput"
-                            required='true'
+                            required={true}
                             type="number"
                             label="Carb Percentage"
-                            variant="standard" sx={{
+                            variant="standard"
+                            onInput={e => setCarbPercent(e.target.value)}
+                            sx={{
                                 margin: '5px'
                             }} InputProps={{
                                 endAdornment: <InputAdornment position='end'>
@@ -120,10 +175,12 @@ export default function Calculator() {
                             }} />
 
                         <TextField id="fatPercentInput"
-                            required='true'
+                            required={true}
                             type="number"
                             label="Fat Percentage"
-                            variant="standard" sx={{
+                            variant="standard"
+                            onInput={e => setFatPercent(e.target.value)}
+                            sx={{
                                 margin: '5px'
                             }} InputProps={{
                                 endAdornment: <InputAdornment position='end'>
@@ -141,10 +198,9 @@ export default function Calculator() {
                         <Box textAlign={'center'}>
                             <Button variant="contained"
                                 id="calculateButton"
-                                type="submit"
+                                // type="submit"
                                 onClick={() => {
                                     { calculateMacros() };
-                                    console.log('Calculate Macros Button Test...');
                                 }
                                 } >
                                 Calculate
@@ -152,8 +208,11 @@ export default function Calculator() {
                         </Box>
 
                     </Grid>
-                    <Grid item xs={6}>
-                        {CalcResults()}
+                    <Grid item xs={4}>
+                        {ShowResults()}
+                    </Grid>
+                    <Grid item xs={4}>
+                        {ShowGraph()}
                     </Grid>
 
                 </Grid>
