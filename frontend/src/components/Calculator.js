@@ -1,8 +1,13 @@
 import {
     Box, Container, TextField, Toolbar, Typography, InputAdornment,
     Button, Grid, Divider, Card, CardActions, CardActionArea,
-    CardContent, CardMedia
+    CardContent, CardMedia, Table,
+    TableHead,
+    TableBody,
+    TableRow,
+    TableCell
 } from "@mui/material";
+
 import { useState } from "react";
 
 export default function Calculator() {
@@ -14,16 +19,38 @@ export default function Calculator() {
 
     function handleClick() {
         // event.preventDefault();
-        console.log('Calorie Limit: ', calorieLimit,
-            'Protein Percent: ', proteinPercent,
-            'Carb Percent: ', carbPercent,
-            'Fat Percent: ', fatPercent)
+        // console.log('Calorie Limit: ', calorieLimit,
+        //     'Protein Percent: ', proteinPercent,
+        //     'Carb Percent: ', carbPercent,
+        //     'Fat Percent: ', fatPercent)
+
         // ..code to submit form to backend here...
+
     }
 
     const calculateMacros = () => {
         console.log('Calculate Macros Button Test...');
-        handleClick();
+        console.log('Calorie Limit: ', calorieLimit,
+            'Protein Percent: ', proteinPercent,
+            'Carb Percent: ', carbPercent,
+            'Fat Percent: ', fatPercent)
+
+        return (
+            <Table sx={{ border: '2px solid black' }}>
+                <TableHead>
+                    <TableCell>Protein</TableCell>
+                    <TableCell>Carbs</TableCell>
+                    <TableCell>Fat</TableCell>
+                </TableHead>
+                <TableBody>
+                    <TableCell>{proteinPercent}grams</TableCell>
+                    <TableCell>{carbPercent}grams</TableCell>
+                    <TableCell>{fatPercent}grams</TableCell>
+                </TableBody>
+            </Table>
+
+        )
+
     }
 
     const ShowGraph = () => {
@@ -77,11 +104,19 @@ export default function Calculator() {
                         <Typography gutterBottom variant="h5" component="div">
                             Macronutrient Results
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            Lorem ipsum odor amet, consectetuer adipiscing elit.
-                            Lorem ipsum odor amet, consectetuer adipiscing elit.
-                            Lorem ipsum odor amet, consectetuer adipiscing elit.
-                        </Typography>
+                        {calculateMacros()}
+                        {/* <Table sx={{border:'2px solid black'}}>
+                            <TableHead>
+                                <TableCell>Protein</TableCell>
+                                <TableCell>Carbs</TableCell>
+                                <TableCell>Fat</TableCell>
+                            </TableHead>
+                            <TableBody>
+                                <TableCell>{proteinPercent}grams</TableCell>
+                                <TableCell>{carbPercent}grams</TableCell>
+                                <TableCell>{fatPercent}grams</TableCell>
+                            </TableBody>
+                        </Table> */}
                     </CardContent>
 
                 </CardActionArea>
@@ -129,7 +164,7 @@ export default function Calculator() {
 
                 {/* for each TextField, we use onInput to store the values */}
                 <Grid container spacing={2}>
-                    <Grid item xs={4}
+                    <Grid item xs={2}
                         sx={{ alignContent: 'center' }}>
                         <TextField id="calorieLimitInput"
                             required={true}
@@ -208,7 +243,7 @@ export default function Calculator() {
                         </Box>
 
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         {ShowResults()}
                     </Grid>
                     <Grid item xs={4}>
