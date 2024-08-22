@@ -5,9 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-image: url("images/pie_chart_example.jpg"); */
   background-image: url("images/bg/vector-jan-2021-19_generated.jpg");
   background-repeat: repeat;
-  background-size:cover
+  background-size: cover
 }
 
 code {
