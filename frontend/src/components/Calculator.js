@@ -86,6 +86,7 @@ export default function Calculator() {
 
     const calcValid = (protein, carb, fat) => {
         {
+            console.log("calorieLimit: ", state.calorieLimit)
             // we calculate the macronutrient values (in grams) given the  entered calorieLimit
             //fat has 9 calories per gram
             protein = (state.calorieLimit * protein / 100.0 / 4.0);
@@ -96,10 +97,10 @@ export default function Calculator() {
             //protein has 4 calories per gram
             fat = (state.calorieLimit * fat / 100.0 / 9.0);
 
-            //we pass the saved results into the method for displaying
-            ShowResults(protein, carb, fat)
-            
             resetState()
+
+            //we pass the saved results into the method for displaying
+            ShowResults(protein, carb, fat)   
         }
 
     }
