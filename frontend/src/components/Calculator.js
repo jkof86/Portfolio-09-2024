@@ -14,16 +14,22 @@ import { useState } from "react";
 export default function Calculator() {
 
     const [state, setState] = useState({
-        calorieLimit: 0,
-        proteinPercent: 0,
-        carbPercent: 0,
-        fatPercent: 0,
+        calorieLimit: null,
+        proteinPercent: null,
+        carbPercent: null,
+        fatPercent: null
+    })
 
-        protein: 0,
-        carb: 0,
-        fat: 0
+    function resetState() {
+        //we reset the states back to default values
+        setState({
+            calorieLimit: null,
+            proteinPercent: null,
+            carbPercent: null,
+            fatPercent: null
+        })
     }
-    )
+
 
     function handleChange(e) {
 
@@ -34,22 +40,22 @@ export default function Calculator() {
             [e.target.name]: value
         })
 
-        console.log('Calorie Limit: ', state.calorieLimit,
-            'Carb Percent: ', state.carbPercent,
-            'Protein Percent: ', state.proteinPercent,
-            'Fat Percent: ', state.fatPercent)
+        // console.log('Calorie Limit: ', state.calorieLimit,
+        //     'Carb Percent: ', state.carbPercent,
+        //     'Protein Percent: ', state.proteinPercent,
+        //     'Fat Percent: ', state.fatPercent)
     }
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log('Calorie Limit: ', state.calorieLimit,
-            'Carb Percent: ', state.carbPercent,
-            'Protein Percent: ', state.proteinPercent,
-            'Fat Percent: ', state.fatPercent)
+        // console.log('Calorie Limit: ', state.calorieLimit,
+        //     'Carb Percent: ', state.carbPercent,
+        //     'Protein Percent: ', state.proteinPercent,
+        //     'Fat Percent: ', state.fatPercent)
 
-        // ..code to submit form to backend here...
+        // code to submit form to backend here...
 
     }
 
@@ -57,72 +63,59 @@ export default function Calculator() {
 
         //we create local variables for calculations
         console.log('Calculate Macros Button Test...');
-        let totalPercent = 0;
-        let carb = state.carbPercent;
-        let protein = state.proteinPercent;
-        const fat = state.fatPercent;
+        var totalPercent = 0;
+        var carb = state.carbPercent;
+        var protein = state.proteinPercent;
+        var fat = state.fatPercent;
 
+        //after storing the values locally
+        //we reset the states back to 0 
+        resetState();
 
         //we calculate the total percent to verify it equals 100%
-        totalPercent = (carb + protein + fat);
+        totalPercent = Number(Number(carb) + Number(protein) + Number(fat));
         console.log(typeof (totalPercent));
         console.log(totalPercent);
-        
 
         (totalPercent === 100) ? calcValid(protein, carb, fat) : calcInvalid(protein, carb, fat);
     }
 
     const calcValid = (protein, carb, fat) => {
         {
-            // print the macronutrient values (in grams)
-            // console.log("Carbohydrates: " + state.carb.toFixed(2) + " grams");
-            // console.log("Protein: " + state.protein.toFixed(2) + " grams");
-            // console.log("Fat: " + state.fat.toFixed(2) + " grams");
-
             // we calculate the macronutrient values (in grams) given the  entered calorieLimit
             //fat has 9 calories per gram
-            fat = (state.calorieLimit * state.proteinPercent / 100.0 / 4.0);
+            protein = (state.calorieLimit * protein / 100.0 / 4.0);
 
             //carbohydrates has 4 calories per gram
-            carb = (state.calorieLimit * state.carbPercent / 100.0 / 4.0);
+            carb = (state.calorieLimit * carb / 100.0 / 4.0);
 
             //protein has 4 calories per gram
-            protein = (state.calorieLimit * state.fatPercent / 100.0 / 9.0);
+            fat = (state.calorieLimit * fat / 100.0 / 9.0);
 
-
-
-            //we reset the states back to 0 
-            //and pass the saved results into the method for displaying
-
-            setState({
-                calorieLimit: 0,
-                proteinPercent: 0,
-                carbPercent: 0,
-                fatPercent: 0,
-
-                protein: 0,
-                carb: 0,
-                fat: 0
-            })
-
-            ShowResults(carb, protein, fat)
+            //we pass the saved results into the method for displaying
+            ShowResults(protein, carb, fat)
         }
 
     }
 
     // if total percent != 100...
     const calcInvalid = (protein, carb, fat) => {
-        // display error msg
-        console.log("Error: Macronutrient % not equal to 100");
-        alert("Error: Macronutrient % not equal to 100");
-
         // print the macronutrient values (in grams)
         console.log("Carbohydrates: " + carb.toFixed(2) + " grams");
         console.log("Protein: " + protein.toFixed(2) + " grams");
         console.log("Fat: " + fat.toFixed(2) + " grams");
+
+        // display error msg
+        console.log("Error: Macronutrient % not equal to 100");
+        alert("Error: Macronutrient % not equal to 100");
     }
 
-    function ShowResults(carb, protein, fat) {
+    function ShowResults(protein, carb, fat) {
+        //print the macronutrient values (in grams)
+        console.log("Carbohydrates: " + carb.toFixed(2) + " grams");
+        console.log("Protein: " + protein.toFixed(2) + " grams");
+        console.log("Fat: " + fat.toFixed(2) + " grams");
+
         return (
             <Table sx={{ border: '1px solid black' }}>
                 <TableHead sx={{
