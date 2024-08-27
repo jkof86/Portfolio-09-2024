@@ -7,15 +7,29 @@ import {
     TableCell,
 
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useRef, createRef } from "react";
 
 export default function Calculator() {
+
+    // we utilize useRef() to clear all fields later on
+    const calorieLimit = useRef("");
+    const carbPercent = useRef("");
+    const proteinPercent = useRef("");
+    const fatPercent = useRef("");
 
     const [state, setState] = useState({
         calorieLimit: "",
         proteinPercent: "",
         carbPercent: "",
-        fatPercent: ""
+        fatPercent: "",
+        totalPercent: 0,
+    })
+
+    const [display, setDisplay] = useState({
+        //we need to declare these values seperately to display later
+        showCarbs: 0,
+        showProtein: 0,
+        showFat: 0
     })
 
     function resetState() {
@@ -24,21 +38,26 @@ export default function Calculator() {
             calorieLimit: "",
             proteinPercent: "",
             carbPercent: "",
-            fatPercent: ""
+            fatPercent: "",
+            totalPercent: 0
+        })
+    }
+
+    function resetDisplay() {
+        //we reset the display back to default values
+        setState({
+            showCarbs: 0,
+            showProtein: 0,
+            showFat: 0
         })
     }
 
     function handleClick() {
-        //we do some custom validation for our Textfield values
-        //if any fields are left empty, the calc is invalid
-        !state.calorieLimit || !state.proteinPercent ||
+        // we do some custom validation for our Textfield values
+        // if any fields are left empty, the calc is invalid
+        state.calorieLimit <= 0 || !state.calorieLimit || !state.proteinPercent ||
             !state.carbPercent || !state.fatPercent ?
             calcInvalid() : calculateMacros();
-
-        // console.log('Calorie Limit: ', state.calorieLimit,
-        //     'Carb Percent: ', state.carbPercent,
-        //     'Protein Percent: ', state.proteinPercent,
-        //     'Fat Percent: ', state.fatPercent)
 
         // code to submit form to backend here...
     }
@@ -50,11 +69,6 @@ export default function Calculator() {
             ...state,
             [e.target.name]: value
         })
-
-        // console.log('Calorie Limit: ', state.calorieLimit,
-        //     'Carb Percent: ', state.carbPercent,
-        //     'Protein Percent: ', state.proteinPercent,
-        //     'Fat Percent: ', state.fatPercent)
     }
 
 
@@ -62,19 +76,14 @@ export default function Calculator() {
 
         //we create local variables for calculations
         console.log('Calculate Macros Button Test...');
-        
+
         //we add ternary operation in case of empty values
         //this forces the type to a number
-
         var calorieLimit = state.calorieLimit ? state.calorieLimit : 0;
         var carb = state.carbPercent ? state.carbPercent : 0;
         var protein = state.proteinPercent ? state.proteinPercent : 0;
         var fat = state.fatPercent ? state.fatPercent : 0;
         var totalPercent = 0;
-
-        //after storing the values locally
-        //we reset the states back to 0 
-        resetState();
 
         //we calculate the total percent to verify it equals 100%
         // totalPercent = Number(Number(carb) + Number(protein) + Number(fat));
@@ -89,77 +98,63 @@ export default function Calculator() {
 
     const calcValid = (calorieLimit, protein, carb, fat) => {
         {
-            console.log("calorieLimit: ", calorieLimit)
-           
-           // we calculate the macronutrient values (in grams) 
-           // given the entered calorieLimit
-            
-           //protein has 4 calories per gram
-            protein = (calorieLimit * protein / 100.0 / 4.0);
+            console.log("calorieLimit: " + calorieLimit)
+
+            // we calculate the macronutrient values (in grams) 
+            // given the entered calorieLimit
 
             //carbohydrates has 4 calories per gram
-            carb = (calorieLimit * carb / 100.0 / 4.0);
+            carb = (((calorieLimit * carb) / 100.0) / 4.0);
+
+            //protein has 4 calories per gram
+            protein = (((calorieLimit * protein) / 100.0) / 4.0);
 
             //fat has 9 calories per gram
-            fat = (calorieLimit * fat / 100.0 / 9.0);
+            fat = (((calorieLimit * fat) / 100.0) / 9.0);
 
-            //we reset state and
-            //we pass the saved results into the method for displaying
+            //we reset state (ignoring the stored display values)
+            //and display the results
             resetState();
             ShowResults(protein, carb, fat);
         }
-
     }
 
     // if total percent != 100...
     const calcInvalid = () => {
-        //first we reset the state
+        //first we reset the state and clear display
         resetState();
-
-        // print the macronutrient values (in grams)
-        // console.log("Carbohydrates: " + carb.toFixed(2) + " grams");
-        // console.log("Protein: " + protein.toFixed(2) + " grams");
-        // console.log("Fat: " + fat.toFixed(2) + " grams");
+        resetDisplay();
+        clearScreen();
 
         // display error msg
-        console.log("Error: Macronutrient % not equal to 100");
-        alert("Error: Macronutrient % not equal to 100");
+        console.log("Error: Macronutrient % not equal to 100, Calorie Limit is less than zero, or a field was left empty...");
+        alert("Error: Macronutrient % not equal to 100, Calorie Limit is less than zero, or a field was left empty...");
+    
     }
 
-    function ShowResults(protein, carb, fat) {
-        //print the macronutrient values (in grams)
-        console.log("Carbohydrates: " + carb.toFixed(2) + " grams");
-        console.log("Protein: " + protein.toFixed(2) + " grams");
-        console.log("Fat: " + fat.toFixed(2) + " grams");
+    // we use this function to clear all fields
+    const clearScreen = () => {
+        calorieLimit.current = "";
 
-        return (
-            <Table sx={{ border: '1px solid black' }}>
-                <TableHead sx={{
-                    border: '1px solid black',
-                    backgroundColor: 'lightgrey',
-                }}>
-                    <TableCell sx={{ border: '1px solid black', textAlign: 'center' }}>
-                        Carbs
-                    </TableCell>
-                    <TableCell sx={{ border: '1px solid black', textAlign: 'center' }}>
-                        Protein
-                    </TableCell>
-                    <TableCell sx={{ border: '1px solid black', textAlign: 'center' }}>
-                        Fats</TableCell>
-                </TableHead>
-                <TableBody>
-                    <TableCell sx={{ border: '1px solid black', textAlign: 'center' }}>
-                        {carb.toFixed(2)} grams
-                    </TableCell>
-                    <TableCell sx={{ border: '1px solid black', textAlign: 'center' }}>
-                        {protein.toFixed(2)} grams
-                    </TableCell>
-                    <TableCell sx={{ border: '1px solid black', textAlign: 'center' }}>
-                        {fat.toFixed(2)} grams
-                    </TableCell>
-                </TableBody>
-            </Table>
-        )
+    }
+
+    const ShowResults = (protein, carb, fat) => {
+
+        // we store the calculated results in state
+        setDisplay({
+            showCarbs: carb,
+            showProtein: protein,
+            showFat: fat
+        });
+
+        // print the macronutrient values (in grams)
+        // console.log("Carbohydrates: " + display.showCarbs + " grams");
+        // console.log("Protein: " + display.showProtein + " grams");
+        // console.log("Fat: " + display.showFat + " grams");
+
+        // console.log("Carbohydrates: " + carb + " grams");
+        // console.log("Protein: " + protein + " grams");
+        // console.log("Fat: " + fat + " grams");
     }
 
     const ShowGraph = () => {
@@ -220,7 +215,7 @@ export default function Calculator() {
                 width: '100%'
             }}>
 
-                {/* for each TextField, we use onInput to store the values */}
+                {/* for each TextField, we use onChange to store the values */}
 
                 <Grid container spacing={2}>
                     <Grid item xs={3}
@@ -230,6 +225,7 @@ export default function Calculator() {
                             type="number"
                             label="Calorie Limit"
                             variant="standard"
+                            ref={calorieLimit}
                             name="calorieLimit"
                             value={state.calorieLimit}
                             onChange={handleChange}
@@ -249,6 +245,7 @@ export default function Calculator() {
                             type="number"
                             label="Carb Percentage"
                             variant="standard"
+                            ref={carbPercent}
                             name="carbPercent"
                             value={state.carbPercent}
                             onChange={handleChange}
@@ -266,6 +263,7 @@ export default function Calculator() {
                             type="number"
                             label="Protein Percentage"
                             variant="standard"
+                            ref={proteinPercent}
                             name="proteinPercent"
                             value={state.proteinPercent}
                             onChange={handleChange}
@@ -283,6 +281,7 @@ export default function Calculator() {
                             type="number"
                             label="Fat Percentage"
                             variant="standard"
+                            ref={fatPercent}
                             name="fatPercent"
                             value={state.fatPercent}
                             onChange={handleChange}
@@ -333,7 +332,34 @@ export default function Calculator() {
                                     <Typography gutterBottom variant="h5" component="div">
                                         Macronutrient Results
                                     </Typography>
-                                    Test
+                                    <Table sx={{ border: '1px solid black' }}>
+                                        <TableHead sx={{
+                                            border: '1px solid black',
+                                            backgroundColor: 'lightgrey',
+                                        }}>
+                                            <TableCell sx={{ border: '1px solid black', textAlign: 'center' }}>
+                                                Carbs
+                                            </TableCell>
+                                            <TableCell sx={{ border: '1px solid black', textAlign: 'center' }}>
+                                                Protein
+                                            </TableCell>
+                                            <TableCell sx={{ border: '1px solid black', textAlign: 'center' }}>
+                                                Fats</TableCell>
+                                        </TableHead>
+
+                                        {/* by using state values we can update the results automatically */}
+                                        <TableBody>
+                                            <TableCell sx={{ border: '1px solid black', textAlign: 'center' }}>
+                                                {display.showCarbs.toFixed(2)} grams
+                                            </TableCell>
+                                            <TableCell sx={{ border: '1px solid black', textAlign: 'center' }}>
+                                                {display.showProtein.toFixed(2)} grams
+                                            </TableCell>
+                                            <TableCell sx={{ border: '1px solid black', textAlign: 'center' }}>
+                                                {display.showFat.toFixed(2)} grams
+                                            </TableCell>
+                                        </TableBody>
+                                    </Table>
                                 </CardContent>
 
                             </CardActionArea>
@@ -352,6 +378,6 @@ export default function Calculator() {
                 </Grid>
 
             </Box>
-        </Container>
+        </Container >
     </>);
 }
