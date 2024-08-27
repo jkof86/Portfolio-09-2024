@@ -31,9 +31,9 @@ export default function Calculator() {
     function handleClick() {
         //we do some custom validation for our Textfield values
         //if any fields are left empty, the calc is invalid
-        !state.calorieLimit || !state.proteinPercent || 
-        !state.carbPercent || !state.fatPercent ?
-        calcInvalid() : calculateMacros();
+        !state.calorieLimit || !state.proteinPercent ||
+            !state.carbPercent || !state.fatPercent ?
+            calcInvalid() : calculateMacros();
 
         // console.log('Calorie Limit: ', state.calorieLimit,
         //     'Carb Percent: ', state.carbPercent,
@@ -62,12 +62,15 @@ export default function Calculator() {
 
         //we create local variables for calculations
         console.log('Calculate Macros Button Test...');
-        var totalPercent = 0;
+        
         //we add ternary operation in case of empty values
         //this forces the type to a number
+
+        var calorieLimit = state.calorieLimit ? state.calorieLimit : 0;
         var carb = state.carbPercent ? state.carbPercent : 0;
         var protein = state.proteinPercent ? state.proteinPercent : 0;
         var fat = state.fatPercent ? state.fatPercent : 0;
+        var totalPercent = 0;
 
         //after storing the values locally
         //we reset the states back to 0 
@@ -81,26 +84,29 @@ export default function Calculator() {
         console.log(typeof (totalPercent));
         console.log(totalPercent);
 
-        (totalPercent === 100) ? calcValid(protein, carb, fat) : calcInvalid();
+        (totalPercent === 100) ? calcValid(calorieLimit, protein, carb, fat) : calcInvalid();
     }
 
-    const calcValid = (protein, carb, fat) => {
+    const calcValid = (calorieLimit, protein, carb, fat) => {
         {
-            console.log("calorieLimit: ", state.calorieLimit)
-            // we calculate the macronutrient values (in grams) given the  entered calorieLimit
-            //fat has 9 calories per gram
-            protein = (state.calorieLimit * protein / 100.0 / 4.0);
+            console.log("calorieLimit: ", calorieLimit)
+           
+           // we calculate the macronutrient values (in grams) 
+           // given the entered calorieLimit
+            
+           //protein has 4 calories per gram
+            protein = (calorieLimit * protein / 100.0 / 4.0);
 
             //carbohydrates has 4 calories per gram
-            carb = (state.calorieLimit * carb / 100.0 / 4.0);
+            carb = (calorieLimit * carb / 100.0 / 4.0);
 
-            //protein has 4 calories per gram
-            fat = (state.calorieLimit * fat / 100.0 / 9.0);
+            //fat has 9 calories per gram
+            fat = (calorieLimit * fat / 100.0 / 9.0);
 
-            resetState()
-
+            //we reset state and
             //we pass the saved results into the method for displaying
-            ShowResults(protein, carb, fat)   
+            resetState();
+            ShowResults(protein, carb, fat);
         }
 
     }
@@ -219,92 +225,92 @@ export default function Calculator() {
                 <Grid container spacing={2}>
                     <Grid item xs={3}
                         sx={{ alignContent: 'center' }}>
-                            <TextField
-                                required={true}
-                                type="number"
-                                label="Calorie Limit"
-                                variant="standard"
-                                name="calorieLimit"
-                                // value={state.calorieLimit}
-                                onChange={handleChange}
-                                // onInput={e => setCalorieLimit(e.target.value)}
-                                // onSubmit={handleChange}
-                                sx={{
-                                    color: 'white',
-                                    margin: '5px'
-                                }} InputProps={{
-                                    endAdornment: <InputAdornment position='end'>
-                                        kcal
-                                    </InputAdornment>,
-                                }} />
-
-                            <TextField
-                                required={true}
-                                type="number"
-                                label="Carb Percentage"
-                                variant="standard"
-                                name="carbPercent"
-                                value={state.carbPercent}
-                                onChange={handleChange}
-                                onSubmit={handleChange}
-                                sx={{
-                                    margin: '5px'
-                                }} InputProps={{
-                                    endAdornment: <InputAdornment position='end'>
-                                        %
-                                    </InputAdornment>,
-                                }} />
-
-                            <TextField
-                                required={true}
-                                type="number"
-                                label="Protein Percentage"
-                                variant="standard"
-                                name="proteinPercent"
-                                value={state.proteinPercent}
-                                onChange={handleChange}
-                                // onSubmit={handleChange}
-                                sx={{
-                                    margin: '5px'
-                                }} InputProps={{
-                                    endAdornment: <InputAdornment position='end'>
-                                        %
-                                    </InputAdornment>,
-                                }} />
-
-                            <TextField
-                                required={true}
-                                type="number"
-                                label="Fat Percentage"
-                                variant="standard"
-                                name="fatPercent"
-                                value={state.fatPercent}
-                                onChange={handleChange}
-                                // onSubmit={handleChange}
-                                sx={{
-                                    margin: '5px'
-                                }} InputProps={{
-                                    endAdornment: <InputAdornment position='end'>
-                                        %
-                                    </InputAdornment>,
-                                }} />
-
-                            <Divider sx={{
-                                marginTop: '10px',
-                                marginBottom: '10px',
-                                borderBottomWidth: '2px',
-                                borderColor: 'black'
+                        <TextField
+                            required={true}
+                            type="number"
+                            label="Calorie Limit"
+                            variant="standard"
+                            name="calorieLimit"
+                            value={state.calorieLimit}
+                            onChange={handleChange}
+                            // onInput={e => setCalorieLimit(e.target.value)}
+                            // onSubmit={handleChange}
+                            sx={{
+                                color: 'white',
+                                margin: '5px'
+                            }} InputProps={{
+                                endAdornment: <InputAdornment position='end'>
+                                    kcal
+                                </InputAdornment>,
                             }} />
 
-                            <Box textAlign={'center'}>
-                                <Button variant="contained"
-                                    id="calculateButton"
-                                    type="button"
-                                    onClick={handleClick}   
-                                >
-                                    Calculate
-                                </Button>
-                            </Box>
+                        <TextField
+                            required={true}
+                            type="number"
+                            label="Carb Percentage"
+                            variant="standard"
+                            name="carbPercent"
+                            value={state.carbPercent}
+                            onChange={handleChange}
+                            onSubmit={handleChange}
+                            sx={{
+                                margin: '5px'
+                            }} InputProps={{
+                                endAdornment: <InputAdornment position='end'>
+                                    %
+                                </InputAdornment>,
+                            }} />
+
+                        <TextField
+                            required={true}
+                            type="number"
+                            label="Protein Percentage"
+                            variant="standard"
+                            name="proteinPercent"
+                            value={state.proteinPercent}
+                            onChange={handleChange}
+                            // onSubmit={handleChange}
+                            sx={{
+                                margin: '5px'
+                            }} InputProps={{
+                                endAdornment: <InputAdornment position='end'>
+                                    %
+                                </InputAdornment>,
+                            }} />
+
+                        <TextField
+                            required={true}
+                            type="number"
+                            label="Fat Percentage"
+                            variant="standard"
+                            name="fatPercent"
+                            value={state.fatPercent}
+                            onChange={handleChange}
+                            // onSubmit={handleChange}
+                            sx={{
+                                margin: '5px'
+                            }} InputProps={{
+                                endAdornment: <InputAdornment position='end'>
+                                    %
+                                </InputAdornment>,
+                            }} />
+
+                        <Divider sx={{
+                            marginTop: '10px',
+                            marginBottom: '10px',
+                            borderBottomWidth: '2px',
+                            borderColor: 'black'
+                        }} />
+
+                        <Box textAlign={'center'}>
+                            <Button variant="contained"
+                                id="calculateButton"
+                                type="button"
+                                onClick={handleClick}
+                            >
+                                Calculate
+                            </Button>
+                        </Box>
                     </Grid>
                     <Grid item xs={6}>
                         <Card sx={{
