@@ -7,15 +7,20 @@ import {
     TableCell,
 
 } from "@mui/material";
-import { useState, useRef, createRef } from "react";
+import { useState } from "react";
+
+// we create a custom hook to clear all fields
+function useClearScreen() {
+    const [value, setValue] = useState(0); // integer state
+    return () => {
+        console.log("CLEAR BUTTON TEST");
+        setValue(value => value + 1);
+    }
+}
 
 export default function Calculator() {
-
-    // we utilize useRef() to clear all fields later on
-    const calorieLimit = useRef("");
-    const carbPercent = useRef("");
-    const proteinPercent = useRef("");
-    const fatPercent = useRef("");
+    //we call our custom hook within the Component
+    // const useClearScreen = useClearScreen();
 
     const [state, setState] = useState({
         calorieLimit: "",
@@ -121,21 +126,20 @@ export default function Calculator() {
 
     // if total percent != 100...
     const calcInvalid = () => {
-        //first we reset the state and clear display
-        resetState();
-        resetDisplay();
-        clearScreen();
 
         // display error msg
         console.log("Error: Macronutrient % not equal to 100, Calorie Limit is less than zero, or a field was left empty...");
         alert("Error: Macronutrient % not equal to 100, Calorie Limit is less than zero, or a field was left empty...");
-    
-    }
 
-    // we use this function to clear all fields
-    const clearScreen = () => {
-        calorieLimit.current = "";
+        /**Temporary Solution**/
+        //we refresh the page to clear the fields
+        window.location.reload();
 
+        //first we reset the state and clear display
+        // resetState();
+        // resetDisplay();
+        // useClearScreen();
+        
     }
 
     const ShowResults = (protein, carb, fat) => {
@@ -225,7 +229,7 @@ export default function Calculator() {
                             type="number"
                             label="Calorie Limit"
                             variant="standard"
-                            ref={calorieLimit}
+                            // ref={calorieLimit}
                             name="calorieLimit"
                             value={state.calorieLimit}
                             onChange={handleChange}
@@ -245,7 +249,7 @@ export default function Calculator() {
                             type="number"
                             label="Carb Percentage"
                             variant="standard"
-                            ref={carbPercent}
+                            // ref={carbPercent}
                             name="carbPercent"
                             value={state.carbPercent}
                             onChange={handleChange}
@@ -263,7 +267,7 @@ export default function Calculator() {
                             type="number"
                             label="Protein Percentage"
                             variant="standard"
-                            ref={proteinPercent}
+                            // ref={proteinPercent}
                             name="proteinPercent"
                             value={state.proteinPercent}
                             onChange={handleChange}
@@ -281,7 +285,7 @@ export default function Calculator() {
                             type="number"
                             label="Fat Percentage"
                             variant="standard"
-                            ref={fatPercent}
+                            // ref={fatPercent}
                             name="fatPercent"
                             value={state.fatPercent}
                             onChange={handleChange}
@@ -308,6 +312,21 @@ export default function Calculator() {
                                 onClick={handleClick}
                             >
                                 Calculate
+                            </Button>
+
+                            <Divider sx={{
+                            marginTop: '10px',
+                            marginBottom: '10px',
+                            borderBottomWidth: '1px',
+                            borderColor: 'gray'
+                        }} />
+
+                            <Button variant="contained"
+                                id="clearButton"
+                                type="button"
+                                onClick={useClearScreen()}
+                            >
+                                Clear
                             </Button>
                         </Box>
                     </Grid>
@@ -374,9 +393,7 @@ export default function Calculator() {
                     <Grid item xs={3}>
                         {ShowGraph()}
                     </Grid>
-
                 </Grid>
-
             </Box>
         </Container >
     </>);
