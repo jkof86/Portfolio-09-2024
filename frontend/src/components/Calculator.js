@@ -7,15 +7,21 @@ import {
     TableCell,
 
 } from "@mui/material";
-import { useState, useRef, createRef } from "react";
+import { useState } from "react";
+import PieChart from "./PieChart";
+
+// we create a custom hook to clear all fields
+function useClearScreen() {
+    const [value, setValue] = useState(0); // integer state
+    return () => {
+        console.log("CLEAR BUTTON TEST");
+        setValue(value => value + 1);
+    }
+}
 
 export default function Calculator() {
-
-    // we utilize useRef() to clear all fields later on
-    const calorieLimit = useRef("");
-    const carbPercent = useRef("");
-    const proteinPercent = useRef("");
-    const fatPercent = useRef("");
+    //we call our custom hook within the Component
+    // const useClearScreen = useClearScreen();
 
     const [state, setState] = useState({
         calorieLimit: "",
@@ -114,27 +120,26 @@ export default function Calculator() {
 
             //we reset state (ignoring the stored display values)
             //and display the results
-            resetState();
+            // resetState();
             ShowResults(protein, carb, fat);
         }
     }
 
     // if total percent != 100...
     const calcInvalid = () => {
-        //first we reset the state and clear display
-        resetState();
-        resetDisplay();
-        clearScreen();
 
         // display error msg
         console.log("Error: Macronutrient % not equal to 100, Calorie Limit is less than zero, or a field was left empty...");
         alert("Error: Macronutrient % not equal to 100, Calorie Limit is less than zero, or a field was left empty...");
-    
-    }
 
-    // we use this function to clear all fields
-    const clearScreen = () => {
-        calorieLimit.current = "";
+        /**Temporary Solution**/
+        //we refresh the page to clear the fields
+        window.location.reload();
+
+        //first we reset the state and clear display
+        // resetState();
+        // resetDisplay();
+        // useClearScreen();
 
     }
 
@@ -168,14 +173,14 @@ export default function Calculator() {
             }}>
                 <CardActionArea>
 
-                    <CardMedia
+                    {/* <CardMedia
                         component="img"
                         alt="Protein/Carbs/Fat - Pie Chart"
                         image={require("../images/pie_chart_example.jpg")}
                     >
-                    </CardMedia>
+                    </CardMedia> */}
                     <CardContent>
-
+                        {/* <PieChart /> */}
                     </CardContent>
                 </CardActionArea>
             </Card >
@@ -201,7 +206,7 @@ export default function Calculator() {
             </Typography>
         </Toolbar>
 
-        <Container sx={{ width: '100%' }}>
+        <Container sx={{ width: '75%' }}>
 
             <Box component='form' sx={{
                 flexGrow: 1,
@@ -214,7 +219,9 @@ export default function Calculator() {
                 margin: '10px',
                 width: '100%'
             }}>
-
+                <center>
+                    <img src={require("../images/macros.jpg")} width={'50%'} height={'50%'} />
+                </center>
                 {/* for each TextField, we use onChange to store the values */}
 
                 <Grid container spacing={2}>
@@ -225,7 +232,7 @@ export default function Calculator() {
                             type="number"
                             label="Calorie Limit"
                             variant="standard"
-                            ref={calorieLimit}
+                            // ref={calorieLimit}
                             name="calorieLimit"
                             value={state.calorieLimit}
                             onChange={handleChange}
@@ -245,7 +252,7 @@ export default function Calculator() {
                             type="number"
                             label="Carb Percentage"
                             variant="standard"
-                            ref={carbPercent}
+                            // ref={carbPercent}
                             name="carbPercent"
                             value={state.carbPercent}
                             onChange={handleChange}
@@ -263,7 +270,7 @@ export default function Calculator() {
                             type="number"
                             label="Protein Percentage"
                             variant="standard"
-                            ref={proteinPercent}
+                            // ref={proteinPercent}
                             name="proteinPercent"
                             value={state.proteinPercent}
                             onChange={handleChange}
@@ -281,7 +288,7 @@ export default function Calculator() {
                             type="number"
                             label="Fat Percentage"
                             variant="standard"
-                            ref={fatPercent}
+                            // ref={fatPercent}
                             name="fatPercent"
                             value={state.fatPercent}
                             onChange={handleChange}
@@ -309,27 +316,46 @@ export default function Calculator() {
                             >
                                 Calculate
                             </Button>
+
+                            <Divider sx={{
+                                marginTop: '10px',
+                                marginBottom: '10px',
+                                borderBottomWidth: '1px',
+                                borderColor: 'gray'
+                            }} />
+
+                            <Button variant="contained"
+                                id="clearButton"
+                                type="button"
+                                onClick={useClearScreen()}
+                            >
+                                Clear
+                            </Button>
                         </Box>
                     </Grid>
                     <Grid item xs={6}>
                         <Card sx={{
                             // border: '2px solid black',
-                            maxWidthidth: '340',
+                            maxWidth: '100%',
                             borderRadius: '25px',
                             margin: '10px',
                             padding: '10px',
-                            textAlign: 'center'
+                            textAlign: 'center',
                         }}>
                             <CardActionArea>
-
-                                <CardMedia
+                                {/* <CardMedia
                                     component="img"
                                     alt="Macronutrient Image"
                                     image={require("../images/macros.jpg")}
                                 >
-                                </CardMedia>
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="div">
+                                </CardMedia> */}
+                                {/* <CardMedia sx={{ width: '50%', border: '1px solid black' }}> */}
+                                {/* </CardMedia> */}
+                                <CardContent >
+                                    <Typography gutterBottom
+                                        variant="h5"
+                                        component="div"
+                                        sx={{ fontWeight: 'bold' }}>
                                         Macronutrient Results
                                     </Typography>
                                     <Table sx={{ border: '1px solid black' }}>
@@ -337,14 +363,30 @@ export default function Calculator() {
                                             border: '1px solid black',
                                             backgroundColor: 'lightgrey',
                                         }}>
-                                            <TableCell sx={{ border: '1px solid black', textAlign: 'center' }}>
+                                            <TableCell sx={{
+                                                border: '1px solid black',
+                                                fontWeight: 'bold',
+                                                textAlign: 'center',
+                                                backgroundColor: 'rgba(255, 0, 0, 0.5)'
+                                            }}>
                                                 Carbs
                                             </TableCell>
-                                            <TableCell sx={{ border: '1px solid black', textAlign: 'center' }}>
+                                            <TableCell sx={{
+                                                border: '1px solid black',
+                                                fontWeight: 'bold',
+                                                textAlign: 'center',
+                                                backgroundColor:'rgba(0, 255, 0, 0.5)'
+                                            }}>
                                                 Protein
                                             </TableCell>
-                                            <TableCell sx={{ border: '1px solid black', textAlign: 'center' }}>
-                                                Fats</TableCell>
+                                            <TableCell sx={{
+                                                border: '1px solid black',
+                                                fontWeight: 'bold',
+                                                textAlign: 'center',
+                                                backgroundColor: 'rgba(0, 0, 255, 0.5)'
+                                            }}>
+                                                Fats
+                                            </TableCell>
                                         </TableHead>
 
                                         {/* by using state values we can update the results automatically */}
@@ -371,12 +413,15 @@ export default function Calculator() {
 
                         </Card >
                     </Grid>
-                    <Grid item xs={3}>
-                        {ShowGraph()}
+                    <Grid item xs={3} alignContent={'center'}>
+                        {/*Here we pass in our values to the PieChart component*/}
+                        <PieChart
+                            carb={state.carbPercent}
+                            protein={state.proteinPercent}
+                            fat={state.fatPercent}
+                        />
                     </Grid>
-
                 </Grid>
-
             </Box>
         </Container >
     </>);

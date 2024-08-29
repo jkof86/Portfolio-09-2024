@@ -1,4 +1,5 @@
 import { Box, Container, TextField, Toolbar, Typography } from "@mui/material";
+import PieChart from "./PieChart";
 
 export default function Home() {
 
