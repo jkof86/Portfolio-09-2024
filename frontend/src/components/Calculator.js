@@ -206,7 +206,7 @@ export default function Calculator() {
             </Typography>
         </Toolbar>
 
-        <Container sx={{ width: '100%' }}>
+        <Container sx={{ width: '75%' }}>
 
             <Box component='form' sx={{
                 flexGrow: 1,
@@ -219,11 +219,13 @@ export default function Calculator() {
                 margin: '10px',
                 width: '100%'
             }}>
-
+                <center>
+                    <img src={require("../images/macros.jpg")} width={'50%'} height={'50%'} />
+                </center>
                 {/* for each TextField, we use onChange to store the values */}
 
                 <Grid container spacing={2}>
-                    <Grid item xs={4}
+                    <Grid item xs={3}
                         sx={{ alignContent: 'center' }}>
                         <TextField
                             required={true}
@@ -331,34 +333,25 @@ export default function Calculator() {
                             </Button>
                         </Box>
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={6}>
                         <Card sx={{
                             // border: '2px solid black',
-                            maxWidthidth: '340',
+                            maxWidth: '100%',
                             borderRadius: '25px',
                             margin: '10px',
                             padding: '10px',
-                            textAlign: 'center'
+                            textAlign: 'center',
                         }}>
                             <CardActionArea>
-
                                 {/* <CardMedia
                                     component="img"
                                     alt="Macronutrient Image"
                                     image={require("../images/macros.jpg")}
                                 >
                                 </CardMedia> */}
-                                <CardMedia>
-                                    <center>
-                                        {/*Here we pass in our values to the PieChart component*/}
-                                        <PieChart
-                                            carb={state.carbPercent}
-                                            protein={state.proteinPercent}
-                                            fat={state.fatPercent}
-                                        />
-                                    </center>
-                                </CardMedia>
-                                <CardContent>
+                                {/* <CardMedia sx={{ width: '50%', border: '1px solid black' }}> */}
+                                {/* </CardMedia> */}
+                                <CardContent >
                                     <Typography gutterBottom
                                         variant="h5"
                                         component="div"
@@ -417,9 +410,14 @@ export default function Calculator() {
 
                         </Card >
                     </Grid>
-                    {/* <Grid item xs={3}>
-                        {ShowGraph()}
-                    </Grid> */}
+                    <Grid item xs={3} alignContent={'center'}>
+                        {/*Here we pass in our values to the PieChart component*/}
+                        <PieChart
+                            carb={state.carbPercent}
+                            protein={state.proteinPercent}
+                            fat={state.fatPercent}
+                        />
+                    </Grid>
                 </Grid>
             </Box>
         </Container >
