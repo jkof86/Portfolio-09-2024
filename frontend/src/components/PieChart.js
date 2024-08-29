@@ -1,9 +1,17 @@
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart, ArcElement } from 'chart.js'
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 export default function PieChart({ carb, protein, fat }) {
     Chart.register(ArcElement);
+
+    // Register the plugin to all charts:
+    Chart.register(ChartDataLabels);
+    // Change default options for ALL charts
+    Chart.defaults.set('plugins.datalabels', {
+        color: 'white'
+    });
 
     const data = {
         labels: [
@@ -12,9 +20,13 @@ export default function PieChart({ carb, protein, fat }) {
         ],
         datasets: [
             {
-                label: '# of Votes',
+                label: 'Macronutrient Percentage',
                 //   data: [40, 40, 20],
-                data: [carb, protein, fat],
+                data: [
+                    carb,"Carbs",
+                    protein,"Protein", 
+                    fat,"Fats"
+                ],
 
                 backgroundColor: [
                     'red',
@@ -46,7 +58,7 @@ export default function PieChart({ carb, protein, fat }) {
                 datalabels: {
                     color: 'white',
                     font: {
-                        size: 14,
+                        size: 24,
                         weight: 'bold'
                     },
                 }
