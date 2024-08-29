@@ -8,6 +8,7 @@ import {
 
 } from "@mui/material";
 import { useState } from "react";
+import PieChart from "./PieChart";
 
 // we create a custom hook to clear all fields
 function useClearScreen() {
@@ -119,7 +120,7 @@ export default function Calculator() {
 
             //we reset state (ignoring the stored display values)
             //and display the results
-            resetState();
+            // resetState();
             ShowResults(protein, carb, fat);
         }
     }
@@ -139,7 +140,7 @@ export default function Calculator() {
         // resetState();
         // resetDisplay();
         // useClearScreen();
-        
+
     }
 
     const ShowResults = (protein, carb, fat) => {
@@ -172,14 +173,14 @@ export default function Calculator() {
             }}>
                 <CardActionArea>
 
-                    <CardMedia
+                    {/* <CardMedia
                         component="img"
                         alt="Protein/Carbs/Fat - Pie Chart"
                         image={require("../images/pie_chart_example.jpg")}
                     >
-                    </CardMedia>
+                    </CardMedia> */}
                     <CardContent>
-
+                        {/* <PieChart /> */}
                     </CardContent>
                 </CardActionArea>
             </Card >
@@ -222,7 +223,7 @@ export default function Calculator() {
                 {/* for each TextField, we use onChange to store the values */}
 
                 <Grid container spacing={2}>
-                    <Grid item xs={3}
+                    <Grid item xs={4}
                         sx={{ alignContent: 'center' }}>
                         <TextField
                             required={true}
@@ -315,11 +316,11 @@ export default function Calculator() {
                             </Button>
 
                             <Divider sx={{
-                            marginTop: '10px',
-                            marginBottom: '10px',
-                            borderBottomWidth: '1px',
-                            borderColor: 'gray'
-                        }} />
+                                marginTop: '10px',
+                                marginBottom: '10px',
+                                borderBottomWidth: '1px',
+                                borderColor: 'gray'
+                            }} />
 
                             <Button variant="contained"
                                 id="clearButton"
@@ -330,7 +331,7 @@ export default function Calculator() {
                             </Button>
                         </Box>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={8}>
                         <Card sx={{
                             // border: '2px solid black',
                             maxWidthidth: '340',
@@ -341,14 +342,27 @@ export default function Calculator() {
                         }}>
                             <CardActionArea>
 
-                                <CardMedia
+                                {/* <CardMedia
                                     component="img"
                                     alt="Macronutrient Image"
                                     image={require("../images/macros.jpg")}
                                 >
+                                </CardMedia> */}
+                                <CardMedia>
+                                    <center>
+                                        {/*Here we pass in our values to the PieChart component*/}
+                                        <PieChart
+                                            carb={state.carbPercent}
+                                            protein={state.proteinPercent}
+                                            fat={state.fatPercent}
+                                        />
+                                    </center>
                                 </CardMedia>
                                 <CardContent>
-                                    <Typography gutterBottom variant="h5" component="div">
+                                    <Typography gutterBottom
+                                        variant="h5"
+                                        component="div"
+                                        sx={{ fontWeight: 'bold' }}>
                                         Macronutrient Results
                                     </Typography>
                                     <Table sx={{ border: '1px solid black' }}>
@@ -356,14 +370,27 @@ export default function Calculator() {
                                             border: '1px solid black',
                                             backgroundColor: 'lightgrey',
                                         }}>
-                                            <TableCell sx={{ border: '1px solid black', textAlign: 'center' }}>
+                                            <TableCell sx={{
+                                                border: '1px solid black',
+                                                fontWeight: 'bold',
+                                                textAlign: 'center'
+                                            }}>
                                                 Carbs
                                             </TableCell>
-                                            <TableCell sx={{ border: '1px solid black', textAlign: 'center' }}>
+                                            <TableCell sx={{
+                                                border: '1px solid black',
+                                                fontWeight: 'bold',
+                                                textAlign: 'center'
+                                            }}>
                                                 Protein
                                             </TableCell>
-                                            <TableCell sx={{ border: '1px solid black', textAlign: 'center' }}>
-                                                Fats</TableCell>
+                                            <TableCell sx={{
+                                                border: '1px solid black',
+                                                fontWeight: 'bold',
+                                                textAlign: 'center'
+                                            }}>
+                                                Fats
+                                            </TableCell>
                                         </TableHead>
 
                                         {/* by using state values we can update the results automatically */}
@@ -390,9 +417,9 @@ export default function Calculator() {
 
                         </Card >
                     </Grid>
-                    <Grid item xs={3}>
+                    {/* <Grid item xs={3}>
                         {ShowGraph()}
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Box>
         </Container >
