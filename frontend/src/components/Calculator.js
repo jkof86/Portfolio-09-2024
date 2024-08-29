@@ -366,21 +366,24 @@ export default function Calculator() {
                                             <TableCell sx={{
                                                 border: '1px solid black',
                                                 fontWeight: 'bold',
-                                                textAlign: 'center'
+                                                textAlign: 'center',
+                                                backgroundColor: 'rgba(255, 0, 0, 0.5)'
                                             }}>
                                                 Carbs
                                             </TableCell>
                                             <TableCell sx={{
                                                 border: '1px solid black',
                                                 fontWeight: 'bold',
-                                                textAlign: 'center'
+                                                textAlign: 'center',
+                                                backgroundColor:'rgba(0, 255, 0, 0.5)'
                                             }}>
                                                 Protein
                                             </TableCell>
                                             <TableCell sx={{
                                                 border: '1px solid black',
                                                 fontWeight: 'bold',
-                                                textAlign: 'center'
+                                                textAlign: 'center',
+                                                backgroundColor: 'rgba(0, 0, 255, 0.5)'
                                             }}>
                                                 Fats
                                             </TableCell>
