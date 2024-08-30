@@ -1,5 +1,7 @@
-import { Toolbar, Button } from "@mui/material";
+import { Toolbar, Button, IconButton } from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from "../../../node_modules/react-router-dom/dist/index";
+import NavDrawer from "./NavDrawer";
 
 // export default function Navbar({ loggedIn, setLoggedIn }) {
 
@@ -25,6 +27,7 @@ export default function Navbar() {
                 variant="menu"
                 position="static"
             >
+                
                 <Button variant='contained' sx={{
                     backgroundColor: 'grey',
                     borderRadius: '0px',

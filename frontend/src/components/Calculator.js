@@ -40,7 +40,7 @@ export default function Calculator() {
             fatPercent: "",
             totalPercent: 0
         })
-        
+
     }
 
     const [display, setDisplay] = useState({
@@ -124,8 +124,6 @@ export default function Calculator() {
 
     const calcValid = (calorieLimit, protein, carb, fat) => {
         {
-            console.log("calorieLimit: " + calorieLimit)
-
             // we calculate the macronutrient values (in grams) 
             // given the entered calorieLimit
 
@@ -137,6 +135,11 @@ export default function Calculator() {
 
             //fat has 9 calories per gram
             fat = (((calorieLimit * fat) / 100.0) / 9.0);
+
+            console.log("calorieLimit: " + calorieLimit + " kcal");
+            console.log("Carbohydrates: " + carb + " grams");
+            console.log("Protein: " + protein + " grams");
+            console.log("Fat: " + fat + " grams");
 
             //we reset state (ignoring the stored display values)
             //and display the results
@@ -156,12 +159,6 @@ export default function Calculator() {
         //we refresh the page to clear the fields
         // window.location.reload();
         resetAll();
-
-        //first we reset the state and clear display
-        // resetState();
-        // resetDisplay();
-        // useClearScreen();
-
     }
 
     const ShowResults = (protein, carb, fat) => {
@@ -373,7 +370,7 @@ export default function Calculator() {
                                                 border: '1px solid black',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center',
-                                                backgroundColor:'rgba(0, 255, 0, 0.5)'
+                                                backgroundColor: 'rgba(0, 255, 0, 0.5)'
                                             }}>
                                                 Protein
                                             </TableCell>
