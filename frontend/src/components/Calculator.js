@@ -76,6 +76,8 @@ export default function Calculator() {
         })
     }
 
+    //******************************************************************************* */
+
     function handleClick() {
         // we do some custom validation for our Textfield values
         // if any fields are left empty, the calc is invalid
@@ -152,7 +154,8 @@ export default function Calculator() {
 
         /**Temporary Solution**/
         //we refresh the page to clear the fields
-        window.location.reload();
+        // window.location.reload();
+        resetAll();
 
         //first we reset the state and clear display
         // resetState();
@@ -179,6 +182,8 @@ export default function Calculator() {
         // console.log("Protein: " + protein + " grams");
         // console.log("Fat: " + fat + " grams");
     }
+
+    /***************************************************************************/
 
     return (<>
         <Toolbar sx={{
