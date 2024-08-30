@@ -11,13 +11,13 @@ import { useState } from "react";
 import PieChart from "./PieChart";
 
 // we create a custom hook to clear all fields
-function useClearScreen() {
-    const [value, setValue] = useState(0); // integer state
-    return () => {
-        console.log("CLEAR BUTTON TEST");
-        setValue(value => value + 1);
-    }
-}
+// function useClearScreen() {
+//     const [value, setValue] = useState(0); // integer state
+//     return () => {
+//         console.log("CLEAR BUTTON TEST");
+//         setValue(value => value + 1);
+//     }
+// }
 
 export default function Calculator() {
     //we call our custom hook within the Component
@@ -31,6 +31,18 @@ export default function Calculator() {
         totalPercent: 0,
     })
 
+    const resetState = () => {
+        //we reset the states back to default values
+        setState({
+            calorieLimit: "",
+            proteinPercent: "",
+            carbPercent: "",
+            fatPercent: "",
+            totalPercent: 0
+        })
+        
+    }
+
     const [display, setDisplay] = useState({
         //we need to declare these values seperately to display later
         showCarbs: 0,
@@ -38,8 +50,23 @@ export default function Calculator() {
         showFat: 0
     })
 
-    function resetState() {
-        //we reset the states back to default values
+    const resetDisplay = () => {
+        //we reset the display back to default values
+        setDisplay({
+            showCarbs: 0,
+            showProtein: 0,
+            showFat: 0
+        })
+    }
+
+    const resetAll = () => {
+        //we reset the display back to default values
+        setDisplay({
+            showCarbs: 0,
+            showProtein: 0,
+            showFat: 0
+        })
+
         setState({
             calorieLimit: "",
             proteinPercent: "",
@@ -49,14 +76,7 @@ export default function Calculator() {
         })
     }
 
-    function resetDisplay() {
-        //we reset the display back to default values
-        setState({
-            showCarbs: 0,
-            showProtein: 0,
-            showFat: 0
-        })
-    }
+    //******************************************************************************* */
 
     function handleClick() {
         // we do some custom validation for our Textfield values
@@ -134,7 +154,8 @@ export default function Calculator() {
 
         /**Temporary Solution**/
         //we refresh the page to clear the fields
-        window.location.reload();
+        // window.location.reload();
+        resetAll();
 
         //first we reset the state and clear display
         // resetState();
@@ -162,30 +183,7 @@ export default function Calculator() {
         // console.log("Fat: " + fat + " grams");
     }
 
-    const ShowGraph = () => {
-        return (
-            <Card sx={{
-                maxWidthidth: '340',
-                borderRadius: '25px',
-                margin: '10px',
-                padding: '10px',
-                textAlign: 'center'
-            }}>
-                <CardActionArea>
-
-                    {/* <CardMedia
-                        component="img"
-                        alt="Protein/Carbs/Fat - Pie Chart"
-                        image={require("../images/pie_chart_example.jpg")}
-                    >
-                    </CardMedia> */}
-                    <CardContent>
-                        {/* <PieChart /> */}
-                    </CardContent>
-                </CardActionArea>
-            </Card >
-        )
-    }
+    /***************************************************************************/
 
     return (<>
         <Toolbar sx={{
@@ -206,7 +204,7 @@ export default function Calculator() {
             </Typography>
         </Toolbar>
 
-        <Container sx={{ width: '75%' }}>
+        <Container sx={{ width: '95%' }}>
 
             <Box component='form' sx={{
                 flexGrow: 1,
@@ -327,7 +325,7 @@ export default function Calculator() {
                             <Button variant="contained"
                                 id="clearButton"
                                 type="button"
-                                onClick={useClearScreen()}
+                                onClick={resetAll}
                             >
                                 Clear
                             </Button>
