@@ -15,7 +15,8 @@ export default function PieChart({ carb, protein, fat }) {
 
     const data = {
         labels: [
-            'Red', 'Blue', 'Green',
+            'Carbohydrates', 'Protein', 'Fats'
+            // 'Red', 'Green', 'Blue',
             // 'Yellow', 'Purple', 'Orange'
         ],
         datasets: [
@@ -30,8 +31,8 @@ export default function PieChart({ carb, protein, fat }) {
 
                 backgroundColor: [
                     'red',
-                    'blue',
                     'green',
+                    'blue',
                     // 'rgba(255, 99, 132, 0.2)',
                     // 'rgba(54, 162, 235, 0.2)',
                     // 'rgba(75, 192, 192, 0.2)',
@@ -61,11 +62,17 @@ export default function PieChart({ carb, protein, fat }) {
                         size: 24,
                         weight: 'bold'
                     },
+                },
+                    labels: {
+                        color: 'white',
+                        font: {
+                            size: 24,
+                            weight: 'bold'
+                        },
+                    }
                 }
             }
-        },
     }
-
 
     return <Pie data={data} />;
 };
