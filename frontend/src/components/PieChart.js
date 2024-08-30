@@ -23,9 +23,9 @@ export default function PieChart({ carb, protein, fat }) {
                 label: 'Macronutrient Percentage',
                 //   data: [40, 40, 20],
                 data: [
-                    carb,"Carbs",
-                    protein,"Protein", 
-                    fat,"Fats"
+                    carb,
+                    protein, 
+                    fat,
                 ],
 
                 backgroundColor: [

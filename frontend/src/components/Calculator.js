@@ -162,31 +162,6 @@ export default function Calculator() {
         // console.log("Fat: " + fat + " grams");
     }
 
-    const ShowGraph = () => {
-        return (
-            <Card sx={{
-                maxWidthidth: '340',
-                borderRadius: '25px',
-                margin: '10px',
-                padding: '10px',
-                textAlign: 'center'
-            }}>
-                <CardActionArea>
-
-                    {/* <CardMedia
-                        component="img"
-                        alt="Protein/Carbs/Fat - Pie Chart"
-                        image={require("../images/pie_chart_example.jpg")}
-                    >
-                    </CardMedia> */}
-                    <CardContent>
-                        {/* <PieChart /> */}
-                    </CardContent>
-                </CardActionArea>
-            </Card >
-        )
-    }
-
     return (<>
         <Toolbar sx={{
             // flexGrow: 1,
@@ -206,7 +181,7 @@ export default function Calculator() {
             </Typography>
         </Toolbar>
 
-        <Container sx={{ width: '75%' }}>
+        <Container sx={{ width: '95%' }}>
 
             <Box component='form' sx={{
                 flexGrow: 1,
