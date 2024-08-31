@@ -3,6 +3,8 @@ import {
     Button, Grid, Card, CardActions, CardActionArea,
     CardContent, CardMedia
 } from "@mui/material";
+import { Link } from 'react-router-dom';
+import SlideShow from "./SlideShow";
 
 export default function Contact() {
 
@@ -41,23 +43,23 @@ export default function Contact() {
                 width: '100%'
             }}>
                 <center>
-                    {/* <img src={require("../images/macros.jpg")} width={'50%'} height={'50%'} /> */}
+                    <SlideShow />
                 </center>
 
                 <Grid container spacing={2}>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={3}>
 
                         <center>
                             <Card sx={{
                                 // border: '2px solid black',
-                                maxWidth: '50%',
+                                maxWidth: '75%',
                                 borderRadius: '25px',
                                 margin: '10px',
                                 padding: '10px',
                                 textAlign: 'center',
                             }}>
-                                <CardActionArea>
+                                <CardActionArea component={Link} to='https://www.linkedin.com/in/jkof86' >
                                     <CardMedia
                                         component="img"
                                         alt="LinkedIn Icon"
@@ -81,18 +83,53 @@ export default function Contact() {
 
                     {/********************************************************/}
 
-                    <Grid item xs={6}>
+                    <Grid item xs={3}>
 
                         <center>
                             <Card sx={{
                                 // border: '2px solid black',
-                                maxWidth: '50%',
+                                maxWidth: '75%',
                                 borderRadius: '25px',
                                 margin: '10px',
                                 padding: '10px',
                                 textAlign: 'center',
                             }}>
-                                <CardActionArea>
+                                <CardActionArea component={Link} to='https://github.com/jkof86'>
+                                    <CardMedia
+                                        component="img"
+                                        alt="GitHub Icon"
+                                        image={require("../images/icons/github_PNG45.png")}
+                                    >
+                                    </CardMedia>
+                                    <CardContent >
+
+                                    </CardContent>
+                                </CardActionArea>
+
+                                <CardActions>
+                                    <Button size="small">Share</Button>
+                                    <Button size="small">Learn More</Button>
+                                </CardActions>
+
+                            </Card >
+                        </center>
+
+                    </Grid>
+
+                    {/********************************************************/}
+
+                    <Grid item xs={3}>
+
+                        <center>
+                            <Card sx={{
+                                // border: '2px solid black',
+                                maxWidth: '75%',
+                                borderRadius: '25px',
+                                margin: '10px',
+                                padding: '10px',
+                                textAlign: 'center',
+                            }}>
+                                <CardActionArea component={Link} to='https://www.facebook.com/jason.kofi.1'>
                                     <CardMedia
                                         component="img"
                                         alt="Facebook Icon"
@@ -116,18 +153,18 @@ export default function Contact() {
 
                     {/********************************************************/}
 
-                    <Grid item xs={6}>
+                    <Grid item xs={3}>
 
                         <center>
                             <Card sx={{
                                 // border: '2px solid black',
-                                maxWidth: '50%',
+                                maxWidth: '75%',
                                 borderRadius: '25px',
                                 margin: '10px',
                                 padding: '10px',
                                 textAlign: 'center',
                             }}>
-                                <CardActionArea>
+                                <CardActionArea component={Link} to='https://www.instagram.com/jkof86/' >
                                     <CardMedia
                                         component="img"
                                         alt="Instagram Icon"
@@ -151,18 +188,18 @@ export default function Contact() {
 
                     {/********************************************************/}
 
-                    <Grid item xs={6}>
+                    <Grid item xs={3}>
 
                         <center>
                             <Card sx={{
                                 // border: '2px solid black',
-                                maxWidth: '50%',
+                                maxWidth: '75%',
                                 borderRadius: '25px',
                                 margin: '10px',
                                 padding: '10px',
                                 textAlign: 'center',
                             }}>
-                                <CardActionArea>
+                                <CardActionArea component={Link} to='https://www.youtube.com/@jkof86'>
                                     <CardMedia
                                         component="img"
                                         alt="Youtube Icon"

@@ -20,7 +20,7 @@ import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
-const navItems = ['Home', 'Calculator', 'About', 'Contact Us'];
+const navItems = ['Home', 'Calculator', 'About', 'Contact'];
 const navItems2 = ['Account', 'Settings', 'Logout'];
 
 export default function NavDrawer() {
@@ -106,7 +106,7 @@ export default function NavDrawer() {
 
             {/* //------------------------------------------------ */}
 
-            {item === 'Contact Us' ? <ListItemButton sx={{ borderTop:'1px solid black',
+            {item === 'Contact' ? <ListItemButton sx={{ borderTop:'1px solid black',
             textAlign: 'left' }}
               component={Link}
               to='/contact'
