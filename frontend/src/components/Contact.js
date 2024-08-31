@@ -5,6 +5,7 @@ import {
 } from "@mui/material";
 import { Link } from 'react-router-dom';
 import SlideShow from "./SlideShow";
+import PDFViewer from "./PDFViewer";
 
 export default function Contact() {
 
@@ -48,33 +49,34 @@ export default function Contact() {
 
                 <Grid container spacing={2}>
 
-                    <Grid item xs={3}>
+                    <Grid item xs={1}>
 
                         <center>
                             <Card sx={{
                                 // border: '2px solid black',
+                                display: 'flex',
                                 maxWidth: '75%',
                                 borderRadius: '25px',
                                 margin: '10px',
                                 padding: '10px',
-                                textAlign: 'center',
+                                textAlign: 'center'
                             }}>
-                                <CardActionArea component={Link} to='https://www.linkedin.com/in/jkof86' >
+                                <CardActionArea component={Link} to='https://www.linkedin.com/in/jkof86' target="_blank" >
                                     <CardMedia
                                         component="img"
                                         alt="LinkedIn Icon"
                                         image={require("../images/icons/linkedIn_PNG8.png")}
                                     >
                                     </CardMedia>
-                                    <CardContent >
+                                    {/* <CardContent >
 
-                                    </CardContent>
+                                    </CardContent> */}
                                 </CardActionArea>
 
-                                <CardActions>
+                                {/* <CardActions>
                                     <Button size="small">Share</Button>
                                     <Button size="small">Learn More</Button>
-                                </CardActions>
+                                </CardActions> */}
 
                             </Card >
                         </center>
@@ -83,7 +85,7 @@ export default function Contact() {
 
                     {/********************************************************/}
 
-                    <Grid item xs={3}>
+                    <Grid item xs={1}>
 
                         <center>
                             <Card sx={{
@@ -94,22 +96,22 @@ export default function Contact() {
                                 padding: '10px',
                                 textAlign: 'center',
                             }}>
-                                <CardActionArea component={Link} to='https://github.com/jkof86'>
+                                <CardActionArea component={Link} to='https://github.com/jkof86' target="_blank">
                                     <CardMedia
                                         component="img"
                                         alt="GitHub Icon"
                                         image={require("../images/icons/github_PNG45.png")}
                                     >
                                     </CardMedia>
-                                    <CardContent >
+                                    {/* <CardContent >
 
-                                    </CardContent>
+                                    </CardContent> */}
                                 </CardActionArea>
 
-                                <CardActions>
+                                {/* <CardActions>
                                     <Button size="small">Share</Button>
                                     <Button size="small">Learn More</Button>
-                                </CardActions>
+                                </CardActions> */}
 
                             </Card >
                         </center>
@@ -118,7 +120,7 @@ export default function Contact() {
 
                     {/********************************************************/}
 
-                    <Grid item xs={3}>
+                    <Grid item xs={1}>
 
                         <center>
                             <Card sx={{
@@ -129,22 +131,22 @@ export default function Contact() {
                                 padding: '10px',
                                 textAlign: 'center',
                             }}>
-                                <CardActionArea component={Link} to='https://www.facebook.com/jason.kofi.1'>
+                                <CardActionArea component={Link} to='https://www.facebook.com/jason.kofi.1' target="_blank">
                                     <CardMedia
                                         component="img"
                                         alt="Facebook Icon"
                                         image={require("../images/icons/Facebook_Icon_(Official_2).png")}
                                     >
                                     </CardMedia>
-                                    <CardContent >
+                                    {/* <CardContent >
 
-                                    </CardContent>
+                                    </CardContent> */}
                                 </CardActionArea>
 
-                                <CardActions>
+                                {/* <CardActions>
                                     <Button size="small">Share</Button>
                                     <Button size="small">Learn More</Button>
-                                </CardActions>
+                                </CardActions> */}
 
                             </Card >
                         </center>
@@ -153,7 +155,7 @@ export default function Contact() {
 
                     {/********************************************************/}
 
-                    <Grid item xs={3}>
+                    <Grid item xs={1}>
 
                         <center>
                             <Card sx={{
@@ -164,22 +166,22 @@ export default function Contact() {
                                 padding: '10px',
                                 textAlign: 'center',
                             }}>
-                                <CardActionArea component={Link} to='https://www.instagram.com/jkof86/' >
+                                <CardActionArea component={Link} to='https://www.instagram.com/jkof86/' target="_blank">
                                     <CardMedia
                                         component="img"
                                         alt="Instagram Icon"
                                         image={require("../images/icons/Instagram_icon.png")}
                                     >
                                     </CardMedia>
-                                    <CardContent >
+                                    {/* <CardContent >
 
-                                    </CardContent>
+                                    </CardContent> */}
                                 </CardActionArea>
 
-                                <CardActions>
+                                {/* <CardActions>
                                     <Button size="small">Share</Button>
                                     <Button size="small">Learn More</Button>
-                                </CardActions>
+                                </CardActions> */}
 
                             </Card >
                         </center>
@@ -188,7 +190,7 @@ export default function Contact() {
 
                     {/********************************************************/}
 
-                    <Grid item xs={3}>
+                    <Grid item xs={1}>
 
                         <center>
                             <Card sx={{
@@ -199,22 +201,22 @@ export default function Contact() {
                                 padding: '10px',
                                 textAlign: 'center',
                             }}>
-                                <CardActionArea component={Link} to='https://www.youtube.com/@jkof86'>
+                                <CardActionArea component={Link} to='https://www.youtube.com/@jkof86' target="_blank">
                                     <CardMedia
                                         component="img"
                                         alt="Youtube Icon"
                                         image={require("../images/icons/youtube-transparent-png-15.png")}
                                     >
                                     </CardMedia>
-                                    <CardContent >
+                                    {/* <CardContent >
 
-                                    </CardContent>
+                                    </CardContent> */}
                                 </CardActionArea>
 
-                                <CardActions>
+                                {/* <CardActions>
                                     <Button size="small">Share</Button>
                                     <Button size="small">Learn More</Button>
-                                </CardActions>
+                                </CardActions> */}
 
                             </Card >
                         </center>
@@ -222,6 +224,36 @@ export default function Contact() {
                     </Grid>
 
                     {/********************************************************/}
+
+                    <Grid item xs={1}>
+
+                        <center>
+                            <Card sx={{
+                                // border: '2px solid black',
+                                maxWidth: '75%',
+                                borderRadius: '25px',
+                                margin: '10px',
+                                padding: '10px',
+                                textAlign: 'center',
+                            }}>
+                                <CardActionArea component={Link} to='https://www.youtube.com/@jkof86' target="_blank">
+                                    {/* <CardMedia>
+
+                                    </CardMedia> */}
+                                    <CardContent >
+                                        {/* <PDFViewer /> */}
+                                    </CardContent>
+                                </CardActionArea>
+
+                                {/* <CardActions>
+                                    <Button size="small">Share</Button>
+                                    <Button size="small">Learn More</Button>
+                                    </CardActions> */}
+
+                            </Card >
+                        </center>
+
+                    </Grid>
 
                 </Grid>
             </Box>

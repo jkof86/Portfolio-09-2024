@@ -1,10 +1,12 @@
 import { Box, Container, TextField, Toolbar, Typography } from "@mui/material";
 import PieChart from "./PieChart";
+import PDFViewer from "./PDFViewer";
+import Portfolio from "./Portfolio";
 
 export default function Home() {
 
     return (<>
-    <Toolbar sx={{
+        <Toolbar sx={{
             flexGrow: 1,
             justifyContent: 'center',
             backgroundColor: 'grey',
@@ -14,10 +16,17 @@ export default function Home() {
             padding: '10px',
             width: '100%'
         }}>
-            <Typography sx={{ fontSize:'20px',
-            fontStyle:'bold'}}>
+            <Typography sx={{
+                fontSize: '20px',
+                fontStyle: 'bold'
+            }}>
                 Home
             </Typography>
         </Toolbar>
+
+        <Box>
+            <Portfolio />
+        </Box>
+
     </>);
 }

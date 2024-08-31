@@ -10,6 +10,7 @@ const spanStyle = {
 
 const divStyle = {
     // display: 'flex',
+    // padding: '70px',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundSize: 'contain',
@@ -45,6 +46,10 @@ const slideImages = [
     {
         url: require('../images/photos/nutrition_slide_7.jpeg'),
         // caption: 'Slide 7'
+    },
+    {
+        url: require('../images/photos/nutrition_slide_8.jpeg'),
+        // caption: 'Slide 8'
     },
 ];
 
