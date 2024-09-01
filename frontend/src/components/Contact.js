@@ -49,7 +49,7 @@ export default function Contact() {
 
                 <Grid container spacing={2}>
 
-                    <Grid item xs={1}>
+                    <Grid item xs={3}>
 
                         <center>
                             <Card sx={{
@@ -85,7 +85,7 @@ export default function Contact() {
 
                     {/********************************************************/}
 
-                    <Grid item xs={1}>
+                    <Grid item xs={3}>
 
                         <center>
                             <Card sx={{
@@ -120,7 +120,7 @@ export default function Contact() {
 
                     {/********************************************************/}
 
-                    <Grid item xs={1}>
+                    <Grid item xs={3}>
 
                         <center>
                             <Card sx={{
@@ -155,7 +155,7 @@ export default function Contact() {
 
                     {/********************************************************/}
 
-                    <Grid item xs={1}>
+                    <Grid item xs={3}>
 
                         <center>
                             <Card sx={{
@@ -190,7 +190,7 @@ export default function Contact() {
 
                     {/********************************************************/}
 
-                    <Grid item xs={1}>
+                    <Grid item xs={3}>
 
                         <center>
                             <Card sx={{
@@ -224,8 +224,8 @@ export default function Contact() {
                     </Grid>
 
                     {/********************************************************/}
-
-                    <Grid item xs={1}>
+{/* 
+                    <Grid item xs={3}>
 
                         <center>
                             <Card sx={{
@@ -236,24 +236,24 @@ export default function Contact() {
                                 padding: '10px',
                                 textAlign: 'center',
                             }}>
-                                <CardActionArea component={Link} to='https://www.youtube.com/@jkof86' target="_blank">
+                                {/* <CardActionArea component={Link} to='https://www.youtube.com/@jkof86' target="_blank"> */}
                                     {/* <CardMedia>
 
                                     </CardMedia> */}
-                                    <CardContent >
+                                    {/* <CardContent > */}
                                         {/* <PDFViewer /> */}
-                                    </CardContent>
-                                </CardActionArea>
+                                    {/* </CardContent> */}
+                                {/* </CardActionArea> */}
 
                                 {/* <CardActions>
                                     <Button size="small">Share</Button>
                                     <Button size="small">Learn More</Button>
                                     </CardActions> */}
 
-                            </Card >
-                        </center>
+                            {/* </Card > */}
+                        {/* </center> */}
 
-                    </Grid>
+                    {/* </Grid> */}
 
                 </Grid>
             </Box>

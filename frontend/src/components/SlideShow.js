@@ -3,20 +3,20 @@ import React from 'react';
 import { Slide } from 'react-slideshow-image';
 
 const spanStyle = {
-    padding: '20px',
+    padding: '40px',
     background: '#efefef',
     color: '#000000'
 }
 
 const divStyle = {
-    // display: 'flex',
-    // padding: '70px',
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     border: '1px solid black',
-    height: '400px',
+    height: '75vh',
+    width: '50vh',
 }
 const slideImages = [
     {
@@ -62,7 +62,8 @@ export default function SlideShow() {
                     <div key={index}>
                         <div style={{
                             ...divStyle,
-                            'backgroundImage': `url(${slideImage.url})`
+                            'backgroundImage': `url(${slideImage.url})`,
+                            'backgroundSize':'cover'
                         }}>
                             {/* <span style={spanStyle}>{slideImage.caption}</span> */}
                         </div>
