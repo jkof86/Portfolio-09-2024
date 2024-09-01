@@ -1,4 +1,5 @@
 import { Box, Container, TextField, Toolbar, Typography } from "@mui/material";
+import PDFViewer from "./PDFViewer";
 
 export default function About() {
 
@@ -18,5 +19,11 @@ export default function About() {
                 About
             </Typography>
         </Toolbar>
+
+        {/* *****************************************************/}
+        
+        <Box>
+            <PDFViewer />
+        </Box>
     </>);
 }

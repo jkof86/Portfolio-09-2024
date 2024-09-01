@@ -200,16 +200,17 @@ export default function Calculator() {
             </Typography>
         </Toolbar>
 
-        <Container sx={{ width: '100vw' }}>
+        {/* <Container disableGutters sx={{ width: '100vw' }}> */}
 
-            <Box component='form' sx={{
+        <Box padding={0} sx={{
                 justifyContent: 'center',
                 backgroundColor: 'white',
                 borderRadius: '25px',
                 border: '1px solid black',
                 boxShadow: '0px 0px 2px 2px white',
                 padding: '10px',
-                width: '100vw',
+                margin: '20px',
+                width: '100vw'
             }}>
 
                 <center>
@@ -419,6 +420,6 @@ export default function Calculator() {
                     </Grid>
                 </Grid>
             </Box>
-        </Container >
+        {/* </Container > */}
     </>);
 }

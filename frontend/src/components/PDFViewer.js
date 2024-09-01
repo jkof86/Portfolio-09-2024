@@ -1,8 +1,10 @@
 import { Document, Page } from 'react-pdf';
 import portfolio from '../misc/jkof86_portfolio.pdf';
 import { useState } from 'react';
+import "../../node_modules/pdfjs-dist/build/pdf.worker.mjs";
 
 export default function PDFViewer() {
+
     const [numPages, setNumPages] = useState(null)
 
     function onDocumentSuccess({ numPages }) {
