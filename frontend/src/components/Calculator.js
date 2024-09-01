@@ -184,14 +184,13 @@ export default function Calculator() {
 
     return (<>
         <Toolbar sx={{
-            // flexGrow: 1,
             justifyContent: 'center',
             backgroundColor: 'grey',
             border: '1px solid black',
             boxShadow: '0px 0px 2px 2px white',
             marginBottom: '10px',
             padding: '10px',
-            width: '100%'
+            width: '100vw'
         }}>
             <Typography sx={{
                 fontSize: '20px',
@@ -201,22 +200,22 @@ export default function Calculator() {
             </Typography>
         </Toolbar>
 
-        <Container sx={{ width: '95%' }}>
+        <Container sx={{ width: '100vw' }}>
 
             <Box component='form' sx={{
-                flexGrow: 1,
                 justifyContent: 'center',
                 backgroundColor: 'white',
                 borderRadius: '25px',
                 border: '1px solid black',
                 boxShadow: '0px 0px 2px 2px white',
                 padding: '10px',
-                margin: '10px',
-                width: '100%'
+                width: '100vw',
             }}>
+
                 <center>
                     <img src={require("../images/macros.jpg")} width={'50%'} height={'50%'} />
                 </center>
+
                 {/* for each TextField, we use onChange to store the values */}
 
                 <Grid container spacing={2}>
@@ -327,7 +326,9 @@ export default function Calculator() {
                                 Clear
                             </Button>
                         </Box>
+
                     </Grid>
+
                     <Grid item xs={6}>
                         <Card sx={{
                             // border: '2px solid black',

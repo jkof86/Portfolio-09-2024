@@ -11,14 +11,14 @@ export default function Contact() {
 
     return (<>
         <Toolbar sx={{
-            flexGrow: 1,
+            // flexGrow: 1,
             justifyContent: 'center',
             backgroundColor: 'grey',
             border: '1px solid black',
             boxShadow: '0px 0px 2px 2px white',
             marginBottom: '10px',
             padding: '10px',
-            width: '100%'
+            width: '100vw'
         }}>
             <Typography sx={{
                 fontSize: '20px',
@@ -30,8 +30,7 @@ export default function Contact() {
 
         {/********************************************************/}
 
-        <Container sx={{ width: '95%' }}>
-
+        <Container sx={{ width: '100vw' }}>
             <Box sx={{
                 flexGrow: 1,
                 justifyContent: 'center',
@@ -40,8 +39,7 @@ export default function Contact() {
                 border: '1px solid black',
                 boxShadow: '0px 0px 2px 2px white',
                 padding: '10px',
-                margin: '10px',
-                width: '100%'
+                width: '100vw'
             }}>
                 <center>
                     <SlideShow />

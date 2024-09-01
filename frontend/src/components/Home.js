@@ -25,7 +25,7 @@ export default function Home() {
         </Toolbar>
 
         <Box>
-            <Portfolio />
+            {/* <Portfolio /> */}
         </Box>
 
     </>);

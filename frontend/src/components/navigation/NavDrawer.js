@@ -45,9 +45,9 @@ export default function NavDrawer() {
       <Drawer
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
-        // PaperProps allows us to resize the meu
+        // PaperProps allows us to resize the menu
         PaperProps={{
-          sx: { width: "25%" }
+          sx: { width: "15rem" }
         }}>
 
         <Typography variant="h6" sx={{ my: 2, textAlign: 'center' }}>
