@@ -12,8 +12,6 @@ import MyPortfolio from "./MyPortfolio";
 
 export default function About() {
 
-    // const pageNavigationPluginInstance = pageNavigationPlugin();
-
     return (<>
         <Toolbar sx={{
             flexGrow: 1,
@@ -23,7 +21,8 @@ export default function About() {
             boxShadow: '0px 0px 2px 2px white',
             marginBottom: '10px',
             padding: '10px',
-            width: '100%'
+            width: '100%',
+            // height: '2vh'
         }}>
             <Typography sx={{
                 fontSize: '20px',
@@ -35,12 +34,6 @@ export default function About() {
 
         {/* *****************************************************/}
 
-        {/* <PDFViewer>
-            <PortfolioDocument />
-            <pageNavigationPluginInstance.CurrentPageInput />
-            <pageNavigationPluginInstance.GoToNextPageButton />
-            <pageNavigationPluginInstance.GoToPreviousPageButton />
-        </PDFViewer> */}
         <center>
             <Box padding={0} sx={{
                 justifyContent: 'center',
@@ -51,7 +44,6 @@ export default function About() {
                 padding: '20px',
                 margin: '20px',
                 width: '75vw',
-                // height: '25vh'
             }}>
                 <MyPortfolio />
             </Box>
