@@ -24,3 +24,5 @@ yarn-error.log*
 
 /src/images
 /src/misc
+/src/oldComponents
+

@@ -1,7 +1,5 @@
 import { Box, Container, TextField, Toolbar, Typography } from "@mui/material";
 import PieChart from "./PieChart";
-import PDFViewer from "./PDFViewer";
-import Portfolio from "./Portfolio";
 
 export default function Home() {
 

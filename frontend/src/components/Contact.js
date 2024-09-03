@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 import { Link } from 'react-router-dom';
 import SlideShow from "./SlideShow";
-import PDFViewer from "./PDFViewer";
+import PDFViewer from "../oldComponents/PDFViewer";
 
 export default function Contact() {
 
