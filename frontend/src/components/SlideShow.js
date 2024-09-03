@@ -15,6 +15,7 @@ const divStyle = {
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     border: '1px solid black',
+    borderRadius: '25px',
     height: '75vh',
     width: '50vh',
 }
