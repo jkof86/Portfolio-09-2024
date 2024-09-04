@@ -30,7 +30,7 @@ export default function NavDrawer() {
 
   return (<>
 
-    <Toolbar>
+    {/* <Toolbar> */}
       <IconButton
         edge="start"
         color="inherit"
@@ -176,7 +176,7 @@ export default function NavDrawer() {
         ))}
 
       </Drawer>
-    </Toolbar>
+    {/* </Toolbar> */}
 
   </>
   );

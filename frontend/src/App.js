@@ -13,7 +13,6 @@ export default function App() {
   return (<>
   {/* {<Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} */}
   {<Navbar />}
-  {<NavDrawer />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/calculator" element={<Calculator />} />

@@ -14,15 +14,12 @@ export default function About() {
 
     return (<>
         <Toolbar sx={{
-            flexGrow: 1,
             justifyContent: 'center',
             backgroundColor: 'grey',
             border: '1px solid black',
             boxShadow: '0px 0px 2px 2px white',
             marginBottom: '10px',
-            padding: '10px',
-            width: '100%',
-            // height: '2vh'
+            width: '100vw',
         }}>
             <Typography sx={{
                 fontSize: '20px',
@@ -44,11 +41,10 @@ export default function About() {
                 padding: '20px',
                 margin: '20px',
                 width: '75vw',
+                height: '85vh'
             }}>
                 <MyPortfolio />
             </Box>
         </center>
     </>);
 };
-
-// ReactDOM.render(<About />, document.getElementById('root'));

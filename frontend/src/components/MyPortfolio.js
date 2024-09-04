@@ -1,15 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { Document, Page } from 'react-pdf';
-import pdfFile from '../misc/jkof86_portfolio.pdf';
 import { Button, Box } from '@mui/material';
-
+import pdfFile from '../misc/jkof86_portfolio.pdf';
 
 export default function MyPortfolio() {
-    const [numPages, setNumPages] = useState();
-    const [pageNumber, setPageNumber] = useState(1);
-
-    const [width, setWidth] = useState(null);
-    const pdfWrapper = useRef(null);
 
     // const styles = StyleSheet.create({
     //     page: {
@@ -23,19 +17,29 @@ export default function MyPortfolio() {
     //     },
     //   });
 
+    const [numPages, setNumPages] = useState();
+    const [pageNumber, setPageNumber] = useState(1);
+
+    const [width, setWidth] = useState(null);
+    const [height, setHeight] = useState(null);
+
+    const pdfWrapper = useRef(null);
+
     // we use this to dynamically update the pdf width on resize
     useEffect(() => {
-        const updateWidth = () => {
+        const updateSize = () => {
             if (pdfWrapper.current) {
                 setWidth(pdfWrapper.current.getBoundingClientRect().width);
+                setHeight(pdfWrapper.current.getBoundingClientRect().height);
+
             }
         };
 
-        updateWidth();
-        window.addEventListener('resize', updateWidth);
+        updateSize();
+        window.addEventListener('resize', updateSize);
 
         return () => {
-            window.removeEventListener('resize', updateWidth);
+            window.removeEventListener('resize', updateSize);
         };
     }, []);
 
@@ -55,7 +59,7 @@ export default function MyPortfolio() {
 
     return (<>
         {/*we add a scroll bar to deal with PDF document overflow*/}
-        <div ref={pdfWrapper} style={{ width: '100%', height: '100vh', overflow: 'scroll' }}>
+        <div ref={pdfWrapper} style={{ width: '100%', height: '100%', overflow: 'scroll' }}>
             <p>
                 Page {pageNumber} of {numPages}
             </p>
@@ -71,13 +75,6 @@ export default function MyPortfolio() {
 
                 <Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
                     <Page
-                        // size={{
-                        // flexDirection: 'column',
-                        // padding: 10,
-                        // width: window.innerWidth*2,
-                        // height: window.innerHeight / 2
-                        // height: '20%'
-                        // }}
                         pageNumber={pageNumber}
                         width={width}
                     />
