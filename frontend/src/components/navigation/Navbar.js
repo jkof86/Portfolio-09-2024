@@ -18,7 +18,7 @@ export default function Navbar() {
         {
             <Toolbar sx={{
                 //this rgb value is semi transparent
-                background: 'rgba(0,0,0,0.5)',
+                background: 'rgba(0,0,0,0)',
                 color: 'white', fontSize: '32px',
                 // justifyContent: 'center',
                 width: '100vw',
