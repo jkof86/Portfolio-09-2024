@@ -30,9 +30,9 @@ export default function PieChart({ carb, protein, fat }) {
                 ],
 
                 backgroundColor: [
+                    'blue',
                     'red',
                     'green',
-                    'blue',
                     // 'rgba(255, 99, 132, 0.2)',
                     // 'rgba(54, 162, 235, 0.2)',
                     // 'rgba(75, 192, 192, 0.2)',

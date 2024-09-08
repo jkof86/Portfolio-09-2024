@@ -1,21 +1,20 @@
 import { useState, useRef, useEffect } from 'react';
-import { Document, Page } from 'react-pdf';
+import { Document, Page, pdfjs } from 'react-pdf';
 import { Button, Box } from '@mui/material';
 import pdfFile from '../misc/jkof86_portfolio.pdf';
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+import 'react-pdf/dist/Page/TextLayer.css';
+
+//we have to set up the pdf worker
+// const pdfWorker = "node_modules/pdfjs-dist/build/pdf.worker.mjs";
+// pdfjs.GlobalWorkerOptions.workerSrc = pdfWorker;
+
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+    'pdfjs-dist/build/pdf.worker.min.mjs',
+    import.meta.url,
+).toString();
 
 export default function MyPortfolio() {
-
-    // const styles = StyleSheet.create({
-    //     page: {
-    //       flexDirection: 'column',
-    //       padding: 10,
-    //     },
-    //     section: {
-    //       margin: 10,
-    //       padding: 10,
-    //       flexGrow: 1,
-    //     },
-    //   });
 
     const [numPages, setNumPages] = useState();
     const [pageNumber, setPageNumber] = useState(1);
@@ -77,6 +76,7 @@ export default function MyPortfolio() {
                     <Page
                         pageNumber={pageNumber}
                         width={width}
+                        height={height}
                     />
 
                 </Document>

@@ -1,14 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import PDFViewer from '../oldComponents/PDFViewer';
-import { Box, Container, TextField, Toolbar, Typography } from "@mui/material";
+import { Box, Toolbar, Typography } from "@mui/material";
 import MyPortfolio from "./MyPortfolio";
 
 // import { PDFViewer } from '@react-pdf/renderer';
 // import '@react-pdf-viewer/page-navigation/lib/styles/index.css';
 // import { pageNavigationPlugin } from '@react-pdf-viewer/page-navigation';
-
-
 
 export default function About() {
 

@@ -363,7 +363,7 @@ export default function Calculator() {
                                                 border: '1px solid black',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center',
-                                                backgroundColor: 'rgba(255, 0, 0, 0.5)'
+                                                backgroundColor: 'rgba(0, 0, 255, 0.5)'
                                             }}>
                                                 Carbs
                                             </TableCell>
@@ -371,7 +371,7 @@ export default function Calculator() {
                                                 border: '1px solid black',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center',
-                                                backgroundColor: 'rgba(0, 255, 0, 0.5)'
+                                                backgroundColor: 'rgba(255, 0, 0, 0.5)'
                                             }}>
                                                 Protein
                                             </TableCell>
@@ -379,7 +379,7 @@ export default function Calculator() {
                                                 border: '1px solid black',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center',
-                                                backgroundColor: 'rgba(0, 0, 255, 0.5)'
+                                                backgroundColor: 'rgba(0, 255, 0, 0.5)'
                                             }}>
                                                 Fats
                                             </TableCell>

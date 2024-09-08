@@ -1,7 +1,7 @@
 import {
-    Box, Container, Toolbar, Typography,
-    Button, Grid, Card, CardActions, CardActionArea,
-    CardContent, CardMedia
+    Box, Toolbar, Typography,
+    Grid, Card, CardActionArea,
+    CardMedia
 } from "@mui/material";
 import { Link } from 'react-router-dom';
 import SlideShow from "./SlideShow";
