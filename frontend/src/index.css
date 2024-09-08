@@ -15,8 +15,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-image: url("images/bg/site_bg02.png");
   /* background-image: url("images/bg/vector-jan-2021-19_generated.jpg"); */
-  background-repeat: space;
-  background-size: cover
+  background-repeat: repeat;
+  background-size: cover;
 }
 
 code {
