@@ -1,23 +1,14 @@
 import {
-    Box, Container, TextField, Toolbar, Typography, InputAdornment,
+    Box, TextField, Toolbar, Typography, InputAdornment,
     Button, Grid, Divider, Card, CardActions, CardActionArea,
     CardContent, CardMedia, Table,
     TableHead,
     TableBody,
     TableCell,
-
 } from "@mui/material";
+
 import { useState } from "react";
 import PieChart from "./PieChart";
-
-// we create a custom hook to clear all fields
-// function useClearScreen() {
-//     const [value, setValue] = useState(0); // integer state
-//     return () => {
-//         console.log("CLEAR BUTTON TEST");
-//         setValue(value => value + 1);
-//     }
-// }
 
 export default function Calculator() {
     //we call our custom hook within the Component
@@ -29,6 +20,13 @@ export default function Calculator() {
         carbPercent: "",
         fatPercent: "",
         totalPercent: 0,
+    })
+
+    const [display, setDisplay] = useState({
+        //we need to declare these values seperately to display later
+        showCarbs: 0,
+        showProtein: 0,
+        showFat: 0
     })
 
     const resetState = () => {
@@ -43,15 +41,8 @@ export default function Calculator() {
 
     }
 
-    const [display, setDisplay] = useState({
-        //we need to declare these values seperately to display later
-        showCarbs: 0,
-        showProtein: 0,
-        showFat: 0
-    })
-
     const resetDisplay = () => {
-        //we reset the display back to default values
+        //we reset the display values back to default
         setDisplay({
             showCarbs: 0,
             showProtein: 0,
@@ -60,7 +51,7 @@ export default function Calculator() {
     }
 
     const resetAll = () => {
-        //we reset the display back to default values
+        //we reset the display and state values back to default
         setDisplay({
             showCarbs: 0,
             showProtein: 0,
@@ -97,24 +88,21 @@ export default function Calculator() {
         })
     }
 
-
     const calculateMacros = () => {
 
         //we create local variables for calculations
         console.log('Calculate Macros Button Test...');
 
-        //we add ternary operation in case of empty values
-        //this forces the type to a number
+        // we add ternary operation in case of empty values
+        // this forces the type to a number
         var calorieLimit = state.calorieLimit ? state.calorieLimit : 0;
         var carb = state.carbPercent ? state.carbPercent : 0;
         var protein = state.proteinPercent ? state.proteinPercent : 0;
         var fat = state.fatPercent ? state.fatPercent : 0;
         var totalPercent = 0;
 
-        //we calculate the total percent to verify it equals 100%
-        // totalPercent = Number(Number(carb) + Number(protein) + Number(fat));
+        // we calculate the total percent to verify it equals 100%
         totalPercent = (Number(carb) + Number(protein) + Number(fat));
-        // totalPercent = Number((carb) + (protein) + (fat));
 
         console.log(typeof (totalPercent));
         console.log(totalPercent);
@@ -141,14 +129,11 @@ export default function Calculator() {
             console.log("Protein: " + protein + " grams");
             console.log("Fat: " + fat + " grams");
 
-            //we reset state (ignoring the stored display values)
-            //and display the results
-            // resetState();
             ShowResults(protein, carb, fat);
         }
     }
 
-    // if total percent != 100...
+    // if total percent != 100 or a field is left empty...
     const calcInvalid = () => {
 
         // display error msg
@@ -189,7 +174,6 @@ export default function Calculator() {
             border: '1px solid black',
             boxShadow: '0px 0px 2px 2px white',
             marginBottom: '10px',
-            padding: '10px',
             width: '100vw'
         }}>
             <Typography sx={{
@@ -201,8 +185,8 @@ export default function Calculator() {
         </Toolbar>
 
         {/* <Container disableGutters sx={{ width: '100vw' }}> */}
-
-        <Box padding={0} sx={{
+        <center>
+            <Box padding={0} sx={{
                 justifyContent: 'center',
                 backgroundColor: 'white',
                 borderRadius: '25px',
@@ -210,11 +194,11 @@ export default function Calculator() {
                 boxShadow: '0px 0px 2px 2px white',
                 padding: '10px',
                 margin: '20px',
-                width: '100vw'
+                width: '75vw'
             }}>
 
                 <center>
-                    <img src={require("../images/macros.jpg")} width={'50%'} height={'50%'} />
+                    <img alt="Macronutrients" src={require("../images/macros.jpg")} width={'50%'} height={'50%'} />
                 </center>
 
                 {/* for each TextField, we use onChange to store the values */}
@@ -364,7 +348,7 @@ export default function Calculator() {
                                                 border: '1px solid black',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center',
-                                                backgroundColor: 'rgba(255, 0, 0, 0.5)'
+                                                backgroundColor: 'rgba(0, 0, 255, 0.5)'
                                             }}>
                                                 Carbs
                                             </TableCell>
@@ -372,7 +356,7 @@ export default function Calculator() {
                                                 border: '1px solid black',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center',
-                                                backgroundColor: 'rgba(0, 255, 0, 0.5)'
+                                                backgroundColor: 'rgba(255, 0, 0, 0.5)'
                                             }}>
                                                 Protein
                                             </TableCell>
@@ -380,7 +364,7 @@ export default function Calculator() {
                                                 border: '1px solid black',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center',
-                                                backgroundColor: 'rgba(0, 0, 255, 0.5)'
+                                                backgroundColor: 'rgba(0, 255, 0, 0.5)'
                                             }}>
                                                 Fats
                                             </TableCell>
@@ -420,6 +404,7 @@ export default function Calculator() {
                     </Grid>
                 </Grid>
             </Box>
+        </center>
         {/* </Container > */}
     </>);
 }

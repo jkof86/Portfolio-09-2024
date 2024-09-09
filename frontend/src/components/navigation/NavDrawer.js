@@ -17,10 +17,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
-const navItems = ['Home', 'Nutrition Calculator', 'About', 'Contact'];
+const navItems = ['Home', 'Nutrition Calculator', 'Contact','About'];
 const navItems2 = ['Account', 'Settings', 'Logout'];
 
 export default function NavDrawer() {
@@ -30,7 +29,7 @@ export default function NavDrawer() {
 
   return (<>
 
-    <Toolbar>
+    {/* <Toolbar> */}
       <IconButton
         edge="start"
         color="inherit"
@@ -92,20 +91,6 @@ export default function NavDrawer() {
 
             {/* //------------------------------------------------ */}
 
-            {item === 'About' ? <ListItemButton sx={{ borderTop:'1px solid black',
-            textAlign: 'left' }}
-              component={Link}
-              to='/about'
-              onClick={() => {
-                console.info("ABOUT BUTTON TEST");
-                setIsDrawerOpen(false);
-              }}>
-              <InfoIcon sx={{ margin: '5px' }} />
-              <ListItemText primary={item} />
-            </ListItemButton> : ''}
-
-            {/* //------------------------------------------------ */}
-
             {item === 'Contact' ? <ListItemButton sx={{ borderTop:'1px solid black',
             textAlign: 'left' }}
               component={Link}
@@ -115,6 +100,20 @@ export default function NavDrawer() {
                 setIsDrawerOpen(false);
               }}>
               <ContactSupportIcon sx={{ margin: '5px' }} />
+              <ListItemText primary={item} />
+            </ListItemButton> : ''}
+
+             {/* //------------------------------------------------ */}
+
+             {item === 'About' ? <ListItemButton sx={{ borderTop:'1px solid black',
+            textAlign: 'left' }}
+              component={Link}
+              to='/about'
+              onClick={() => {
+                console.info("ABOUT BUTTON TEST");
+                setIsDrawerOpen(false);
+              }}>
+              <InfoIcon sx={{ margin: '5px' }} />
               <ListItemText primary={item} />
             </ListItemButton> : ''}
 
@@ -176,7 +175,7 @@ export default function NavDrawer() {
         ))}
 
       </Drawer>
-    </Toolbar>
+    {/* </Toolbar> */}
 
   </>
   );

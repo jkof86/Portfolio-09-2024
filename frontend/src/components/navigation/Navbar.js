@@ -1,5 +1,4 @@
-import { Toolbar, Button, IconButton } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
+import { Toolbar, Button, IconButton, Box } from "@mui/material";
 import { Link } from "../../../node_modules/react-router-dom/dist/index";
 import NavDrawer from "./NavDrawer";
 
@@ -19,45 +18,47 @@ export default function Navbar() {
         {
             <Toolbar sx={{
                 //this rgb value is semi transparent
-                flexGrow: 1, background: 'rgba(0,0,0,0.5)',
+                background: 'rgba(0,0,0,0)',
                 color: 'white', fontSize: '32px',
-                justifyContent: 'center',
-                margin: '2px'
+                // justifyContent: 'center',
+                width: '100vw',
+                marginBottom: '10px'
             }}
                 variant="menu"
                 position="static"
             >
-                
-                <Button variant='contained' sx={{
-                    backgroundColor: 'grey',
-                    borderRadius: '0px',
-                    margin: '0px',
-                    marginTop: '10px'
-                }}
-                    component={Link} to='/'>
-                    Home
-                </Button>
-                <Button variant='contained' sx={{
-                    backgroundColor: 'grey',
-                    borderRadius: '0px',
-                    margin: '0px',
-                    marginTop: '10px'
-                }}
-                    component={Link} to='/register'
-                >
-                    Register
-                </Button>
+                <NavDrawer />
+                <Box textAlign={"center"} width={'100vw'}>
+                    <Button variant='contained' sx={{
+                        backgroundColor: 'grey',
+                        borderRadius: '0px',
+                        margin: '0px',
+                        marginTop: '10px'
+                    }}
+                        component={Link} to='/'>
+                        Home
+                    </Button>
+                    <Button variant='contained' sx={{
+                        backgroundColor: 'grey',
+                        borderRadius: '0px',
+                        margin: '0px',
+                        marginTop: '10px'
+                    }}
+                        component={Link} to='/register'
+                    >
+                        Register
+                    </Button>
 
-                <Button variant='contained' sx={{
-                    backgroundColor: 'grey',
-                    borderRadius: '0px',
-                    margin: '0px',
-                    marginTop: '10px'
-                }}
-                    component={Link} to='/signin'>
-                    Login
-                </Button>
-
+                    <Button variant='contained' sx={{
+                        backgroundColor: 'grey',
+                        borderRadius: '0px',
+                        margin: '0px',
+                        marginTop: '10px'
+                    }}
+                        component={Link} to='/signin'>
+                        Login
+                    </Button>
+                </Box>
             </Toolbar>
         }
     </>)
