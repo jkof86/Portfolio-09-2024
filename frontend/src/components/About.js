@@ -37,7 +37,7 @@ export default function About() {
                 padding: '20px',
                 margin: '20px',
                 width: '75vw',
-                height: '85vh'
+                // height: '85vh'
             }}>
                 <MyPortfolio />
             </Box>

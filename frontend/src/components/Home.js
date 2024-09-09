@@ -30,7 +30,7 @@ export default function Home() {
                 padding: '20px',
                 margin: '20px',
                 width: '50vw',
-                height: '85vh'
+                // height: '85vh'
             }}>
                 <h1>Home</h1>
             </Box>
