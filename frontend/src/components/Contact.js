@@ -37,7 +37,7 @@ export default function Contact() {
                 boxShadow: '0px 0px 2px 2px white',
                 padding: '10px',
                 margin: '20px',
-                width: '75vw'
+                width: '90vw'
             }}>
                 <center>
                     <SlideShow />
