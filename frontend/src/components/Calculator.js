@@ -11,8 +11,6 @@ import { useState } from "react";
 import PieChart from "./PieChart";
 
 export default function Calculator() {
-    //we call our custom hook within the Component
-    // const useClearScreen = useClearScreen();
 
     const [state, setState] = useState({
         calorieLimit: "",
@@ -235,7 +233,7 @@ export default function Calculator() {
                             name="carbPercent"
                             value={state.carbPercent}
                             onChange={handleChange}
-                            onSubmit={handleChange}
+                            // onSubmit={handleChange}
                             sx={{
                                 margin: '5px'
                             }} InputProps={{
@@ -405,6 +403,5 @@ export default function Calculator() {
                 </Grid>
             </Box>
         </center>
-        {/* </Container > */}
     </>);
 }

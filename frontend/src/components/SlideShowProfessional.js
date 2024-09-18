@@ -28,33 +28,9 @@ const slideImages = [
         url: require('../images/photos/nutrition_slide_2.jpeg'),
         // caption: 'Slide 2'
     },
-    {
-        url: require('../images/photos/nutrition_slide_3.jpeg'),
-        // caption: 'Slide 3'
-    },
-    {
-        url: require('../images/photos/nutrition_slide_4.jpeg'),
-        // caption: 'Slide 4'
-    },
-    {
-        url: require('../images/photos/nutrition_slide_5.jpeg'),
-        // caption: 'Slide 5'
-    },
-    {
-        url: require('../images/photos/nutrition_slide_6.jpeg'),
-        // caption: 'Slide 6'
-    },
-    {
-        url: require('../images/photos/nutrition_slide_7.jpeg'),
-        // caption: 'Slide 7'
-    },
-    {
-        url: require('../images/photos/nutrition_slide_8.jpeg'),
-        // caption: 'Slide 8'
-    },
 ];
 
-export default function SlideShow() {
+export default function SlideShowProfessional() {
     return (<>
         {/* <Box border='1px solid black'> */}
         <div className="slide-container">

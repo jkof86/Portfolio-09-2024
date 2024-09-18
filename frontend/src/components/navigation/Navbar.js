@@ -1,6 +1,6 @@
 import { Toolbar, Button, IconButton, Box } from "@mui/material";
 import { Link } from "../../../node_modules/react-router-dom/dist/index";
-import NavDrawer from "./NavDrawer";
+import NavDrawer from "./NavDrawerProfessional";
 
 // export default function Navbar({ loggedIn, setLoggedIn }) {
 
@@ -27,7 +27,6 @@ export default function Navbar() {
                 variant="menu"
                 position="static"
             >
-                <NavDrawer />
                 <Box textAlign={"center"} width={'100vw'}>
                     <Button variant='contained' sx={{
                         backgroundColor: 'grey',
@@ -44,9 +43,9 @@ export default function Navbar() {
                         margin: '0px',
                         marginTop: '10px'
                     }}
-                        component={Link} to='/register'
+                        component={Link} to='/professional'
                     >
-                        Register
+                        Professional
                     </Button>
 
                     <Button variant='contained' sx={{
@@ -55,8 +54,18 @@ export default function Navbar() {
                         margin: '0px',
                         marginTop: '10px'
                     }}
-                        component={Link} to='/signin'>
-                        Login
+                        component={Link} to='fitness'>
+                        Fitness / Nutrition
+                    </Button>
+
+                    <Button variant='contained' sx={{
+                        backgroundColor: 'grey',
+                        borderRadius: '0px',
+                        margin: '0px',
+                        marginTop: '10px'
+                    }}
+                        component={Link} to='gaming'>
+                        Gaming
                     </Button>
                 </Box>
             </Toolbar>
