@@ -4,7 +4,6 @@ import {
     Typography, Grid, Card
 }
     from "@mui/material";
-// import "../index.css";
 
 import banner from '../images/photos/banner03.png';
 
