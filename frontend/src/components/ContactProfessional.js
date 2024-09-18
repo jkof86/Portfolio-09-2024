@@ -5,25 +5,13 @@ import {
 } from "@mui/material";
 import { Link } from 'react-router-dom';
 import SlideShowProfessional from "./SlideShowProfessional";
+import NavDrawerProfessional from "./navigation/NavDrawerProfessional";
 
 export default function ContactProfessional() {
 
     return (<>
-        <Toolbar sx={{
-            justifyContent: 'center',
-            backgroundColor: 'grey',
-            border: '1px solid black',
-            boxShadow: '0px 0px 2px 2px white',
-            marginBottom: '10px',
-            width: '100vw'
-        }}>
-            <Typography sx={{
-                fontSize: '20px',
-                fontStyle: 'bold'
-            }}>
-                Contact Information
-            </Typography>
-        </Toolbar>
+        
+        {<NavDrawerProfessional />}
 
         {/********************************************************/}
 
