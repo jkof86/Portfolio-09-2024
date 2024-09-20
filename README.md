@@ -23,6 +23,9 @@
 
 -npm i react-slideshow-image
 
+-npm i axios xml2js
+
+
 Copy pdf worker to public directory
 You will have to make sure on your own that pdf.worker.mjs file from pdfjs-dist/build is copied to your project's output folder.
 
