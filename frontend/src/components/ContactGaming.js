@@ -1,7 +1,7 @@
 import {
-    Box, Toolbar, Typography,
+    Box, Button, Toolbar, Typography,
     Grid, Card, CardActionArea,
-    CardMedia
+    CardMedia, CardContent, CardActions
 } from "@mui/material";
 import { Link } from 'react-router-dom';
 import SlideShowFitness from "./SlideShowFitness";
@@ -10,7 +10,7 @@ import NavDrawerGaming from "./navigation/NavDrawerGaming";
 export default function ContactGaming() {
 
     return (<>
-        
+
         {<NavDrawerGaming />}
 
         {/********************************************************/}
@@ -27,49 +27,52 @@ export default function ContactGaming() {
                 margin: '20px',
                 width: '90vw'
             }}>
-                <center>
+
+                {/* <center>
                     <SlideShowFitness />
-                </center>
+                </center> */}
 
                 <Grid container spacing={4} sx={{ justifyContent: 'center' }}>
 
                     {/********************************************************/}
 
-                    <Grid item xs={2} >
+                    <Grid item xs={6} >
 
-                        <center>
-                            <Card sx={{
-                                // border: '2px solid black',
-                                minWidth: '75%',
-                                borderRadius: '25px',
-                                padding: '5px',
-                                margin: '20px',
-                                textAlign: 'center',
-                            }}>
-                                <CardActionArea component={Link} to='https://www.youtube.com/@jkof86' target="_blank">
-                                    <CardMedia
-                                        component="img"
-                                        alt="Youtube Icon"
-                                        image={require("../images/icons/youtube-transparent-png-15.png")}
+                        <Card sx={{
+                            // border: '2px solid black',
+                            minWidth: '40vw',
+                            borderRadius: '25px',
+                            padding: '5px',
+                            margin: '20px',
+                            textAlign: 'center',
+                        }}>
+                            <CardActionArea component={Link} to='https://www.youtube.com/@jkof86' target="_blank">
+
+                                <CardContent>
+                                </CardContent>
+                                <CardMedia
+                                    component="img"
+                                    alt="Jkof Gaming"
+                                    // image={require("../images/icons/youtube-transparent-png-15.png")}
+                                    image={require("../images/bg/jkofGamingBanner01.png")}
+                                    sx={{borderRadius:'25px'}}
                                     >
-                                    </CardMedia>
-                                    {/* <CardContent >
 
-                                    </CardContent> */}
-                                </CardActionArea>
 
-                                {/* <CardActions>
-                                    <Button size="small">Share</Button>
-                                    <Button size="small">Learn More</Button>
-                                </CardActions> */}
+                                </CardMedia>
+                            </CardActionArea>
 
-                            </Card >
-                        </center>
+                            <CardActions>
+                                <Button size="small">Share</Button>
+                                <Button size="small">Learn More</Button>
+                            </CardActions>
+
+                        </Card >
 
                     </Grid>
 
                     {/********************************************************/}
-                 
+
                 </Grid>
 
             </Box>
