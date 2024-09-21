@@ -1,11 +1,16 @@
 import React from "react";
 import {
     Box, Container, Toolbar, 
-    Typography, Grid, Card
+    Typography, Grid, Card,
+    CardActionArea,
+    CardMedia,
+    CardContent,
+    CardActions
 }
     from "@mui/material";
 
 import banner from '../images/photos/banner03.png';
+import RSSFeed from "./RSSFeed";
 
 export default function Home() {
 
@@ -47,7 +52,18 @@ export default function Home() {
                             margin: '10px',
                             padding: '10px',
                             textAlign: 'center',
-                        }}></Card>
+                        }}>
+                            <CardActionArea>
+                                <CardMedia>
+                                    <CardContent>
+                                        {<RSSFeed />}
+                                    </CardContent>
+                                    <CardActions>
+
+                                    </CardActions>
+                                </CardMedia>
+                            </CardActionArea>
+                        </Card>
                     </Grid>
                     <Grid item xs={3}>
                         <h3>Grid Item 2</h3>
