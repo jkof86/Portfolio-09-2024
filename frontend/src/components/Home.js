@@ -43,7 +43,7 @@ export default function Home() {
                 width: '75vw'
             }}>
                 <Grid container spacing={2}>
-                    <Grid item xs={3}>
+                    <Grid item xs={12}>
                         <h3>Grid Item 1</h3>
                         <Card sx={{
                             border: '2px solid black',
@@ -65,7 +65,7 @@ export default function Home() {
                             </CardActionArea>
                         </Card>
                     </Grid>
-                    <Grid item xs={3}>
+                    {/* <Grid item xs={3}>
                         <h3>Grid Item 2</h3>
                     </Grid>
                     <Grid item xs={3}>
@@ -73,7 +73,7 @@ export default function Home() {
                     </Grid>
                     <Grid item xs={3}>
                         <h3>Grid Item 4</h3>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Box>
         </center>
