@@ -1,7 +1,7 @@
 import React from "react";
 import {
-    Box, Container, Toolbar, 
-    Typography, Grid, Card,
+    Box, Toolbar, 
+    Grid, Card,
     CardActionArea,
     CardMedia,
     CardContent,
@@ -10,7 +10,7 @@ import {
     from "@mui/material";
 
 import banner from '../images/photos/banner03.png';
-import RSSFeed from "./RSSFeed";
+import BasicTabs from "./navigation/BasicTabs";
 
 export default function Home() {
 
@@ -43,8 +43,34 @@ export default function Home() {
                 width: '75vw'
             }}>
                 <Grid container spacing={2}>
+
                     <Grid item xs={12}>
-                        <h3>Grid Item 1</h3>
+                        <h3>RSS Feeds</h3>
+                        <Card sx={{
+                            border: '2px solid black',
+                            maxWidth: '100%',
+                            borderRadius: '25px',
+                            margin: '10px',
+                            padding: '10px',
+                            textAlign: 'center',
+                        }}>
+                            <CardActionArea>
+                                <CardMedia>
+                                    <CardContent>
+                                        {<BasicTabs />}
+                                    </CardContent>
+                                    <CardActions>
+
+                                    </CardActions>
+                                </CardMedia>
+                            </CardActionArea>
+                        </Card>
+                    </Grid>
+
+                    {/* *****************************************/}
+
+                    {/* <Grid item xs={3}>
+                        <h3>Grid Item 2</h3>
                         <Card sx={{
                             border: '2px solid black',
                             maxWidth: '100%',
@@ -65,15 +91,57 @@ export default function Home() {
                             </CardActionArea>
                         </Card>
                     </Grid>
-                    {/* <Grid item xs={3}>
-                        <h3>Grid Item 2</h3>
-                    </Grid>
-                    <Grid item xs={3}>
+
+                    {/* *****************************************/}
+
+                   {/* <Grid item xs={3}>
                         <h3>Grid Item 3</h3>
-                    </Grid>
-                    <Grid item xs={3}>
+                        <Card sx={{
+                            border: '2px solid black',
+                            maxWidth: '100%',
+                            borderRadius: '25px',
+                            margin: '10px',
+                            padding: '10px',
+                            textAlign: 'center',
+                        }}>
+                            <CardActionArea>
+                                <CardMedia>
+                                    <CardContent>
+                                        {<RSSFeed />}
+                                    </CardContent>
+                                    <CardActions>
+
+                                    </CardActions>
+                                </CardMedia>
+                            </CardActionArea>
+                        </Card>
+                     </Grid> */}
+
+                    {/* *****************************************/}
+
+                    {/* <Grid item xs={3}>
                         <h3>Grid Item 4</h3>
+                        <Card sx={{
+                            border: '2px solid black',
+                            maxWidth: '100%',
+                            borderRadius: '25px',
+                            margin: '10px',
+                            padding: '10px',
+                            textAlign: 'center',
+                        }}>
+                            <CardActionArea>
+                                <CardMedia>
+                                    <CardContent>
+                                        {<RSSFeed />}
+                                    </CardContent>
+                                    <CardActions>
+
+                                    </CardActions>
+                                </CardMedia>
+                            </CardActionArea>
+                        </Card>
                     </Grid> */}
+                    
                 </Grid>
             </Box>
         </center>
