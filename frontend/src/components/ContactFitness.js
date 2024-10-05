@@ -5,11 +5,12 @@ import {
 } from "@mui/material";
 import { Link } from 'react-router-dom';
 import SlideShowFitness from "./SlideShowFitness";
+import NavDrawerFitness from "./navigation/NavDrawerFitness";
 
 export default function ContactFitness() {
 
     return (<>
-        <Toolbar sx={{
+        {/* <Toolbar sx={{
             justifyContent: 'center',
             backgroundColor: 'grey',
             border: '1px solid black',
@@ -23,7 +24,9 @@ export default function ContactFitness() {
             }}>
                 Contact Information
             </Typography>
-        </Toolbar>
+        </Toolbar> */}
+
+        {<NavDrawerFitness />}
 
         {/********************************************************/}
 
@@ -113,10 +116,10 @@ export default function ContactFitness() {
                             </Card >
                         </center>
 
-                    </Grid>                    
+                    </Grid>
 
                     {/********************************************************/}
-                 
+
                 </Grid>
 
             </Box>
