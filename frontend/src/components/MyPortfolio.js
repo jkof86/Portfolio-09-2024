@@ -80,7 +80,22 @@ export default function MyPortfolio() {
                     />
 
                 </Document>
+
+                <p>
+                Page {pageNumber} of {numPages}
+            </p>
+            <Box>
+                <Button variant='contained' onClick={previousPage}
+                    sx={{ margin: ['10px'] }}>
+                    previous
+                </Button>
+                <Button variant='contained' onClick={nextPage}
+                    sx={{ margin: ['10px'] }}>
+                    Next
+                </Button>
+                </Box>
             </Box>
+            
         </div>
     </>);
 }
