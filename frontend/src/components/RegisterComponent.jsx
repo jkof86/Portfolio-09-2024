@@ -43,7 +43,10 @@ export default function RegisterComponent() {
           gap: 2,
           maxWidth: 400,
           margin: 'auto',
-          marginTop: 4
+          marginTop: 4,
+          backgroundColor: 'white',
+          padding: 10,
+          borderRadius: 10
         }}
       >
         <Typography variant="h6" textAlign="center">Register</Typography>

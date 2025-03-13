@@ -1,6 +1,6 @@
 import React from "react";
 import {
-    Box, Toolbar, 
+    Box, Toolbar,
     Grid, Card,
     CardActionArea,
     CardMedia,
@@ -11,12 +11,61 @@ import {
 
 import banner from '../images/photos/banner03.png';
 import BasicTabs from "./navigation/BasicTabs";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import CitySelector from "./CitySelector";
+import WeatherDashboard from "./WeatherDashboard";
+import Navbar from "./navigation/Navbar";
 
 export default function Home() {
 
+    //we use this to handle component redirects after validation
+    //useEffect ensures the component doesn't refresh inifinitely
+    const GoToHome = () => {
+        const navigate = useNavigate();
+        useEffect(() => {
+            navigate('/home')
+        }, [])
+    }
+    const GoToLogin = () => {
+        const navigate = useNavigate();
+        useEffect(() => {
+            navigate('/login')
+        }, [])
+    }
+
+    const validateUser = () => {
+
+        if (localStorage.getItem("isLoggedIn")) {
+            console.log("The user IS logged in")
+            return true
+        }
+        else {
+            console.log("The user IS NOT logged in")
+            return false
+        }
+    }
+
     return (<>
+
+        <Navbar />
+        <br />
+        <Box
+            component="form"
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+                maxWidth: 400,
+                margin: 'auto',
+                marginTop: 4
+            }}>
+
+        </Box>
+        {validateUser() ? GoToHome() : GoToLogin()}
+
         <center>
-             <Toolbar sx={{
+            <Toolbar sx={{
                 justifyContent: 'center',
                 backgroundImage: `url(${banner})`,
                 backgroundSize: 'contain',
@@ -94,7 +143,7 @@ export default function Home() {
 
                     {/* *****************************************/}
 
-                   {/* <Grid item xs={3}>
+                    {/* <Grid item xs={3}>
                         <h3>Grid Item 3</h3>
                         <Card sx={{
                             border: '2px solid black',
@@ -141,7 +190,7 @@ export default function Home() {
                             </CardActionArea>
                         </Card>
                     </Grid> */}
-                    
+
                 </Grid>
             </Box>
         </center>

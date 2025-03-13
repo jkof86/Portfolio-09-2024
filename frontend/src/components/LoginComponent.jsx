@@ -69,7 +69,10 @@ export default function LoginComponent() {
           gap: 2,
           maxWidth: 400,
           margin: 'auto',
-          marginTop: 4
+          marginTop: 4,
+          backgroundColor: 'white',
+          padding: 10,
+          borderRadius: 10
         }}
       >
 

@@ -1,8 +1,11 @@
+import Navbar from "./navigation/Navbar";
 import NavDrawerFitness from "./navigation/NavDrawerFitness";
 
-export default function Fitness(){
-    return(<>
-        {<NavDrawerFitness />}
-    Fitness and Nutrition
+export default function Fitness() {
+    return (<>
+        <Navbar />
+        <br/>
+        <NavDrawerFitness />
+        Fitness and Nutrition
     </>)
 }
