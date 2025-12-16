@@ -9,7 +9,9 @@ export default function Professional() {
         <Navbar />
         <br />
         <NavDrawerProfessional />
-        <Box
+
+        
+        {/* <Box
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -29,6 +31,8 @@ export default function Professional() {
             >Weather Tracker</Typography>
             <CitySelector />
             <WeatherDashboard />
-        </Box>
+        </Box> */}
+
+        
     </>)
 }

@@ -29,6 +29,8 @@ export default function RegisterComponent() {
     const user = { username, password };
     localStorage.setItem('user', JSON.stringify(user));
     console.log('User registered:', user);
+    alert('User registered:', user);
+
     goToNewComponent();
   }
 
@@ -72,7 +74,17 @@ export default function RegisterComponent() {
           fullWidth>
           Submit
         </Button>
+
+        <Typography>**WARNING**</Typography>
+
+        <Typography variant='caption'>
+          USERNAME and PASSWORD are UNENCRYPTED and stored locally <br/>
+          DO NOT register or login with your real credentials <br />
+          Registration/Login functionality is for testing purposes
+        </Typography>
+
       </Box>
+
     </>
   );
 };

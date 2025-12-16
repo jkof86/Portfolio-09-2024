@@ -9,7 +9,10 @@ const CitySelector = () => {
 
     // Fetch weather data 
     useEffect(() => {
+        /*
         fetch("http://api.revaturelearn.com/current_weather/all_cities")
+        */
+        fetch()
             .then((response) => response.json())
             .then((data) => setCitiesData(data))
             .catch((error) => console.error("Error fetching data:", error));
@@ -17,19 +20,19 @@ const CitySelector = () => {
 
     // Filter city names based on user input
     useEffect(() => {
-      // If the selected city is already chosen, clear the dropdown.
-      if (selectedCity && search.toLowerCase() === selectedCity.toLowerCase()) {
-        setFilteredCities([]);
-      } else if (search.length > 0) {
-        const filtered = Object.keys(citiesData).filter(city =>
-          city.toLowerCase().startsWith(search.toLowerCase())
-        );
-        setFilteredCities(filtered);
-      } else {
-        setFilteredCities([]);
-      }
+        // If the selected city is already chosen, clear the dropdown.
+        if (selectedCity && search.toLowerCase() === selectedCity.toLowerCase()) {
+            setFilteredCities([]);
+        } else if (search.length > 0) {
+            const filtered = Object.keys(citiesData).filter(city =>
+                city.toLowerCase().startsWith(search.toLowerCase())
+            );
+            setFilteredCities(filtered);
+        } else {
+            setFilteredCities([]);
+        }
     }, [search, citiesData, selectedCity]);
-    
+
 
     return (
         <div style={{ textAlign: "center", marginTop: "20px" }}>
@@ -50,10 +53,10 @@ const CitySelector = () => {
                 {filteredCities.length > 0 && (
                     <ul style={{
                         position: "absolute",
-                        top: "100%",   
-                        left: "50%",   
-                        transform: "translateX(-50%)", 
-                        width: "100%", 
+                        top: "100%",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        width: "100%",
                         background: "white",
                         border: "1px solid #ccc",
                         borderRadius: "5px",
@@ -63,7 +66,7 @@ const CitySelector = () => {
                         maxHeight: "150px",
                         overflowY: "auto",
                         zIndex: "1000",
-                        boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)" 
+                        boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
                     }}>
                         {filteredCities.map(city => (
                             <li key={city}

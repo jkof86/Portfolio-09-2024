@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 
 export default function LoginComponent() {
-  
+
   const [formData, setFormData] = useState({ email: '', password: '' });
 
   //we use this to navigate to the Home component after successful validation
@@ -34,6 +34,7 @@ export default function LoginComponent() {
     if (storedUser && storedUser.username === username && storedUser.password === password) {
       localStorage.setItem('isLoggedIn', 'true');
       console.log('User logged in successfully.')
+      alert('User logged in successfully.')
       goToNewComponent();
       return true;
     } else {
@@ -47,6 +48,8 @@ export default function LoginComponent() {
   const handleSuccess = (credentialResponse) => {
     //removed clientId and credential console output
     console.log("Login Success:", null);
+    alert("Login Success:", null);
+
     //using localStorage for validation until sessions are integrated 
     localStorage.setItem("isLoggedIn", true)
     goToNewComponent();
@@ -104,6 +107,14 @@ export default function LoginComponent() {
           fullWidth>
           Submit
         </Button>
+
+        <Typography>**WARNING**</Typography>
+
+        <Typography variant='caption'>
+          USERNAME and PASSWORD are UNENCRYPTED and stored locally <br />
+          DO NOT register or login with your real credentials <br />
+          Registration/Login functionality is for testing purposes
+        </Typography>
 
       </Box>
 
