@@ -50,28 +50,28 @@ export default function BasicTabs() {
         }}>
         <Tabs value={value} onChange={handleChange} aria-label="RSS Feed Tabs">
           <Tab label="Java Code Geeks" {...a11yProps(0)} />
-          <Tab label="Baeldung" {...a11yProps(1)} />
-          <Tab label="React Native Blog" {...a11yProps(2)} />
-          <Tab label="React Script" {...a11yProps(3)} />
-
+          <Tab label="CoinDesk" {...a11yProps(1)} />
+          <Tab label="Cointelegraph" {...a11yProps(2)} />
+          <Tab label="Coinbase" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-      <h3>Java Code Geeks</h3>
+      <h3>Java Code Geeks Headlines</h3>
       {<RSSFeed name="jcg" />}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <h3>Baeldung</h3>
-        {<RSSFeed name="baeldung" />}
+        <h3>CoinDesk News</h3>
+        {<RSSFeed name="cd" />}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <h3>React Native Blog</h3>
-        {<RSSFeed name="rnb" />}
+        <h3>Cointelegraph News</h3>
+        {<RSSFeed name="ct" />}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        <h3>React Script</h3>
-        {<RSSFeed name="rs" />}
+        <h3>Coinbase Blog</h3>
+        {<RSSFeed name="cb" />}
       </CustomTabPanel>
+  
     </Box>
   );
 }

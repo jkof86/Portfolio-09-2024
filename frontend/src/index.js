@@ -5,16 +5,25 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import AppProvider from './components/providers/AppContext'
+import Navbar2 from './components/navigation/Navbar2';
+
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
+const clientId = process.env.REACT_APP_CLIENT_ID;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* we wrap the Router and AppProvider around the entire app */}
-    <AppProvider>
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>
-    </AppProvider>
+    <GoogleOAuthProvider clientId={clientId}>
+
+      {/* we wrap the Router and AppProvider around the entire app */}
+      <AppProvider>
+        <BrowserRouter>
+          <Navbar2 />
+          <App />
+        </BrowserRouter>
+      </AppProvider>
+    </GoogleOAuthProvider>
   </React.StrictMode>
 );
 
