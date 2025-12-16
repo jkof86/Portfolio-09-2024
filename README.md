@@ -1,7 +1,7 @@
 # Personal Portfolio / Nutrition Tracker
 
 ## App Description / User Stories
-### This web app is designed to represent my portfolio and also serves as a personal project, utilizing one of my main interests, Fitness & Nutrition.
+### This Single-Page Application (SPA) is designed in REACT primarily to display my professional portfolio. It also serves as a portal for my personal design projects.
 
 - The user can register an account
 - The user can securely login/logout of their account
