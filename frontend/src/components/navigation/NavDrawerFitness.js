@@ -58,7 +58,7 @@ export default function NavDrawerFitness() {
           backgroundColor: 'white',
           borderRadius: '25px',
           border: '1px solid black',
-          boxShadow: '0px 0px 8px 2px white',
+          boxShadow: '0px 0px 8px 5px white',
           height: '230px',
           width: '487px'
         }}
@@ -167,7 +167,7 @@ export default function NavDrawerFitness() {
 
                 {item === 'Account' ? <ListItemButton sx={{}}
                   component={Link}
-                  to='/account'
+                  to='/fitness'
                   onClick={() => {
                     console.info("ACCOUNT BUTTON TEST");
                     setIsDrawerOpen(false);
@@ -180,7 +180,7 @@ export default function NavDrawerFitness() {
 
                 {item === 'Settings' ? <ListItemButton sx={{ borderTop: '1px solid black' }}
                   component={Link}
-                  to='/settings'
+                  to='/fitness'
                   onClick={() => {
                     console.info("SETTINGS BUTTON TEST");
                     setIsDrawerOpen(false);

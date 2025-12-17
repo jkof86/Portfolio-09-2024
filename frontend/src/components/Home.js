@@ -9,7 +9,7 @@ import {
 }
     from "@mui/material";
 
-import banner from '../images/bg/ksBanner04.jpeg';
+import banner from '../images/bg/ksBanner03.jpeg';
 import BasicTabs from "./navigation/BasicTabs";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -68,7 +68,7 @@ export default function Home() {
                 backgroundColor: 'white',
                 borderRadius: '25px',
                 border: '1px solid black',
-                boxShadow: '0px 0px 2px 2px white',
+                boxShadow: '0px 0px 8px 5px white',
                 height: '200px',
                 maxHeight: '200px',
                 width: '700px'

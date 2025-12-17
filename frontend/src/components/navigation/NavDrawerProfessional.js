@@ -154,7 +154,7 @@ export default function NavDrawerProfessional() {
 
                 {item === 'Account' ? <ListItemButton sx={{}}
                   component={Link}
-                  to='/account'
+                  to='/professional/about'
                   onClick={() => {
                     console.info("ACCOUNT BUTTON TEST");
                     setIsDrawerOpen(false);
@@ -167,7 +167,7 @@ export default function NavDrawerProfessional() {
 
                 {item === 'Settings' ? <ListItemButton sx={{ borderTop: '1px solid black' }}
                   component={Link}
-                  to='/settings'
+                  to='/professional/about'
                   onClick={() => {
                     console.info("SETTINGS BUTTON TEST");
                     setIsDrawerOpen(false);

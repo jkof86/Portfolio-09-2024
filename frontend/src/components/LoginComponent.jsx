@@ -7,6 +7,7 @@ import { GoogleLogin } from "@react-oauth/google";
 export default function LoginComponent() {
 
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const storedUser = JSON.parse(localStorage.getItem('user'));
 
   //we use this to navigate to the Home component after successful validation
   const navigate = useNavigate();
@@ -26,19 +27,19 @@ export default function LoginComponent() {
     event.preventDefault();
     loginUser(formData.email, formData.password);
     //removed formData console output
-    console.log('Form Data Submitted:', null);
+    console.log('Form Data Submitted:', formData);
   }
 
   function loginUser(username, password) {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
     if (storedUser && storedUser.username === username && storedUser.password === password) {
       localStorage.setItem('isLoggedIn', 'true');
-      console.log('User logged in successfully.')
-      alert('User logged in successfully.')
+      console.log(username + ' logged in successfully')
+      alert(username + ' logged in successfully')
       goToNewComponent();
       return true;
     } else {
-      console.log('Invalid username or password.');
+      console.log('Invalid username or password');
+      alert('Invalid username or password');
       return false;
     }
   }
@@ -47,8 +48,8 @@ export default function LoginComponent() {
 
   const handleSuccess = (credentialResponse) => {
     //removed clientId and credential console output
-    console.log("Login Success:", null);
-    alert("Login Success:", null);
+    console.log("Login Success!");
+    alert("Login Success!");
 
     //using localStorage for validation until sessions are integrated 
     localStorage.setItem("isLoggedIn", true)
