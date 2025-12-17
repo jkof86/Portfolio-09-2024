@@ -20,7 +20,7 @@ import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import Typography from '@mui/material/Typography';
 
-import banner from '../../images/bg/professionalBanner02.jpeg';
+import banner from '../../images/bg/professionalBanner04.jpg';
 
 const navItems = ['Back', 'Contact', 'About'];
 const navItems2 = ['Account', 'Settings', 'Logout'];
@@ -33,7 +33,7 @@ export default function NavDrawerProfessional() {
   return (<>
 
     <Toolbar sx={{
-      justifyContent: 'center'
+      justifyContent: 'center',
     }}>
 
       <IconButton
@@ -48,8 +48,9 @@ export default function NavDrawerProfessional() {
 
       <center>
 
-        {/* <Toolbar sx={{
+         <Toolbar sx={{
           justifyContent: 'center',
+          marginLeft: 2,
           backgroundImage: `url(${banner})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
@@ -57,13 +58,13 @@ export default function NavDrawerProfessional() {
           backgroundColor: 'white',
           borderRadius: '25px',
           border: '1px solid black',
-          boxShadow: '0px 0px 2px 2px white',
-          height: '270px',
-          width: '481px'
+          boxShadow: '0px 0px 8px 5px white',
+          height: '170px',
+          width: '560px'
         }}
           variant='menu'
           position="static"
-        > */}
+        >
 
           <Drawer
             open={isDrawerOpen}
@@ -193,7 +194,7 @@ export default function NavDrawerProfessional() {
 
           </Drawer>
 
-        {/* </Toolbar> */}
+         </Toolbar>
 
       </center>
 

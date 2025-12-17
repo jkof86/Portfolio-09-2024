@@ -9,7 +9,7 @@ import {
 }
     from "@mui/material";
 
-import banner from '../images/bg/ksBanner03.jpeg';
+import banner from '../images/bg/ksBanner08.jpeg';
 import BasicTabs from "./navigation/BasicTabs";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -69,11 +69,9 @@ export default function Home() {
                 borderRadius: '25px',
                 border: '1px solid black',
                 boxShadow: '0px 0px 8px 5px white',
-                height: '200px',
-                maxHeight: '200px',
-                width: '700px'
-            }}
-            />
+                height: '300px',
+                width: '800px'
+            }} />
 
             <Navbar />
 
@@ -87,8 +85,7 @@ export default function Home() {
                 margin: '20px',
                 width: '75vw'
             }}>
-                <Grid container spacing={2}>
-
+                <Grid container spacing={0}>
                     <Grid item xs={12}>
                         <h3>RSS Feeds</h3>
                         <Card sx={{

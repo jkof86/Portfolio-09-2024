@@ -50,6 +50,7 @@ export default function NavDrawerGaming() {
 
         <Toolbar sx={{
           justifyContent: 'center',
+          marginLeft: 2,
           backgroundImage: `url(${banner})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
@@ -90,28 +91,12 @@ export default function NavDrawerGaming() {
 
                 {item === 'Back' ? <ListItemButton sx={{ textAlign: 'left' }}
                   component={Link}
-                  to='/gaming'
+                  to='/gaming/about'
                   onClick={() => {
                     console.info("HOME BUTTON TEST");
                     setIsDrawerOpen(false);
                   }}>
                   <ArrowBackIcon sx={{ margin: '5px' }} />
-                  <ListItemText primary={item} />
-                </ListItemButton> : ''}
-
-                {/* //------------------------------------------------ */}
-
-                {item === 'Nutrition Calculator' ? <ListItemButton sx={{
-                  borderTop: '1px solid black',
-                  textAlign: 'left'
-                }}
-                  component={Link}
-                  to='/calculator'
-                  onClick={() => {
-                    console.info("CALCULATOR BUTTON TEST");
-                    setIsDrawerOpen(false);
-                  }}>
-                  <CalculateIcon sx={{ margin: '5px' }} />
                   <ListItemText primary={item} />
                 </ListItemButton> : ''}
 
@@ -167,7 +152,7 @@ export default function NavDrawerGaming() {
 
                 {item === 'Account' ? <ListItemButton sx={{}}
                   component={Link}
-                  to='/gaming'
+                  to='/gaming/about'
                   onClick={() => {
                     console.info("ACCOUNT BUTTON TEST");
                     setIsDrawerOpen(false);
@@ -180,7 +165,7 @@ export default function NavDrawerGaming() {
 
                 {item === 'Settings' ? <ListItemButton sx={{ borderTop: '1px solid black' }}
                   component={Link}
-                  to='/gaming'
+                  to='/gaming/about'
                   onClick={() => {
                     console.info("SETTINGS BUTTON TEST");
                     setIsDrawerOpen(false);

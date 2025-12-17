@@ -18,7 +18,7 @@ export default function Navbar() {
                 gap: 2,
                 maxWidth: 400,
                 margin: 'auto',
-                marginTop: 4
+                marginTop: 2
             }}
                 variant="menu"
                 position="static"
@@ -42,7 +42,7 @@ export default function Navbar() {
                         margin: '0px',
                         marginTop: '10px'
                     }}
-                        component={Link} to='/fitness'>
+                        component={Link} to='/fitness/calculator'>
                         Fitness / Nutrition
                     </Button>
 
@@ -52,7 +52,7 @@ export default function Navbar() {
                         margin: '0px',
                         marginTop: '10px'
                     }}
-                        component={Link} to='/gaming'>
+                        component={Link} to='/gaming/about'>
                         Gaming
                     </Button>
                 </Box>

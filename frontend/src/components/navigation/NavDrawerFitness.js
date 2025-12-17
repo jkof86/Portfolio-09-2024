@@ -51,6 +51,7 @@ export default function NavDrawerFitness() {
 
         <Toolbar sx={{
           justifyContent: 'center',
+          marginLeft: 2,
           backgroundImage: `url(${banner})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
@@ -90,7 +91,7 @@ export default function NavDrawerFitness() {
 
                 {item === 'Back' ? <ListItemButton sx={{ textAlign: 'left' }}
                   component={Link}
-                  to='/fitness'
+                  to='/fitness/calculator'
                   onClick={() => {
                     console.info("HOME BUTTON TEST");
                     setIsDrawerOpen(false);
@@ -167,7 +168,7 @@ export default function NavDrawerFitness() {
 
                 {item === 'Account' ? <ListItemButton sx={{}}
                   component={Link}
-                  to='/fitness'
+                  to='/fitness/calculator'
                   onClick={() => {
                     console.info("ACCOUNT BUTTON TEST");
                     setIsDrawerOpen(false);
@@ -180,7 +181,7 @@ export default function NavDrawerFitness() {
 
                 {item === 'Settings' ? <ListItemButton sx={{ borderTop: '1px solid black' }}
                   component={Link}
-                  to='/fitness'
+                  to='/fitness/calculator'
                   onClick={() => {
                     console.info("SETTINGS BUTTON TEST");
                     setIsDrawerOpen(false);
@@ -209,7 +210,7 @@ export default function NavDrawerFitness() {
         </Toolbar>
 
       </center>
-      
+
     </Toolbar>
 
   </>
