@@ -9,12 +9,10 @@ import {
 }
     from "@mui/material";
 
-import banner from '../images/photos/banner03.png';
+import banner from '../images/bg/ksBanner04.jpeg';
 import BasicTabs from "./navigation/BasicTabs";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import CitySelector from "./CitySelector";
-import WeatherDashboard from "./WeatherDashboard";
 import Navbar from "./navigation/Navbar";
 
 export default function Home() {
@@ -47,9 +45,6 @@ export default function Home() {
     }
 
     return (<>
-
-        <Navbar />
-        <br />
         <Box
             component="form"
             sx={{
@@ -58,9 +53,8 @@ export default function Home() {
                 gap: 2,
                 maxWidth: 400,
                 margin: 'auto',
-                marginTop: 4
+                // marginTop: 0
             }}>
-
         </Box>
         {validateUser() ? GoToHome() : GoToLogin()}
 
@@ -68,7 +62,7 @@ export default function Home() {
             <Toolbar sx={{
                 justifyContent: 'center',
                 backgroundImage: `url(${banner})`,
-                backgroundSize: 'contain',
+                backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
                 backgroundColor: 'white',
@@ -81,6 +75,7 @@ export default function Home() {
             }}
             />
 
+            <Navbar />
 
             <Box padding={0} sx={{
                 justifyContent: 'center',

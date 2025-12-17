@@ -6,11 +6,9 @@ import { Box, Typography } from "@mui/material";
 
 export default function Professional() {
     return (<>
-        <Navbar />
-        <br />
         <NavDrawerProfessional />
+        <Navbar />
 
-        
         {/* <Box
             sx={{
                 display: 'flex',
@@ -33,6 +31,6 @@ export default function Professional() {
             <WeatherDashboard />
         </Box> */}
 
-        
+
     </>)
 }

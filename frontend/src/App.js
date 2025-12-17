@@ -16,7 +16,6 @@ import RegisterComponent from "./components/RegisterComponent";
 export default function App() {
 
   return (<>
-    {/* {<Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} */}
     <Routes>
       <Route path="/" element={<LoginComponent />} />
       <Route path="/professional/about" element={<About />} />

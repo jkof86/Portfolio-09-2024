@@ -9,6 +9,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InfoIcon from '@mui/icons-material/Info';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -19,9 +20,9 @@ import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import Typography from '@mui/material/Typography';
 
-import banner from '../../images/bg/tech_banner_01.png';
+import banner from '../../images/bg/professionalBanner02.jpeg';
 
-const navItems = ['Home', 'Contact', 'About'];
+const navItems = ['Back', 'Contact', 'About'];
 const navItems2 = ['Account', 'Settings', 'Logout'];
 
 export default function NavDrawerProfessional() {
@@ -32,19 +33,9 @@ export default function NavDrawerProfessional() {
   return (<>
 
     <Toolbar sx={{
-      justifyContent: 'space-between',
-      backgroundImage: `url(${banner})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-      borderRadius: '25px',
-      border: '1px solid black',
-      boxShadow: '0px 0px 2px 2px white',
-      Width: '100vw',
-      height: '145px'
-    }}
-      variant='menu'
-      position="static"
-    >
+      justifyContent: 'center'
+    }}>
+
       <IconButton
         edge="start"
         aria-label="menu"
@@ -55,151 +46,159 @@ export default function NavDrawerProfessional() {
 
       </IconButton>
 
-      <Drawer
-        open={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
-        // PaperProps allows us to resize the menu
-        PaperProps={{
-          sx: { width: "15rem" }
-        }}>
+      <center>
 
-        <Typography sx={{ my: 2, textAlign: 'center' }}>
-          Professional 
-        </Typography>
+        {/* <Toolbar sx={{
+          justifyContent: 'center',
+          backgroundImage: `url(${banner})`,
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          backgroundColor: 'white',
+          borderRadius: '25px',
+          border: '1px solid black',
+          boxShadow: '0px 0px 2px 2px white',
+          height: '270px',
+          width: '481px'
+        }}
+          variant='menu'
+          position="static"
+        > */}
 
-        <Divider sx={{
-          borderColor: 'black',
-          borderBottomWidth: '5px', margin: ' 5px'
-        }} />
+          <Drawer
+            open={isDrawerOpen}
+            onClose={() => setIsDrawerOpen(false)}
+            // PaperProps allows us to resize the menu
+            PaperProps={{
+              sx: { width: "15rem" }
+            }}>
 
-        {/* //THIS SECTION HANDLES MENU BUTTON NAVIGATION  */}
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
+            <Typography sx={{ my: 2, textAlign: 'center' }}>
+              Professional
+            </Typography>
 
-            {/* //------------------------------------------------ */}
+            <Divider sx={{
+              borderColor: 'black',
+              borderBottomWidth: '5px', margin: ' 5px'
+            }} />
 
-            {item === 'Home' ? <ListItemButton sx={{ textAlign: 'left' }}
-              component={Link}
-              to='/'
-              onClick={() => {
-                console.info("HOME BUTTON TEST");
-                setIsDrawerOpen(false);
-              }}>
-              <HomeIcon sx={{ margin: '5px' }} />
-              <ListItemText primary={item} />
-            </ListItemButton> : ''}
+            {/* //THIS SECTION HANDLES MENU BUTTON NAVIGATION  */}
+            {navItems.map((item) => (
+              <ListItem key={item} disablePadding>
 
-            {/* //------------------------------------------------ */}
+                {/* //------------------------------------------------ */}
 
-            {item === 'Contact' ? <ListItemButton sx={{
-              borderTop: '1px solid black',
-              textAlign: 'left'
-            }}
-              component={Link}
-              to='/professional/contact'
-              onClick={() => {
-                console.info("CONTACT US BUTTON TEST");
-                setIsDrawerOpen(false);
-              }}>
-              <ContactSupportIcon sx={{ margin: '5px' }} />
-              <ListItemText primary={item} />
-            </ListItemButton> : ''}
 
-            {/* //------------------------------------------------ */}
+                {item === 'Back' ? <ListItemButton sx={{ textAlign: 'left' }}
+                  component={Link}
+                  to='/professional/about'
+                  onClick={() => {
+                    console.info("BACK BUTTON TEST");
+                    setIsDrawerOpen(false);
+                  }}>
+                  <ArrowBackIcon sx={{ margin: '5px' }} />
+                  <ListItemText primary={item} />
+                </ListItemButton> : ''}
 
-            {item === 'About' ? <ListItemButton sx={{
-              borderTop: '1px solid black',
-              textAlign: 'left'
-            }}
-              component={Link}
-              to='/professional/about'
-              onClick={() => {
-                console.info("ABOUT BUTTON TEST");
-                setIsDrawerOpen(false);
-              }}>
-              <InfoIcon sx={{ margin: '5px' }} />
-              <ListItemText primary={item} />
-            </ListItemButton> : ''}
+                {/* //------------------------------------------------ */}
 
-            
+                {item === 'Contact' ? <ListItemButton sx={{
+                  borderTop: '1px solid black',
+                  textAlign: 'left'
+                }}
+                  component={Link}
+                  to='/professional/contact'
+                  onClick={() => {
+                    console.info("CONTACT US BUTTON TEST");
+                    setIsDrawerOpen(false);
+                  }}>
+                  <ContactSupportIcon sx={{ margin: '5px' }} />
+                  <ListItemText primary={item} />
+                </ListItemButton> : ''}
 
-            {/* //------------------------------------------------ */}
+                {/* //------------------------------------------------ */}
 
-          </ListItem>
+                {item === 'About' ? <ListItemButton sx={{
+                  borderTop: '1px solid black',
+                  textAlign: 'left'
+                }}
+                  component={Link}
+                  to='/professional/about'
+                  onClick={() => {
+                    console.info("ABOUT BUTTON TEST");
+                    setIsDrawerOpen(false);
+                  }}>
+                  <InfoIcon sx={{ margin: '5px' }} />
+                  <ListItemText primary={item} />
+                </ListItemButton> : ''}
 
-        ))};
 
-        {/* //------------------------------------------------ */}
 
-        <Divider sx={{
-          borderColor: 'black',
-          borderBottomWidth: '5px'
-        }} />
+                {/* //------------------------------------------------ */}
 
-        {/* //------------------------------------------------ */}
+              </ListItem>
 
-        {navItems2.map((item) => (
-          <ListItem key={item} disablePadding>
-
-            {item === 'Account' ? <ListItemButton sx={{}}
-              component={Link}
-              to='/account'
-              onClick={() => {
-                console.info("ACCOUNT BUTTON TEST");
-                setIsDrawerOpen(false);
-              }}>
-              <AccountCircleIcon sx={{ margin: '5px' }} />
-              <ListItemText primary={item} />
-            </ListItemButton> : ''}
+            ))};
 
             {/* //------------------------------------------------ */}
 
-            {item === 'Settings' ? <ListItemButton sx={{ borderTop: '1px solid black' }}
-              component={Link}
-              to='/settings'
-              onClick={() => {
-                console.info("SETTINGS BUTTON TEST");
-                setIsDrawerOpen(false);
-              }}>
-              <SettingsIcon sx={{ margin: '5px' }} />
-              <ListItemText primary={item} />
-            </ListItemButton> : ''}
+            <Divider sx={{
+              borderColor: 'black',
+              borderBottomWidth: '5px'
+            }} />
 
             {/* //------------------------------------------------ */}
 
-            {item === 'Logout' ? <ListItemButton sx={{ borderTop: '1px solid black' }}
-              component={Link}
-              to='/'
-              onClick={() => {
-                console.info("LOGOUT BUTTON TEST");
-                setIsDrawerOpen(false);
-              }}>
-              <LogoutIcon sx={{ margin: '5px' }} />
-              <ListItemText primary={item} />
-            </ListItemButton> : ''}
-          </ListItem>
-        ))}
+            {navItems2.map((item) => (
+              <ListItem key={item} disablePadding>
 
-      </Drawer>
+                {item === 'Account' ? <ListItemButton sx={{}}
+                  component={Link}
+                  to='/account'
+                  onClick={() => {
+                    console.info("ACCOUNT BUTTON TEST");
+                    setIsDrawerOpen(false);
+                  }}>
+                  <AccountCircleIcon sx={{ margin: '5px' }} />
+                  <ListItemText primary={item} />
+                </ListItemButton> : ''}
 
-      <Box>
-        <Typography variant="h4" sx={{
-          my: 2,
-          color: 'white',
-          textAlign: 'center'
-        }}>
-          Professional
-        </Typography>
-      </Box>
-      {/* we use an empty 3rd box 
-            in order to center the Text within the toolbar */}
-      <Box>
-      </Box>
+                {/* //------------------------------------------------ */}
+
+                {item === 'Settings' ? <ListItemButton sx={{ borderTop: '1px solid black' }}
+                  component={Link}
+                  to='/settings'
+                  onClick={() => {
+                    console.info("SETTINGS BUTTON TEST");
+                    setIsDrawerOpen(false);
+                  }}>
+                  <SettingsIcon sx={{ margin: '5px' }} />
+                  <ListItemText primary={item} />
+                </ListItemButton> : ''}
+
+                {/* //------------------------------------------------ */}
+
+                {item === 'Logout' ? <ListItemButton sx={{ borderTop: '1px solid black' }}
+                  component={Link}
+                  to='/'
+                  onClick={() => {
+                    console.info("LOGOUT BUTTON TEST");
+                    setIsDrawerOpen(false);
+                  }}>
+                  <LogoutIcon sx={{ margin: '5px' }} />
+                  <ListItemText primary={item} />
+                </ListItemButton> : ''}
+              </ListItem>
+            ))}
+
+          </Drawer>
+
+        {/* </Toolbar> */}
+
+      </center>
 
     </Toolbar>
 
   </>
   );
-
-
 }

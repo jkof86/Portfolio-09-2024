@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import SlideShowProfessional from "./SlideShowProfessional";
 import NavDrawerProfessional from "./navigation/NavDrawerProfessional";
 
+import banner from '../images/bg/ksAvatar01.jpg';
+
 export default function ContactProfessional() {
 
     return (<>
@@ -28,7 +30,21 @@ export default function ContactProfessional() {
                 width: '90vw'
             }}>
                 <center>
-                    <SlideShowProfessional />
+                    {/* <SlideShowProfessional /> */}
+                    <Box sx={{
+                              justifyContent: 'center',
+                              backgroundImage: `url(${banner})`,
+                              backgroundSize: 'cover',
+                              backgroundRepeat: 'no-repeat',
+                              backgroundPosition: 'center',
+                              backgroundColor: 'white',
+                              borderRadius: '25px',
+                              border: '1px solid black',
+                              boxShadow: '0px 0px 8px 2px white',
+                              height: '874px',
+                              width: '655px'
+                            }}
+                            ></Box>
                 </center>
 
                 <Grid container spacing={4} sx={{ justifyContent: 'center' }}>

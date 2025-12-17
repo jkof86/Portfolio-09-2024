@@ -31,7 +31,7 @@ export default function Navbar() {
                         margin: '0px',
                         marginTop: '10px'
                     }}
-                        component={Link} to='/professional'
+                        component={Link} to='/professional/about'
                     >
                         Professional
                     </Button>
