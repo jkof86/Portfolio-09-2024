@@ -25,7 +25,7 @@ import banner from '../../images/bg/professionalBanner04.jpg';
 import { googleLogout } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 
-const navItems = ['Back', 'Contact', 'About'];
+const navItems = ['Home', 'Back', 'Contact', 'About'];
 const navItems2 = ['Account', 'Settings', 'Logout'];
 
 export default function NavDrawerProfessional() {
@@ -105,7 +105,19 @@ export default function NavDrawerProfessional() {
               <ListItem key={item} disablePadding>
 
                 {/* //------------------------------------------------ */}
+                
+                                {item === 'Home' ? <ListItemButton sx={{ textAlign: 'left' }}
+                                  component={Link}
+                                  to='/'
+                                  onClick={() => {
+                                    console.info("HOME BUTTON TEST");
+                                    setIsDrawerOpen(false);
+                                  }}>
+                                  <HomeIcon sx={{ margin: '5px' }} />
+                                  <ListItemText primary={item} />
+                                </ListItemButton> : ''}
 
+                {/* //------------------------------------------------ */}
 
                 {item === 'Back' ? <ListItemButton sx={{ textAlign: 'left' }}
                   component={Link}

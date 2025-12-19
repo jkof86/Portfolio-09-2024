@@ -8,8 +8,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@mui/icons-material/Home';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import CalculateIcon from '@mui/icons-material/Calculate';
 import InfoIcon from '@mui/icons-material/Info';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -25,7 +25,7 @@ import banner from '../../images/bg/gamesBanner01.jpeg';
 import { googleLogout } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 
-const navItems = ['Back', 'Contact', 'About'];
+const navItems = ['Home','Back', 'Contact', 'About'];
 const navItems2 = ['Account', 'Settings', 'Logout'];
 
 export default function NavDrawerGaming() {
@@ -104,6 +104,19 @@ export default function NavDrawerGaming() {
             {navItems.map((item) => (
               <ListItem key={item} disablePadding>
 
+                {/* //------------------------------------------------ */}
+
+                {item === 'Home' ? <ListItemButton sx={{ textAlign: 'left' }}
+                  component={Link}
+                  to='/'
+                  onClick={() => {
+                    console.info("HOME BUTTON TEST");
+                    setIsDrawerOpen(false);
+                  }}>
+                  <HomeIcon sx={{ margin: '5px' }} />
+                  <ListItemText primary={item} />
+                </ListItemButton> : ''}
+                
                 {/* //------------------------------------------------ */}
 
                 {item === 'Back' ? <ListItemButton sx={{ textAlign: 'left' }}

@@ -8,6 +8,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@mui/icons-material/Home';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import InfoIcon from '@mui/icons-material/Info';
@@ -25,7 +26,7 @@ import banner from '../../images/bg/fitnessBanner02.jpeg';
 import { googleLogout } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 
-const navItems = ['Back', 'Nutrition Calculator', 'Contact'];
+const navItems = ['Home', 'Back', 'Nutrition Calculator', 'Contact'];
 const navItems2 = ['Account', 'Settings', 'Logout'];
 
 export default function NavDrawerFitness() {
@@ -106,6 +107,19 @@ export default function NavDrawerFitness() {
 
                 {/* //------------------------------------------------ */}
 
+                {item === 'Home' ? <ListItemButton sx={{ textAlign: 'left' }}
+                  component={Link}
+                  to='/'
+                  onClick={() => {
+                    console.info("HOME BUTTON TEST");
+                    setIsDrawerOpen(false);
+                  }}>
+                  <HomeIcon sx={{ margin: '5px' }} />
+                  <ListItemText primary={item} />
+                </ListItemButton> : ''}
+
+                {/* //------------------------------------------------ */}
+
                 {item === 'Back' ? <ListItemButton sx={{ textAlign: 'left' }}
                   component={Link}
                   to='/fitness/calculator'
@@ -135,22 +149,6 @@ export default function NavDrawerFitness() {
 
                 {/* //------------------------------------------------ */}
 
-                {item === 'Contact' ? <ListItemButton sx={{
-                  borderTop: '1px solid black',
-                  textAlign: 'left'
-                }}
-                  component={Link}
-                  to='/fitness/contact'
-                  onClick={() => {
-                    console.info("CONTACT US BUTTON TEST");
-                    setIsDrawerOpen(false);
-                  }}>
-                  <ContactSupportIcon sx={{ margin: '5px' }} />
-                  <ListItemText primary={item} />
-                </ListItemButton> : ''}
-
-                {/* //------------------------------------------------ */}
-
                 {item === 'About' ? <ListItemButton sx={{
                   borderTop: '1px solid black',
                   textAlign: 'left'
@@ -162,6 +160,22 @@ export default function NavDrawerFitness() {
                     setIsDrawerOpen(false);
                   }}>
                   <InfoIcon sx={{ margin: '5px' }} />
+                  <ListItemText primary={item} />
+                </ListItemButton> : ''}
+
+                {/* //------------------------------------------------ */}
+
+                {item === 'Contact' ? <ListItemButton sx={{
+                  borderTop: '1px solid black',
+                  textAlign: 'left'
+                }}
+                  component={Link}
+                  to='/fitness/contact'
+                  onClick={() => {
+                    console.info("CONTACT US BUTTON TEST");
+                    setIsDrawerOpen(false);
+                  }}>
+                  <ContactSupportIcon sx={{ margin: '5px' }} />
                   <ListItemText primary={item} />
                 </ListItemButton> : ''}
 
@@ -210,7 +224,7 @@ export default function NavDrawerFitness() {
                 {/* //------------------------------------------------ */}
 
                 {item === 'Logout' ? <ListItemButton sx={{ borderTop: '1px solid black' }}
-                    onClick={() => {
+                  onClick={() => {
                     setIsDrawerOpen(false);
                     handleLogout();
                   }}>

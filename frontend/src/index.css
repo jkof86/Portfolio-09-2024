@@ -16,8 +16,8 @@ body {
   background-image: url("images/bg/ksBG01.jpg");
   /* background-image: url("images/bg/vector-jan-2021-19_generated.jpg"); */
   background-color: black;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-repeat: repeat;
+  background-size: contain;
 }
 
 code {
