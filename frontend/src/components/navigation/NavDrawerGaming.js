@@ -25,7 +25,7 @@ import banner from '../../images/bg/gamesBanner01.jpeg';
 import { googleLogout } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 
-const navItems = ['Home','Back', 'Contact', 'About'];
+const navItems = ['Back', 'Home','Contact ', 'About'];
 const navItems2 = ['Account', 'Settings', 'Logout'];
 
 export default function NavDrawerGaming() {
@@ -108,7 +108,7 @@ export default function NavDrawerGaming() {
 
                 {item === 'Home' ? <ListItemButton sx={{ textAlign: 'left' }}
                   component={Link}
-                  to='/'
+                  to='/home'
                   onClick={() => {
                     console.info("HOME BUTTON TEST");
                     setIsDrawerOpen(false);
@@ -123,7 +123,7 @@ export default function NavDrawerGaming() {
                   component={Link}
                   to='/gaming/about'
                   onClick={() => {
-                    console.info("HOME BUTTON TEST");
+                    console.info("BACK BUTTON TEST");
                     setIsDrawerOpen(false);
                   }}>
                   <ArrowBackIcon sx={{ margin: '5px' }} />

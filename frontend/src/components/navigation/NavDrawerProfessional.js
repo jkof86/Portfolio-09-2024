@@ -25,27 +25,27 @@ import banner from '../../images/bg/professionalBanner04.jpg';
 import { googleLogout } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 
-const navItems = ['Home', 'Back', 'Contact', 'About'];
+const navItems = ['Back', 'Home',  'About', 'Contact'];
 const navItems2 = ['Account', 'Settings', 'Logout'];
 
 export default function NavDrawerProfessional() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const storedUser = JSON.parse(localStorage.getItem('user'));
-    const navigate = useNavigate();
-  
-    const goToLogin = () => {
-      //reload page to clear cache
-      navigate("/login");
-      // window.location.reload()
-    }
-  
-    function handleLogout() {
-      googleLogout(); // disables auto-login
-      alert(`Logged out successfully`);
-      localStorage.removeItem('isLoggedIn');
-      goToLogin();
-    }
+  const navigate = useNavigate();
+
+  const goToLogin = () => {
+    //reload page to clear cache
+    navigate("/login");
+    // window.location.reload()
+  }
+
+  function handleLogout() {
+    googleLogout(); // disables auto-login
+    alert(`Logged out successfully`);
+    localStorage.removeItem('isLoggedIn');
+    goToLogin();
+  }
 
   return (<>
 
@@ -65,7 +65,7 @@ export default function NavDrawerProfessional() {
 
       <center>
 
-         <Toolbar sx={{
+        <Toolbar sx={{
           justifyContent: 'center',
           marginLeft: 2,
           backgroundImage: `url(${banner})`,
@@ -105,19 +105,6 @@ export default function NavDrawerProfessional() {
               <ListItem key={item} disablePadding>
 
                 {/* //------------------------------------------------ */}
-                
-                                {item === 'Home' ? <ListItemButton sx={{ textAlign: 'left' }}
-                                  component={Link}
-                                  to='/'
-                                  onClick={() => {
-                                    console.info("HOME BUTTON TEST");
-                                    setIsDrawerOpen(false);
-                                  }}>
-                                  <HomeIcon sx={{ margin: '5px' }} />
-                                  <ListItemText primary={item} />
-                                </ListItemButton> : ''}
-
-                {/* //------------------------------------------------ */}
 
                 {item === 'Back' ? <ListItemButton sx={{ textAlign: 'left' }}
                   component={Link}
@@ -129,6 +116,20 @@ export default function NavDrawerProfessional() {
                   <ArrowBackIcon sx={{ margin: '5px' }} />
                   <ListItemText primary={item} />
                 </ListItemButton> : ''}
+
+                {/* //------------------------------------------------ */}
+
+                {item === 'Home' ? <ListItemButton sx={{ textAlign: 'left' }}
+                  component={Link}
+                  to='/home'
+                  onClick={() => {
+                    console.info("HOME BUTTON TEST");
+                    setIsDrawerOpen(false);
+                  }}>
+                  <HomeIcon sx={{ margin: '5px' }} />
+                  <ListItemText primary={item} />
+                </ListItemButton> : ''}
+
 
                 {/* //------------------------------------------------ */}
 
@@ -209,7 +210,7 @@ export default function NavDrawerProfessional() {
                 {/* //------------------------------------------------ */}
 
                 {item === 'Logout' ? <ListItemButton sx={{ borderTop: '1px solid black' }}
-                    onClick={() => {
+                  onClick={() => {
                     console.info("LOGOUT BUTTON TEST");
                     setIsDrawerOpen(false);
                     handleLogout();
@@ -222,7 +223,7 @@ export default function NavDrawerProfessional() {
 
           </Drawer>
 
-         </Toolbar>
+        </Toolbar>
 
       </center>
 
