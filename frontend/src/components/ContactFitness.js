@@ -24,10 +24,10 @@ export default function ContactFitness() {
                 boxShadow: '0px 0px 2px 2px white',
                 padding: '10px',
                 margin: '20px',
-                // width: '90vw'
+                width: '50vw'
             }}>
                 <center>
-                    {/* <SlideShowFitness /> */}
+                    <SlideShowFitness />
                 </center>
 
                 <Grid container spacing={4} sx={{ justifyContent: 'center' }}>
