@@ -39,11 +39,10 @@ export default function Navbar() {
             alert('You are currently logged out');
         else {
             googleLogout(); // disables auto-login
-            alert(`${storedUser.username} logged out successfully`);
+            alert(`Logged out successfully`);
             localStorage.removeItem('isLoggedIn');
             goToLogin();
         }
-
     }
 
     return (<>

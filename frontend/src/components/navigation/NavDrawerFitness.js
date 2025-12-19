@@ -23,6 +23,7 @@ import Typography from '@mui/material/Typography';
 import banner from '../../images/bg/fitnessBanner02.jpeg';
 
 import { googleLogout } from '@react-oauth/google';
+import { useNavigate } from 'react-router-dom';
 
 const navItems = ['Back', 'Nutrition Calculator', 'Contact'];
 const navItems2 = ['Account', 'Settings', 'Logout'];
@@ -30,12 +31,22 @@ const navItems2 = ['Account', 'Settings', 'Logout'];
 export default function NavDrawerFitness() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+  const storedUser = JSON.parse(localStorage.getItem('user'));
+  const navigate = useNavigate();
+
+  const goToLogin = () => {
+    //reload page to clear cache
+    navigate("/login");
+    // window.location.reload()
+  }
+
   function handleLogout() {
     googleLogout(); // disables auto-login
-    localStorage.removeItem('user');
+    alert(`Logged out successfully`);
     localStorage.removeItem('isLoggedIn');
-    alert('User logged out successfully');
+    goToLogin();
   }
+
 
   return (<>
 
@@ -199,7 +210,7 @@ export default function NavDrawerFitness() {
                 {/* //------------------------------------------------ */}
 
                 {item === 'Logout' ? <ListItemButton sx={{ borderTop: '1px solid black' }}
-                  onClick={() => {
+                    onClick={() => {
                     setIsDrawerOpen(false);
                     handleLogout();
                   }}>

@@ -22,13 +22,30 @@ import Typography from '@mui/material/Typography';
 
 import banner from '../../images/bg/professionalBanner04.jpg';
 
+import { googleLogout } from '@react-oauth/google';
+import { useNavigate } from 'react-router-dom';
+
 const navItems = ['Back', 'Contact', 'About'];
 const navItems2 = ['Account', 'Settings', 'Logout'];
 
 export default function NavDrawerProfessional() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  // const [state, setState] = useState(false);
-  // const navigateTrigger = useNavigate();
+
+  const storedUser = JSON.parse(localStorage.getItem('user'));
+    const navigate = useNavigate();
+  
+    const goToLogin = () => {
+      //reload page to clear cache
+      navigate("/login");
+      // window.location.reload()
+    }
+  
+    function handleLogout() {
+      googleLogout(); // disables auto-login
+      alert(`Logged out successfully`);
+      localStorage.removeItem('isLoggedIn');
+      goToLogin();
+    }
 
   return (<>
 
@@ -180,11 +197,10 @@ export default function NavDrawerProfessional() {
                 {/* //------------------------------------------------ */}
 
                 {item === 'Logout' ? <ListItemButton sx={{ borderTop: '1px solid black' }}
-                  component={Link}
-                  to='/'
-                  onClick={() => {
+                    onClick={() => {
                     console.info("LOGOUT BUTTON TEST");
                     setIsDrawerOpen(false);
+                    handleLogout();
                   }}>
                   <LogoutIcon sx={{ margin: '5px' }} />
                   <ListItemText primary={item} />
