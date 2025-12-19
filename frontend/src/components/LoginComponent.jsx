@@ -12,7 +12,10 @@ export default function LoginComponent() {
   //we use this to navigate to the Home component after successful validation
   const navigate = useNavigate();
   const goToNewComponent = () => {
+    //reload page after login to clear cache
     navigate("/home");
+    window.location.reload();
+
   }
 
   const handleChange = (event) => {
@@ -26,20 +29,21 @@ export default function LoginComponent() {
   const handleSubmit = (event) => {
     event.preventDefault();
     loginUser(formData.email, formData.password);
-    //removed formData console output
-    console.log('Form Data Submitted:', formData);
+    // console.log('Form Data Submitted:', formData);
   }
 
   function loginUser(username, password) {
+    //first condition ensures storedUser isn’t null or undefined
     if (storedUser && storedUser.username === username && storedUser.password === password) {
       localStorage.setItem('isLoggedIn', 'true');
-      console.log(username + ' logged in successfully')
-      alert(username + ' logged in successfully')
+      alert(`Welcome back, ${storedUser.username}!`);
+
       goToNewComponent();
+
       return true;
     } else {
-      console.log('Invalid username or password');
       alert('Invalid username or password');
+      alert(JSON.stringify(storedUser));
       return false;
     }
   }
@@ -47,9 +51,7 @@ export default function LoginComponent() {
   //-----------Google Login------------------
 
   const handleSuccess = (credentialResponse) => {
-    //removed clientId and credential console output
-    console.log("Login Success!");
-    alert("Login Success!");
+    alert("Logged in successfully");
 
     //using localStorage for validation until sessions are integrated 
     localStorage.setItem("isLoggedIn", true)
@@ -57,7 +59,7 @@ export default function LoginComponent() {
   };
 
   const handleError = () => {
-    console.log("Login Failed");
+    alert("Login Failed");
   };
 
   //-----------Google Login------------------

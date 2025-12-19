@@ -1,16 +1,18 @@
-import { Toolbar, Button, IconButton, Box } from "@mui/material";
+import { Toolbar, Button, Box } from "@mui/material";
 import { Link } from "../../../node_modules/react-router-dom/dist/index";
-import Home from "../Home";
-import { useState } from "react";
 
-// export default function Navbar({ loggedIn, setLoggedIn }) {
+
+import { googleLogout } from '@react-oauth/google';
 
 export default function Navbar() {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
 
-    function logoutUser() {
+    function handleLogout() {
+        googleLogout(); // disables auto-login
+        alert(`${storedUser.username} logged out successfully`);
         localStorage.removeItem('isLoggedIn');
-        console.log('User has been logged out.');
-        // window.location.reload();
+        window.location.reload();
+
     }
 
     return (<>
@@ -61,7 +63,7 @@ export default function Navbar() {
                     </Button>
 
                     <Button variant='contained'
-                        onClick={logoutUser}
+                        onClick={handleLogout}
                         sx={{
                             backgroundColor: 'grey',
                             borderRadius: '0px',

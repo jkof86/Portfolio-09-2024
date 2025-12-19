@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Box, Typography, Link } from '@mui/material';
-import LoginComponent from './LoginComponent';
 
 export default function RegisterComponent() {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -22,14 +21,13 @@ export default function RegisterComponent() {
   const handleSubmit = (event) => {
     event.preventDefault();
     registerUser(formData.email, formData.password);
-    console.log('Form Data Submitted:', formData);
+    // console.log('Form Data Submitted:', formData);
   };
 
   function registerUser(username, password) {
     const user = { username, password };
     localStorage.setItem('user', JSON.stringify(user));
-    console.log('User registered:', user);
-    alert('User registered:', user);
+    alert(user.username + ' registered successfully');
 
     goToNewComponent();
   }
