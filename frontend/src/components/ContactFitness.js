@@ -24,7 +24,7 @@ export default function ContactFitness() {
                 boxShadow: '0px 0px 2px 2px white',
                 padding: '10px',
                 margin: '20px',
-                width: '50vw'
+                width: '80vw'
             }}>
                 <center>
                     <SlideShowFitness />
