@@ -15,7 +15,6 @@ export default function LoginComponent() {
     //reload page after login to clear cache
     navigate("/home");
     window.location.reload();
-
   }
 
   const handleChange = (event) => {
