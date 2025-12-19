@@ -20,15 +20,27 @@ export default function ContactFitness() {
                 // justifyContent: 'center',
                 backgroundColor: 'white',
                 borderRadius: '25px',
-                border: '1px solid black',
+                border: '0px solid white',
                 boxShadow: '0px 0px 2px 2px white',
                 padding: '10px',
                 margin: '20px',
-                width: '80vw'
+                width: '90vw'
             }}>
-                <center>
+
+                <Box sx={{
+                    justifyContent: 'center',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    backgroundColor: 'white',
+                    borderRadius: '25px',
+                    // border: '1px solid black',
+                    boxShadow: '0px 0px 8px 2px white',
+                    // height: '874px',
+                    // width: '655px'
+                }}>
                     <SlideShowFitness />
-                </center>
+                </Box>
 
                 <Grid container spacing={4} sx={{ justifyContent: 'center' }}>
 
