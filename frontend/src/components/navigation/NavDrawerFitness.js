@@ -26,7 +26,7 @@ import banner from '../../images/bg/fitnessBanner02.jpeg';
 import { googleLogout } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 
-const navItems = ['Home', 'Back', 'Nutrition Calculator', 'Contact'];
+const navItems = ['Back', 'Home', 'Contact', 'Nutrition Calculator'];
 const navItems2 = ['Account', 'Settings', 'Logout'];
 
 export default function NavDrawerFitness() {
@@ -107,27 +107,27 @@ export default function NavDrawerFitness() {
 
                 {/* //------------------------------------------------ */}
 
-                {item === 'Home' ? <ListItemButton sx={{ textAlign: 'left' }}
+                {item === 'Back' ? <ListItemButton sx={{ textAlign: 'left' }}
                   component={Link}
-                  to='/'
+                  to='/fitness/calculator'
                   onClick={() => {
-                    console.info("HOME BUTTON TEST");
+                    console.info("BACK BUTTON TEST");
                     setIsDrawerOpen(false);
                   }}>
-                  <HomeIcon sx={{ margin: '5px' }} />
+                  <ArrowBackIcon sx={{ margin: '5px' }} />
                   <ListItemText primary={item} />
                 </ListItemButton> : ''}
 
                 {/* //------------------------------------------------ */}
 
-                {item === 'Back' ? <ListItemButton sx={{ textAlign: 'left' }}
+                {item === 'Home' ? <ListItemButton sx={{ textAlign: 'left' }}
                   component={Link}
-                  to='/fitness/calculator'
+                  to='/home'
                   onClick={() => {
                     console.info("HOME BUTTON TEST");
                     setIsDrawerOpen(false);
                   }}>
-                  <ArrowBackIcon sx={{ margin: '5px' }} />
+                  <HomeIcon sx={{ margin: '5px' }} />
                   <ListItemText primary={item} />
                 </ListItemButton> : ''}
 
