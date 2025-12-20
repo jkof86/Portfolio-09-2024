@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import RSSFeed from '../RSSFeed';
+import RSSFeed from '../RSSFeed.jsx';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;

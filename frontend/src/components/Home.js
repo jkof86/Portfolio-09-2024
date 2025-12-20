@@ -14,6 +14,8 @@ import BasicTabs from "./navigation/BasicTabs";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Navbar from "./navigation/Navbar";
+import RSSFeed2 from "../oldComponents/RSSFeed2";
+import RSSFeed3 from "../oldComponents/RSSFeed3";
 
 export default function Home() {
 
