@@ -1,186 +1,452 @@
-import React, { useEffect, useState, useRef } from 'react';
-import DOMPurify from 'dompurify';
-import {
-    Card,
-    CardContent,
-    CardMedia,
-    Typography,
-    CircularProgress,
-    Box,
-    Button,
-    Alert
-} from '@mui/material';
+// ------------------------------------------------------------
+// RSSFeed.jsx
+// - Connects to Lambda
+// - LocalStorage caching
+// - Skeleton loaders
+// - Category-specific styling
+// - Favorites (star)
+// - Error reporting via FeedStatusContext
+// - Respects GlobalRefreshContext
+// ------------------------------------------------------------
 
-// ✅ Raw feed URLs
-const RAW_FEEDS = {
-    jcg: 'https://www.javacodegeeks.com/feed',
-    cd: 'https://www.coindesk.com/arc/outboundfeeds/rss/',
-    ct: 'https://cointelegraph.com/rss',
-    cb: 'https://blog.coinbase.com/feed',
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useContext
+} from "react";
+import DOMPurify from "dompurify";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  CircularProgress,
+  Box,
+  Button,
+  Alert,
+  Skeleton,
+  IconButton
+} from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+
+import { FeedStatusContext } from "../context/FeedStatusContext";
+import { GlobalRefreshContext } from "../context/GlobalRefreshContext";
+import { toggleFavorite, isFavorite } from "../utils/favorites";
+
+// Map UI names → Lambda ?source=
+const FEED_SOURCES = {
+  // Debug/original
+  jcg: "jcg",
+  cd: "cd",
+  ct: "ct",
+  cb: "cb",
+
+  // IoT
+  iot_world: "iot_world",
+  stacey_iot: "stacey_iot",
+  iot_business: "iot_business",
+
+  // Cloud Security
+  dark_reading: "dark_reading",
+  krebs: "krebs",
+  security_week: "security_week",
+
+  // Full Stack
+  smashing: "smashing",
+  devto: "devto",
+  css_tricks: "css_tricks",
+
+  // Java
+  infoq_java: "infoq_java",
+  baeldung: "baeldung",
+
+  // Spring
+  spring_blog: "spring_blog",
+  spring_guides: "spring_guides",
+  baeldung_spring: "baeldung_spring",
+
+  // AWS
+  aws_news: "aws_news",
+  aws_arch: "aws_arch",
+  aws_security: "aws_security",
+
+  // React
+  react_status: "react_status",
+  logrocket_react: "logrocket_react",
+  smashing_react: "smashing_react",
+
+  // Sports
+  espn: "espn",
+  cbs_sports: "cbs_sports",
+  bleacher: "bleacher",
+
+  // Finance
+  marketwatch: "marketwatch",
+  ft: "ft",
+  investopedia: "investopedia",
+
+  // Stocks
+  yahoo_finance: "yahoo_finance",
+  seeking_alpha: "seeking_alpha",
+  marketwatch_stocks: "marketwatch_stocks",
+
+  // Crypto
+  decrypt: "decrypt",
+
+  // Politics
+  federalist: "federalist",
+  dailywire: "dailywire",
+  epoch: "epoch",
+
+  // World
+  reuters_world: "reuters_world",
+  bbc_world: "bbc_world",
+  ap_world: "ap_world"
 };
 
-// ✅ rss2json endpoint builder
-function buildRss2JsonUrl(feedUrl) {
-    return `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+const LAMBDA_URL =
+  "https://ksq5y8o3cf.execute-api.us-east-1.amazonaws.com/default/CoinbaseRSSProxy";
+
+const CACHE_TTL_MS = 3 * 60 * 1000;
+
+function buildCacheKey(source) {
+  return `rss_cache_${source}`;
 }
 
-export default function RSSFeed({ name }) {
-    const [items, setItems] = useState([]);
-    const [visibleCount, setVisibleCount] = useState(5); // ✅ Infinite scroll batch size
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+function loadFromCache(source) {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem(buildCacheKey(source));
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed.timestamp || !Array.isArray(parsed.items)) return null;
+    if (Date.now() - parsed.timestamp > CACHE_TTL_MS) return null;
+    return parsed.items;
+  } catch {
+    return null;
+  }
+}
 
-    const loadMoreRef = useRef(null);
-
-    // ✅ Fetch feed using rss2json only (no XML parsing)
-    const loadFeed = async () => {
-        setError(null);
-        setLoading(true);
-
-        try {
-            const feedUrl = RAW_FEEDS[name];
-            const apiUrl = buildRss2JsonUrl(feedUrl);
-
-            const res = await fetch(apiUrl);
-            const json = await res.json();
-
-            if (!json.items) {
-                throw new Error("rss2json returned no items");
-            }
-
-            setItems(json.items);
-        } catch (err) {
-            console.error("RSS error:", err);
-            setError("Failed to load feed. Try again.");
-        } finally {
-            setLoading(false);
-        }
+function saveToCache(source, items) {
+  if (typeof window === "undefined") return;
+  try {
+    const payload = {
+      timestamp: Date.now(),
+      items
     };
+    window.localStorage.setItem(
+      buildCacheKey(source),
+      JSON.stringify(payload)
+    );
+  } catch {
+    // ignore
+  }
+}
 
-    useEffect(() => {
-        loadFeed();
-    }, [name]);
+const CATEGORY_STYLES = {
+  IoT: { borderLeft: "4px solid #00796B" },
+  CloudSecurity: { borderLeft: "4px solid #D32F2F" },
+  FullStack: { borderLeft: "4px solid #1976D2" },
+  Java: { borderLeft: "4px solid #F57C00" },
+  Spring: { borderLeft: "4px solid #388E3C" },
+  AWS: { borderLeft: "4px solid #FFB300" },
+  React: { borderLeft: "4px solid #61dafb" },
+  Sports: { borderLeft: "4px solid #7B1FA2" },
+  Finance: { borderLeft: "4px solid #455A64" },
+  Stocks: { borderLeft: "4px solid #2E7D32" },
+  Crypto: { borderLeft: "4px solid #00838F" },
+  USPolitics: { borderLeft: "4px solid #C62828" },
+  WorldNews: { borderLeft: "4px solid #1565C0" },
+  Favorites: { borderLeft: "4px solid #FF4081" },
+  Debug: { borderLeft: "4px solid #9E9E9E" }
+};
 
-    // ✅ Infinite scroll observer
-    useEffect(() => {
-        if (!loadMoreRef.current) return;
+export default function RSSFeed({ name, categoryLabel, feedLabel }) {
+  const [items, setItems] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(5);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [errorDetails, setErrorDetails] = useState(null);
+  const [fromCache, setFromCache] = useState(false);
+  const [favorite, setFavorite] = useState(isFavorite(name));
 
-        const observer = new IntersectionObserver(
-            entries => {
-                if (entries[0].isIntersecting) {
-                    setVisibleCount(prev => prev + 5);
-                }
-            },
-            { threshold: 1 }
-        );
+  const loadMoreRef = useRef(null);
 
-        observer.observe(loadMoreRef.current);
-        return () => observer.disconnect();
-    }, []);
+  const { updateStatus } = useContext(FeedStatusContext);
+  const { refreshVersion } = useContext(GlobalRefreshContext);
 
-    // ✅ Extract thumbnail from rss2json structure
-    const getThumbnail = item => {
-        return (
-            item.thumbnail ||
-            item.enclosure?.link ||
-            null
-        );
-    };
+  const source = FEED_SOURCES[name];
 
-    if (loading) return <CircularProgress />;
+  const style =
+    (categoryLabel && CATEGORY_STYLES[categoryLabel]) || {};
 
-    if (error) {
-        return (
-            <Box>
-                <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>
-                <Button variant="contained" onClick={loadFeed}>Retry</Button>
-            </Box>
-        );
+  const getThumbnail = item => item.image || null;
+
+  const loadFeed = async () => {
+    if (!source) {
+      setError(`Invalid feed source: ${name}`);
+      updateStatus(name, "error");
+      setLoading(false);
+      return;
     }
 
-    return (
-        <Box>
-            {items.slice(0, visibleCount).map((item, index) => {
-                const image = getThumbnail(item);
+    setLoading(true);
+    setError(null);
+    setErrorDetails(null);
+    setFromCache(false);
 
-                return (
-                    <Card key={index} sx={{ mb: 2, pointerEvents: "auto" }}>
+    const cached = loadFromCache(source);
+    if (cached && cached.length > 0) {
+      setItems(cached);
+      setFromCache(true);
+      setLoading(false);
+      updateStatus(name, "ok");
+      return;
+    }
 
-                        {/* ✅ Responsive, clickable thumbnail */}
-                        {image && (
-                            <Box
-                                component="a"
-                                href={item.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                sx={{
-                                    display: "block",
-                                    width: "100%",
-                                    pointerEvents: "auto", // ✅ Allow clicks
-                                    textDecoration: "none",
-                                }}
-                            >
-                                <CardMedia
-                                    component="img"
-                                    image={image}
-                                    alt={item.title}
-                                    sx={{
-                                        width: "100%",
-                                        height: { xs: 140, sm: 180, md: 220 }, // ✅ Responsive sizes
-                                        objectFit: "cover", // ✅ Prevent distortion
-                                        cursor: "pointer",
-                                    }}
-                                />
-                            </Box>
-                        )}
+    try {
+      const url = `${LAMBDA_URL}?source=${encodeURIComponent(source)}`;
+      const res = await fetch(url);
+      const json = await res.json();
 
-                        {/* ✅ Disable CardContent click interception */}
-                        <CardContent sx={{ pointerEvents: "none" }}>
+      if (!res.ok || json.error) {
+        setError(json.error || "Failed to load feed");
+        setErrorDetails(json.details || null);
+        setItems(json.items || []);
+        updateStatus(name, "error");
+      } else {
+        if (!Array.isArray(json.items)) {
+          throw new Error("Invalid feed structure: items is not an array");
+        }
+        setItems(json.items);
+        saveToCache(source, json.items);
+        updateStatus(name, "ok");
+      }
+    } catch (err) {
+      setError("Unexpected error loading feed");
+      setErrorDetails(err.message);
+      setItems([]);
+      updateStatus(name, "error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-                            {/* ✅ Clickable title */}
-                            <Typography
-                                variant="h6"
-                                gutterBottom
-                                sx={{ pointerEvents: "auto" }}
-                            >
-                                <a
-                                    href={item.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={{
-                                        textDecoration: "none",
-                                        color: "inherit",
-                                        fontWeight: 600,
-                                    }}
-                                >
-                                    {item.title}
-                                </a>
-                            </Typography>
+  useEffect(() => {
+    setVisibleCount(5);
+    loadFeed();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name, refreshVersion]);
 
-                            {/* ✅ Clickable links inside description */}
-                            <Box
-                                sx={{ mt: 1, pointerEvents: "auto" }}
-                                dangerouslySetInnerHTML={{
-                                    __html: DOMPurify.sanitize(item.description),
-                                }}
-                            />
+  useEffect(() => {
+    if (!loadMoreRef.current) return;
 
-                            {/* ✅ Publication date */}
-                            <Typography
-                                variant="caption"
-                                color="text.secondary"
-                                sx={{ pointerEvents: "auto" }}
-                            >
-                                {item.pubDate}
-                            </Typography>
-                        </CardContent>
-                    </Card>
-
-                );
-            })}
-
-            {/* ✅ Infinite scroll trigger */}
-            <div ref={loadMoreRef} style={{ height: "40px" }} />
-        </Box>
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          setVisibleCount(prev => prev + 5);
+        }
+      },
+      { threshold: 1 }
     );
+
+    observer.observe(loadMoreRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const handleFavorite = e => {
+    e.preventDefault();
+    const updated = toggleFavorite(name);
+    setFavorite(updated.includes(name));
+  };
+
+  const renderSkeletons = () => {
+    const count = 3;
+    return (
+      <Box sx={{ mt: 2 }}>
+        {Array.from({ length: count }).map((_, i) => (
+          <Card key={i} sx={{ mb: 2, ...style }}>
+            <Skeleton variant="rectangular" height={180} />
+            <CardContent>
+              <Skeleton variant="text" width="60%" />
+              <Skeleton variant="text" width="80%" />
+              <Skeleton variant="text" width="40%" />
+            </CardContent>
+          </Card>
+        ))}
+      </Box>
+    );
+  };
+
+  if (loading) {
+    return renderSkeletons();
+  }
+
+  if (error) {
+    return (
+      <Box sx={{ mt: 2 }}>
+        <Box sx={{ mb: 2 }}>
+          <Typography variant="h5" sx={{ fontWeight: 600 }}>
+            {feedLabel || name}
+          </Typography>
+          {categoryLabel && (
+            <Typography variant="subtitle2" color="text.secondary">
+              Category: {categoryLabel}
+            </Typography>
+          )}
+        </Box>
+        <Alert severity="error" sx={{ mb: 1 }}>
+          {error}
+        </Alert>
+
+        {errorDetails && (
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ mb: 2, whiteSpace: "pre-wrap" }}
+          >
+            {errorDetails}
+          </Typography>
+        )}
+
+        <Button variant="contained" onClick={loadFeed}>
+          Retry
+        </Button>
+      </Box>
+    );
+  }
+
+  return (
+    <Box sx={{ mt: 2 }}>
+      {fromCache && (
+        <Typography
+          variant="caption"
+          color="text.secondary"
+          sx={{ display: "block", mb: 1 }}
+        >
+          Loaded from local cache
+        </Typography>
+      )}
+
+      {items.slice(0, visibleCount).map((item, index) => {
+        const image = getThumbnail(item);
+        const cleanedHtml = DOMPurify.sanitize(
+          item.content_html || item.summary || ""
+        );
+
+        return (
+          <Card
+            key={index}
+            component="a"
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              mb: 2,
+              textDecoration: "none",
+              color: "inherit",
+              display: "block",
+              "&:hover": { boxShadow: 4 },
+              ...style
+            }}
+          >
+            {image && (
+              <CardMedia
+                component="img"
+                image={image}
+                alt={item.title}
+                sx={{
+                  width: "100%",
+                  height: "auto",
+                  maxHeight: 320,
+                  objectFit: "contain",
+                  backgroundColor: "#0000000a"
+                }}
+              />
+            )}
+
+            <CardContent>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                  mb: 1
+                }}
+              >
+                <Typography variant="h6" gutterBottom sx={{ mb: 0 }}>
+                  {item.title}
+                </Typography>
+
+                <IconButton
+                  size="small"
+                  onClick={handleFavorite}
+                  sx={{ ml: 1 }}
+                >
+                  {favorite ? (
+                    <StarIcon color="warning" fontSize="small" />
+                  ) : (
+                    <StarBorderIcon fontSize="small" />
+                  )}
+                </IconButton>
+              </Box>
+
+              {cleanedHtml && (
+                <Box
+                  sx={{
+                    mt: 1,
+                    whiteSpace: "normal",
+                    wordBreak: "break-word",
+                    overflowWrap: "anywhere",
+                    "& p": { mb: 1.0, lineHeight: 1.5 },
+                    "& ul, & ol": { pl: 3 },
+                    "& img": {
+                      maxWidth: "100%",
+                      height: "auto"
+                    }
+                  }}
+                  dangerouslySetInnerHTML={{ __html: cleanedHtml }}
+                />
+              )}
+
+              {item.date_published && (
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  sx={{ display: "block", mt: 1 }}
+                >
+                  {item.date_published}
+                </Typography>
+              )}
+            </CardContent>
+          </Card>
+        );
+      })}
+
+      <div ref={loadMoreRef} style={{ height: 40 }} />
+
+      {visibleCount < items.length && (
+        <Box sx={{ textAlign: "center", mt: 2 }}>
+          <Button
+            variant="outlined"
+            onClick={() => setVisibleCount(prev => prev + 5)}
+          >
+            Load More
+          </Button>
+        </Box>
+      )}
+
+      {items.length === 0 && (
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ mt: 2, textAlign: "center" }}
+        >
+          No items available for this feed.
+        </Typography>
+      )}
+    </Box>
+  );
 }

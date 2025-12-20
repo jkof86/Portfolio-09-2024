@@ -1,193 +1,138 @@
-import React from "react";
-import {
-    Box, Toolbar,
-    Grid, Card,
-    CardActionArea,
-    CardMedia,
-    CardContent,
-    CardActions
-}
-    from "@mui/material";
+// ------------------------------------------------------------
+// Home.jsx
+// - Login validation
+// - Banner + Navbar
+// - Ticker bar
+// - Layout toggle (Tabs vs Sidebar)
+// - FeedStatusProvider + GlobalRefreshProvider
+// - Category layouts + charts
+// - Feed health dashboard
+// ------------------------------------------------------------
 
-import banner from '../images/bg/ksBanner08.jpeg';
-import BasicTabs from "./navigation/BasicTabs";
+import React, { useEffect } from "react";
+import {
+  Box,
+  Toolbar,
+  Grid,
+  Card,
+  CardActionArea,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Typography
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+
+import banner from "../images/bg/ksBanner08.jpeg";
 import Navbar from "./navigation/Navbar";
-import RSSFeed2 from "../oldComponents/RSSFeed2";
-import RSSFeed3 from "../oldComponents/RSSFeed3";
+
+import TabsLayout from "./layouts/TabsLayout";
+import SideNavLayout from "./layouts/SideNavLayout";
+import TickerBar from "./layouts/TickerBar";
+import FeedHealthDashboard from "./FeedHealthDashboard";
+
+import { FeedStatusProvider } from "../context/FeedStatusContext";
+import { GlobalRefreshProvider } from "../context/GlobalRefreshContext";
+import {
+  buildFeedCategoriesWithFavorites
+} from "./data/feedCategories";
 
 export default function Home() {
+  const navigate = useNavigate();
 
-    //we use this to handle component redirects after validation
-    //useEffect ensures the component doesn't refresh inifinitely
-    const GoToHome = () => {
-        const navigate = useNavigate();
-        useEffect(() => {
-            navigate('/home')
-        }, [])
+  const useSidebar = false; // toggle layout here
+
+  const categories = buildFeedCategoriesWithFavorites();
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("isLoggedIn");
+    if (!loggedIn) {
+      console.log("User NOT logged in → redirecting to /login");
+      navigate("/login");
+    } else {
+      console.log("User IS logged in");
     }
-    const GoToLogin = () => {
-        const navigate = useNavigate();
-        useEffect(() => {
-            navigate('/login')
-        }, [])
-    }
+  }, [navigate]);
 
-    const validateUser = () => {
-
-        if (localStorage.getItem("isLoggedIn")) {
-            console.log("The user IS logged in")
-            return true
-        }
-        else {
-            console.log("The user IS NOT logged in")
-            return false
-        }
-    }
-
-    return (<>
-        <Box
-            component="form"
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2,
-                maxWidth: 400,
-                margin: 'auto',
-                // marginTop: 0
-            }}>
-        </Box>
-        {validateUser() ? GoToHome() : GoToLogin()}
-
+  return (
+    <FeedStatusProvider>
+      <GlobalRefreshProvider>
         <center>
-            <Toolbar sx={{
-                justifyContent: 'center',
-                backgroundImage: `url(${banner})`,
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
-                backgroundColor: 'white',
-                borderRadius: '25px',
-                border: '1px solid black',
-                boxShadow: '0px 0px 8px 5px white',
-                height: '300px',
-                width: '800px'
-            }} />
 
-            <Navbar />
+          <Toolbar
+            sx={{
+              justifyContent: "center",
+              backgroundImage: `url(${banner})`,
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+              backgroundColor: "white",
+              borderRadius: "25px",
+              border: "1px solid black",
+              boxShadow: "0px 0px 8px 5px white",
+              height: "300px",
+              width: "800px",
+              mt: 2
+            }}
+          />
 
-            <Box padding={0} sx={{
-                justifyContent: 'center',
-                backgroundColor: 'white',
-                borderRadius: '25px',
-                border: '1px solid black',
-                boxShadow: '0px 0px 2px 2px white',
-                padding: '10px',
-                margin: '20px',
-                width: '75vw'
-            }}>
-                <Grid container spacing={0}>
-                    <Grid item xs={12}>
-                        <h3>RSS Feeds</h3>
-                        <Card sx={{
-                            border: '2px solid black',
-                            maxWidth: '100%',
-                            borderRadius: '25px',
-                            margin: '10px',
-                            padding: '10px',
-                            textAlign: 'center',
-                        }}>
-                            <CardActionArea>
-                                <CardMedia>
-                                    <CardContent>
-                                        {<BasicTabs />}
-                                    </CardContent>
-                                    <CardActions>
+          <Navbar />
+          <TickerBar />
 
-                                    </CardActions>
-                                </CardMedia>
-                            </CardActionArea>
-                        </Card>
-                    </Grid>
+          <Box
+            padding={0}
+            sx={{
+              justifyContent: "center",
+              backgroundColor: "white",
+              borderRadius: "25px",
+              border: "1px solid black",
+              boxShadow: "0px 0px 2px 2px white",
+              padding: "10px",
+              margin: "20px",
+              width: "75vw"
+            }}
+          >
+            <Grid container spacing={0}>
+              <Grid item xs={12}>
+                <Typography
+                  variant="h4"
+                  sx={{ fontWeight: 700, mb: 1 }}
+                >
+                  RSS Feeds
+                </Typography>
 
-                    {/* *****************************************/}
+                <Card
+                  sx={{
+                    border: "2px solid black",
+                    maxWidth: "100%",
+                    borderRadius: "25px",
+                    margin: "10px",
+                    padding: "10px",
+                    textAlign: "center"
+                  }}
+                >
+                  <CardActionArea>
+                    <CardMedia>
+                      <CardContent>
+                        {useSidebar ? (
+                          <SideNavLayout categories={categories} />
+                        ) : (
+                          <TabsLayout categories={categories} />
+                        )}
+                      </CardContent>
+                      <CardActions />
+                    </CardMedia>
+                  </CardActionArea>
+                </Card>
+              </Grid>
 
-                    {/* <Grid item xs={3}>
-                        <h3>Grid Item 2</h3>
-                        <Card sx={{
-                            border: '2px solid black',
-                            maxWidth: '100%',
-                            borderRadius: '25px',
-                            margin: '10px',
-                            padding: '10px',
-                            textAlign: 'center',
-                        }}>
-                            <CardActionArea>
-                                <CardMedia>
-                                    <CardContent>
-                                        {<RSSFeed />}
-                                    </CardContent>
-                                    <CardActions>
-
-                                    </CardActions>
-                                </CardMedia>
-                            </CardActionArea>
-                        </Card>
-                    </Grid>
-
-                    {/* *****************************************/}
-
-                    {/* <Grid item xs={3}>
-                        <h3>Grid Item 3</h3>
-                        <Card sx={{
-                            border: '2px solid black',
-                            maxWidth: '100%',
-                            borderRadius: '25px',
-                            margin: '10px',
-                            padding: '10px',
-                            textAlign: 'center',
-                        }}>
-                            <CardActionArea>
-                                <CardMedia>
-                                    <CardContent>
-                                        {<RSSFeed />}
-                                    </CardContent>
-                                    <CardActions>
-
-                                    </CardActions>
-                                </CardMedia>
-                            </CardActionArea>
-                        </Card>
-                     </Grid> */}
-
-                    {/* *****************************************/}
-
-                    {/* <Grid item xs={3}>
-                        <h3>Grid Item 4</h3>
-                        <Card sx={{
-                            border: '2px solid black',
-                            maxWidth: '100%',
-                            borderRadius: '25px',
-                            margin: '10px',
-                            padding: '10px',
-                            textAlign: 'center',
-                        }}>
-                            <CardActionArea>
-                                <CardMedia>
-                                    <CardContent>
-                                        {<RSSFeed />}
-                                    </CardContent>
-                                    <CardActions>
-
-                                    </CardActions>
-                                </CardMedia>
-                            </CardActionArea>
-                        </Card>
-                    </Grid> */}
-
-                </Grid>
-            </Box>
+              <Grid item xs={12} sx={{ mt: 2 }}>
+                <FeedHealthDashboard />
+              </Grid>
+            </Grid>
+          </Box>
         </center>
-    </>);
+      </GlobalRefreshProvider>
+    </FeedStatusProvider>
+  );
 }
