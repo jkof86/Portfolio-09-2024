@@ -9,10 +9,26 @@ import { feedCategories } from "../data/feedCategories";
 
 export const GlobalRefreshContext = createContext({
   refreshVersion: 0,
-  triggerRefresh: () => {},
-  refreshAll: () => {},
+  triggerRefresh: () => { },
+  refreshAll: () => { },
   lastUpdated: null
 });
+
+const loadFeed = useCallback(async (feedName) => {
+  updateStatus(feedName, "loading");
+
+  try {
+    const url = `${LAMBDA_URL}?source=${feedName}`;
+    const res = await fetch(url);
+    const json = await res.json();
+
+    const ok = res.ok && json.status === "ok";
+    updateStatus(feedName, ok ? "ok" : "error");
+  } catch (err) {
+    updateStatus(feedName, "error");
+  }
+}, [updateStatus]);
+
 
 const LAMBDA_URL =
   "https://jy4i499sj1.execute-api.us-east-1.amazonaws.com/default/RSSProxyAggregator";
@@ -33,24 +49,19 @@ export function GlobalRefreshProvider({ children }) {
 
   const refreshAll = useCallback(async () => {
     try {
-      Object.keys(status).forEach(feed => updateStatus(feed, "loading"));
+      // Mark all feeds as loading immediately
+      allFeedNames.forEach(feed => updateStatus(feed, "loading"));
 
-      await Promise.all(
-        allFeedNames.map(async (feed) => {
-          const url = `${LAMBDA_URL}?source=${feed}`;
-          const res = await fetch(url);
-          const json = await res.json();
-
-          const ok = res.ok && json.status === "ok";
-          updateStatus(feed, ok ? "ok" : "error");
-        })
-      );
+      // Load feeds one-by-one so UI updates instantly
+      for (const feed of allFeedNames) {
+        await loadFeed(feed);
+      }
 
       setLastUpdated(Date.now());
     } catch (err) {
       console.error("Global refresh error:", err);
     }
-  }, [status, updateStatus]);
+  }, [loadFeed, updateStatus]);
 
   return (
     <GlobalRefreshContext.Provider
@@ -58,6 +69,7 @@ export function GlobalRefreshProvider({ children }) {
         refreshVersion,
         triggerRefresh,
         refreshAll,
+        loadFeed,
         lastUpdated
       }}
     >

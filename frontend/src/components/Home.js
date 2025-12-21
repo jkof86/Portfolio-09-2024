@@ -48,6 +48,14 @@ export default function Home() {
   const feeds = categories[currentCategory] || [];
   const safeFeedIndex = 0;
 
+  const { loadFeed } = useContext(GlobalRefreshContext);
+  useEffect(() => {
+    // loadFeed("cd"); // or feeds[0].name
+    loadFeed(feeds[0].name);
+
+  }, []);
+
+
   // ---------------------------------------------------
 
   const navigate = useNavigate();
