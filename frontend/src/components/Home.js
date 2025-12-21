@@ -1,18 +1,20 @@
 // ------------------------------------------------------------
-// Home.jsx
+// Home.jsx — Phase 3 Clean + Corrected Version
+//
+// Responsibilities:
 // - Login validation
 // - Banner + Navbar
 // - Ticker bar
-// - Layout toggle (Tabs vs Sidebar)
+// - Category selector
+// - TabsLayout (only layout now)
 // - FeedStatusProvider + GlobalRefreshProvider
-// - Category layouts + charts
+// - Auto-load first feed on category change
 // - Feed health dashboard
 // ------------------------------------------------------------
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   Box,
-  Button,
   Toolbar,
   Grid,
   Card,
@@ -24,6 +26,7 @@ import {
   ToggleButton,
   ToggleButtonGroup
 } from "@mui/material";
+
 import { useNavigate } from "react-router-dom";
 
 import banner from "../images/bg/ksBanner08.jpeg";
@@ -34,32 +37,26 @@ import TickerBar from "./layouts/TickerBar";
 import FeedHealthDashboard from "./FeedHealthDashboard";
 
 import { FeedStatusProvider } from "../context/FeedStatusContext";
-import { GlobalRefreshProvider } from "../context/GlobalRefreshContext";
+import { GlobalRefreshProvider, GlobalRefreshContext } from "../context/GlobalRefreshContext";
 import { feedCategories } from "../data/feedCategories";
 
-// -----------------------------------------
+// ------------------------------------------------------------
 
 export default function Home() {
-
   const categories = feedCategories;
+
   const [currentCategory, setCurrentCategory] = useState(
     Object.keys(categories)[0] || ""
   );
+
   const feeds = categories[currentCategory] || [];
   const safeFeedIndex = 0;
 
-  const { loadFeed } = useContext(GlobalRefreshContext);
-  useEffect(() => {
-    // loadFeed("cd"); // or feeds[0].name
-    loadFeed(feeds[0].name);
-
-  }, []);
-
-
-  // ---------------------------------------------------
-
   const navigate = useNavigate();
 
+  // ------------------------------------------------------------
+  // ✅ Login validation
+  // ------------------------------------------------------------
   useEffect(() => {
     const loggedIn = localStorage.getItem("isLoggedIn");
     if (!loggedIn) {
@@ -73,8 +70,12 @@ export default function Home() {
   return (
     <FeedStatusProvider>
       <GlobalRefreshProvider>
-        <center>
+        <AutoLoadFirstFeed feeds={feeds} />
 
+        <center>
+          {/* --------------------------------------------------------
+             Banner
+          --------------------------------------------------------- */}
           <Toolbar
             sx={{
               justifyContent: "center",
@@ -95,8 +96,10 @@ export default function Home() {
           <Navbar />
           <TickerBar />
 
+          {/* --------------------------------------------------------
+             Main Content Box
+          --------------------------------------------------------- */}
           <Box
-            padding={0}
             sx={{
               justifyContent: "center",
               backgroundColor: "white",
@@ -106,14 +109,11 @@ export default function Home() {
               padding: "10px",
               margin: "20px",
               width: "75vw"
-            }}>
-
+            }}
+          >
             <Grid container spacing={0}>
               <Grid item xs={12}>
-                <Typography
-                  variant="h4"
-                  sx={{ fontWeight: 700, mb: 1 }}
-                >
+                <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
                   RSS Feeds
                 </Typography>
 
@@ -130,8 +130,9 @@ export default function Home() {
                   <CardActionArea>
                     <CardMedia>
                       <CardContent>
-
-                        {/* Category Selector */}
+                        {/* --------------------------------------------------------
+                           Category Selector
+                        --------------------------------------------------------- */}
                         <Box sx={{ mb: 2 }}>
                           <ToggleButtonGroup
                             value={currentCategory}
@@ -147,7 +148,9 @@ export default function Home() {
                           </ToggleButtonGroup>
                         </Box>
 
-                        {/* Tabs Layout Only */}
+                        {/* --------------------------------------------------------
+                           Tabs Layout (Only Layout)
+                        --------------------------------------------------------- */}
                         <TabsLayout
                           feeds={feeds}
                           safeFeedIndex={safeFeedIndex}
@@ -160,6 +163,9 @@ export default function Home() {
                 </Card>
               </Grid>
 
+              {/* --------------------------------------------------------
+                 Feed Health Dashboard
+              --------------------------------------------------------- */}
               <Grid item xs={12} sx={{ mt: 2 }}>
                 <FeedHealthDashboard />
               </Grid>
@@ -167,6 +173,21 @@ export default function Home() {
           </Box>
         </center>
       </GlobalRefreshProvider>
-    </FeedStatusProvider >
+    </FeedStatusProvider>
   );
+}
+
+// ------------------------------------------------------------
+// ✅ Auto-load first feed whenever feeds change
+// ------------------------------------------------------------
+function AutoLoadFirstFeed({ feeds }) {
+  const { loadFeed } = useContext(GlobalRefreshContext);
+
+  useEffect(() => {
+    if (loadFeed && feeds.length > 0) {
+      loadFeed(feeds[0].name);
+    }
+  }, [loadFeed, feeds]);
+
+  return null;
 }

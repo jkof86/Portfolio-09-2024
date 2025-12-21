@@ -1,7 +1,7 @@
 // ------------------------------------------------------------
 // FeedStatusContext.jsx
-// Tracks per-feed status: "ok" or "error".
-// Used for error badges in tabs/sidebar and health dashboard.
+// Tracks per-feed status: "ok", "error", or "loading".
+// Used for error badges, dashboard icons, and health metrics.
 // ------------------------------------------------------------
 
 import React, { createContext, useState } from "react";

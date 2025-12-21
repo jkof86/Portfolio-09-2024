@@ -1,18 +1,19 @@
+// ------------------------------------------------------------
 // FeedCard.jsx
+//
+// Responsibilities:
 // - Entire card clickable
 // - Favicon from domain
 // - Source + category chips
 // - Timestamp
-// - Main image
-// - HTML summary (GIF-safe: backend strips non-GIF images)
-// - Expand/collapse for long content
+// - Main image (GIF-safe backend)
+// - HTML summary with expand/collapse
 // - Dark-mode friendly
-// - No nested links
+// ------------------------------------------------------------
 
 import React, { useState } from "react";
 import { Box, Typography, Chip, Button } from "@mui/material";
 
-// Extract favicon using Google's favicon service
 const getFavicon = (url) => {
   try {
     const { hostname } = new URL(url);
@@ -37,7 +38,6 @@ const FeedCard = ({ item, source, category }) => {
   const favicon = url ? getFavicon(url) : null;
   const htmlContent = content_html || summary || "";
 
-  // Truncate long summaries unless expanded
   const shortContent =
     htmlContent.length > 500 && !expanded
       ? htmlContent.slice(0, 500) + "..."
@@ -62,7 +62,7 @@ const FeedCard = ({ item, source, category }) => {
           "&:hover": { boxShadow: 4 }
         }}
       >
-        {/* Title row with favicon */}
+        {/* Title + favicon */}
         <Box sx={{ display: "flex", alignItems: "center", mb: 1, gap: 1 }}>
           {favicon && (
             <img
@@ -72,15 +72,12 @@ const FeedCard = ({ item, source, category }) => {
             />
           )}
 
-          <Typography
-            variant="subtitle1"
-            sx={{ fontWeight: 600, lineHeight: 1.3 }}
-          >
+          <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
             {title}
           </Typography>
         </Box>
 
-        {/* Metadata row */}
+        {/* Metadata */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
           {source && (
             <Chip
@@ -100,10 +97,7 @@ const FeedCard = ({ item, source, category }) => {
           )}
 
           {date_published && (
-            <Typography
-              variant="caption"
-              sx={{ opacity: 0.7, fontSize: "0.7rem" }}
-            >
+            <Typography variant="caption" sx={{ opacity: 0.7 }}>
               {date_published}
             </Typography>
           )}
@@ -125,7 +119,7 @@ const FeedCard = ({ item, source, category }) => {
           </Box>
         )}
 
-        {/* Summary / HTML content */}
+        {/* Summary */}
         <Typography
           variant="body2"
           sx={{
@@ -139,14 +133,14 @@ const FeedCard = ({ item, source, category }) => {
           dangerouslySetInnerHTML={{ __html: shortContent }}
         />
 
-        {/* Expand/Collapse button */}
+        {/* Expand/Collapse */}
         {htmlContent.length > 500 && (
           <Button
             size="small"
             sx={{ mt: 1 }}
             onClick={(e) => {
-              e.preventDefault(); // prevent card click
-              setExpanded((prev) => !prev);
+              e.preventDefault();
+              setExpanded(prev => !prev);
             }}
           >
             {expanded ? "Show Less" : "Read More"}
