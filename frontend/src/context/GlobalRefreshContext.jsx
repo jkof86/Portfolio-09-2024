@@ -28,22 +28,6 @@ export const GlobalRefreshContext = createContext({
   lastUpdated: null
 });
 
-const loadFeed = useCallback(async (feedName) => {
-  updateStatus(feedName, "loading");
-
-  try {
-    const url = `${LAMBDA_URL}?source=${feedName}`;
-    const res = await fetch(url);
-    const json = await res.json();
-
-    const ok = res.ok && json.status === "ok";
-    updateStatus(feedName, ok ? "ok" : "error");
-  } catch (err) {
-    updateStatus(feedName, "error");
-  }
-}, [updateStatus]);
-
-
 const LAMBDA_URL =
   "https://jy4i499sj1.execute-api.us-east-1.amazonaws.com/default/RSSProxyAggregator";
 
@@ -102,7 +86,6 @@ export function GlobalRefreshProvider({ children }) {
   const triggerRefresh = useCallback(() => {
     setRefreshVersion(v => v + 1);
   }, []);
-  }, [loadFeed, updateStatus]);
 
   return (
     <GlobalRefreshContext.Provider
