@@ -1,7 +1,21 @@
-import React from "react";
-import { Box, Typography, Chip } from "@mui/material";
+// FeedCard.jsx
+// A polished, reusable card for rendering RSS articles with metadata, images,
+// HTML summaries, favicons, and optional category/source badges.
 
-const FeedCard = ({ item, source }) => {
+import React, { useState } from "react";
+import { Box, Typography, Chip, Button } from "@mui/material";
+
+// Extract favicon from the article URL
+const getFavicon = (url) => {
+  try {
+    const { hostname } = new URL(url);
+    return `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`;
+  } catch {
+    return null;
+  }
+};
+
+const FeedCard = ({ item, source, category }) => {
   const {
     title,
     url,
@@ -11,6 +25,17 @@ const FeedCard = ({ item, source }) => {
     image
   } = item;
 
+  const [expanded, setExpanded] = useState(false);
+
+  const favicon = getFavicon(url);
+  const htmlContent = content_html || summary || "";
+
+  // Limit summary length before expanding
+  const shortContent =
+    htmlContent.length > 500 && !expanded
+      ? htmlContent.slice(0, 500) + "..."
+      : htmlContent;
+
   return (
     <Box
       sx={{
@@ -19,35 +44,51 @@ const FeedCard = ({ item, source }) => {
         borderRadius: 2,
         backgroundColor: "background.paper",
         boxShadow: 1,
-        "&:hover": { boxShadow: 3, transition: "0.2s" }
+        transition: "0.2s",
+        "&:hover": { boxShadow: 4 }
       }}
     >
-      {/* Title */}
-      <Typography
-        variant="subtitle1"
-        sx={{ fontWeight: 600, mb: 1, lineHeight: 1.3 }}
-      >
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          {title}
-        </a>
-      </Typography>
-
-      {/* Metadata row */}
+      {/* Title Row with Favicon */}
       <Box sx={{ display: "flex", alignItems: "center", mb: 1, gap: 1 }}>
+        {favicon && (
+          <img
+            src={favicon}
+            alt=""
+            style={{ width: 20, height: 20, borderRadius: 4 }}
+          />
+        )}
+
+        <Typography
+          variant="subtitle1"
+          sx={{ fontWeight: 600, lineHeight: 1.3 }}
+        >
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            {title}
+          </a>
+        </Typography>
+      </Box>
+
+      {/* Metadata Row */}
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
         {source && (
           <Chip
             label={source.toUpperCase()}
             size="small"
-            sx={{
-              fontSize: "0.65rem",
-              fontWeight: 600,
-              opacity: 0.8
-            }}
+            sx={{ fontSize: "0.65rem", fontWeight: 600, opacity: 0.8 }}
+          />
+        )}
+
+        {category && (
+          <Chip
+            label={category}
+            size="small"
+            color="primary"
+            sx={{ fontSize: "0.65rem", fontWeight: 600 }}
           />
         )}
 
@@ -77,7 +118,7 @@ const FeedCard = ({ item, source }) => {
         </Box>
       )}
 
-      {/* Summary / HTML content */}
+      {/* Summary / HTML Content */}
       <Typography
         variant="body2"
         sx={{
@@ -88,10 +129,19 @@ const FeedCard = ({ item, source }) => {
           "& p": { mb: 1 },
           "& img": { maxWidth: "100%", borderRadius: 4 }
         }}
-        dangerouslySetInnerHTML={{
-          __html: content_html || summary || ""
-        }}
+        dangerouslySetInnerHTML={{ __html: shortContent }}
       />
+
+      {/* Expand / Collapse Button */}
+      {htmlContent.length > 500 && (
+        <Button
+          size="small"
+          sx={{ mt: 1 }}
+          onClick={() => setExpanded((prev) => !prev)}
+        >
+          {expanded ? "Show Less" : "Read More"}
+        </Button>
+      )}
     </Box>
   );
 };

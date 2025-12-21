@@ -1,122 +1,103 @@
-import React, { useEffect, useState, useContext } from "react";
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  CircularProgress
-} from "@mui/material";
+// RSSFeed.jsx
+// Fetches a single RSS feed, handles loading/error states,
+// and renders articles using the FeedCard component.
 
+import React, { useEffect, useState, useContext } from "react";
+import { Box, Typography, CircularProgress } from "@mui/material";
 import { GlobalRefreshContext } from "../context/GlobalRefreshContext";
 import FeedCard from "./FeedCard";
 
-const LAMBDA_URL =
-  "https://jy4i499sj1.execute-api.us-east-1.amazonaws.com/default/RSSProxyAggregator";
-
-// function stripCdata(str) {
-//   if (!str) return str;
-//   return str
-//     .replace(`/^<!\[CDATA\[/, "")
-//     .replace(/\]\]>$/, ""`);
-//   }
-
-function stripCdata(str) {
-  if (!str) return str;
-  return str
-    .replace(/<!\[CDATA\[/g, "")
-    .replace(/\]\]>/g, "")
-    .trim();
-}
-
-
-export default function RSSFeed({ name, feedLabel }) {
+const RSSFeed = ({ name, feedLabel, categoryLabel }) => {
   const { refreshVersion } = useContext(GlobalRefreshContext);
-  const [items, setItems] = useState(null);
-  const [error, setError] = useState(null);
+
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
-    async function load() {
+    if (!name) return;
+
+    const fetchFeed = async () => {
+      setLoading(true);
+      setErrorMsg(null);
+
       try {
-        const url = `${LAMBDA_URL}?source=${name}`;
+        const url = `https://jy4i499sj1.execute-api.us-east-1.amazonaws.com/default/RSSProxyAggregator?source=${name}`;
 
-        const res = await fetch(url, {
-          headers: {
-            "User-Agent":
-              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36",
-            "Accept":
-              "application/rss+xml, application/xml, text/xml, text/html;q=0.9,*/*;q=0.8",
-            "Accept-Language": "en-US,en;q=0.9",
-            "Cache-Control": "no-cache",
-            Pragma: "no-cache",
-            Referer: url
-          }
-        });
+        const res = await fetch(url);
+        const data = await res.json();
 
-        const json = await res.json();
-
-        if (!res.ok || json.status !== "ok") {
+        // Upstream HTTP errors (403, 404, 500, etc.)
+        if (!res.ok) {
+          setErrorMsg(
+            `Feed error (${res.status}): ${data.statusText || data.error || "Unknown error"}`
+          );
           setItems([]);
-          setError(json.error || "Failed to load feed");
           return;
         }
 
-        const cleaned = json.items.map((item, index) => (
-          <FeedCard key={index} item={item} source={name} />
-        ))
+        // Lambda-level errors
+        if (data.status !== "ok") {
+          setErrorMsg(data.error || "Feed returned an error.");
+          setItems([]);
+          return;
+        }
 
+        // Empty feeds
+        if (!data.items || data.items.length === 0) {
+          setErrorMsg("No articles found.");
+          setItems([]);
+          return;
+        }
 
-        setItems(cleaned);
-      } catch {
+        // Success
+        setItems(data.items);
+      } catch (err) {
+        setErrorMsg("Network error: " + err.message);
         setItems([]);
+      } finally {
+        setLoading(false);
       }
-    }
+    };
 
-    load();
+    fetchFeed();
   }, [name, refreshVersion]);
 
-  if (items === null) {
-    return (
-      <Box sx={{ textAlign: "center", mt: 2 }}>
-        <CircularProgress size={24} />
-      </Box>
-    );
-  }
-
   return (
-    <Box sx={{ mt: 2 }}>
-      <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
-        {feedLabel || name}
+    <Box sx={{ px: 2, py: 1 }}>
+      {/* Feed Header */}
+      <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+        {feedLabel}
+        {categoryLabel ? ` — ${categoryLabel}` : ""}
       </Typography>
 
-      {items.length === 0 && (
-        <Typography variant="body2" color="text.secondary">
-          No items available.
+      {/* Spinner */}
+      {loading && (
+        <Box sx={{ display: "flex", justifyContent: "center", py: 3 }}>
+          <CircularProgress size={32} />
+        </Box>
+      )}
+
+      {/* Error Message */}
+      {!loading && errorMsg && (
+        <Typography color="error" sx={{ mb: 2, fontSize: "0.9rem" }}>
+          {errorMsg}
         </Typography>
       )}
 
-      {items.map((item, idx) => (
-        <Card key={idx} sx={{ mb: 2 }}>
-          <CardContent>
-            <Typography variant="h6" sx={{ fontWeight: 600 }}>
-              {item.title}
-            </Typography>
-
-            {item.content_html && (
-              <Box
-                sx={{
-                  mt: 1,
-                  whiteSpace: "normal",
-                  wordBreak: "break-word",
-                  overflowWrap: "anywhere",
-                  "& p": { mb: 1.0, lineHeight: 1.5 },
-                  "& img": { maxWidth: "100%", height: "auto" }
-                }}
-                dangerouslySetInnerHTML={{ __html: item.content_html }}
-              />
-            )}
-          </CardContent>
-        </Card>
-      ))}
+      {/* Feed Items */}
+      {!loading &&
+        !errorMsg &&
+        items.map((item, index) => (
+          <FeedCard
+            key={index}
+            item={item}
+            source={name}
+            category={categoryLabel}
+          />
+        ))}
     </Box>
   );
-}
+};
+
+export default RSSFeed;
