@@ -1,7 +1,11 @@
-# Personal Portfolio / Nutrition Tracker
+# [Kofi Solutions](https://www.kofisolutions.com)
+## Personal Project Portal
+- Resume
+- Portfolio
 
 ## App Description / User Stories
-### This Single-Page Application (SPA) is designed in REACT primarily to display my professional portfolio. It also serves as a portal for my personal design projects.
+### This Single-Page Application (SPA), designed in REACT, serves as a portal for my personal design projects. 
+### I also use it as a hub to display my skillset for Employers/Clients
 
 - The user can register an account
 - The user can securely login/logout of their account
