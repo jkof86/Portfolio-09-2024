@@ -10,22 +10,6 @@ import NavDrawerFitness from "./navigation/NavDrawerFitness";
 export default function ContactFitness() {
 
     return (<>
-        {/* <Toolbar sx={{
-            justifyContent: 'center',
-            backgroundColor: 'grey',
-            border: '1px solid black',
-            boxShadow: '0px 0px 2px 2px white',
-            marginBottom: '10px',
-            width: '100vw'
-        }}>
-            <Typography sx={{
-                fontSize: '20px',
-                fontStyle: 'bold'
-            }}>
-                Contact Information
-            </Typography>
-        </Toolbar> */}
-
         {<NavDrawerFitness />}
 
         {/********************************************************/}
@@ -33,18 +17,30 @@ export default function ContactFitness() {
         {/* <Container disableGutters={false} sx={{ width: '100vw' }}> */}
         <center>
             <Box padding={0} sx={{
-                justifyContent: 'center',
+                // justifyContent: 'center',
                 backgroundColor: 'white',
                 borderRadius: '25px',
-                border: '1px solid black',
+                border: '0px solid white',
                 boxShadow: '0px 0px 2px 2px white',
                 padding: '10px',
                 margin: '20px',
                 width: '90vw'
             }}>
-                <center>
+
+                <Box sx={{
+                    justifyContent: 'center',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    backgroundColor: 'white',
+                    borderRadius: '25px',
+                    // border: '1px solid black',
+                    boxShadow: '0px 0px 8px 2px white',
+                    // height: '874px',
+                    // width: '655px'
+                }}>
                     <SlideShowFitness />
-                </center>
+                </Box>
 
                 <Grid container spacing={4} sx={{ justifyContent: 'center' }}>
 

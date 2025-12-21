@@ -7,11 +7,14 @@ import { GoogleLogin } from "@react-oauth/google";
 export default function LoginComponent() {
 
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const storedUser = JSON.parse(localStorage.getItem('user'));
 
   //we use this to navigate to the Home component after successful validation
   const navigate = useNavigate();
   const goToNewComponent = () => {
+    //reload page after login to clear cache
     navigate("/home");
+    window.location.reload();
   }
 
   const handleChange = (event) => {
@@ -25,20 +28,21 @@ export default function LoginComponent() {
   const handleSubmit = (event) => {
     event.preventDefault();
     loginUser(formData.email, formData.password);
-    //removed formData console output
-    console.log('Form Data Submitted:', null);
+    // console.log('Form Data Submitted:', formData);
   }
 
   function loginUser(username, password) {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
+    //first condition ensures storedUser isn’t null or undefined
     if (storedUser && storedUser.username === username && storedUser.password === password) {
       localStorage.setItem('isLoggedIn', 'true');
-      console.log('User logged in successfully.')
-      alert('User logged in successfully.')
+      alert(`Welcome back, ${storedUser.username}!`);
+
       goToNewComponent();
+
       return true;
     } else {
-      console.log('Invalid username or password.');
+      alert('Invalid username or password');
+      alert(JSON.stringify(storedUser));
       return false;
     }
   }
@@ -46,9 +50,7 @@ export default function LoginComponent() {
   //-----------Google Login------------------
 
   const handleSuccess = (credentialResponse) => {
-    //removed clientId and credential console output
-    console.log("Login Success:", null);
-    alert("Login Success:", null);
+    alert("Logged in successfully");
 
     //using localStorage for validation until sessions are integrated 
     localStorage.setItem("isLoggedIn", true)
@@ -56,7 +58,7 @@ export default function LoginComponent() {
   };
 
   const handleError = () => {
-    console.log("Login Failed");
+    alert("Login Failed");
   };
 
   //-----------Google Login------------------

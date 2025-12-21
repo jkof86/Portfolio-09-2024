@@ -1,6 +1,6 @@
 import { Toolbar, Button, IconButton, Box } from "@mui/material";
-import { Link } from "../../../node_modules/react-router-dom/dist/index";
-import NavDrawer from "./NavDrawerProfessional";
+import { Link as RouterLink } from "../../../node_modules/react-router-dom/dist/index";
+import { Link as MuiLink } from "@mui/material"
 
 // export default function Navbar({ loggedIn, setLoggedIn }) {
 
@@ -18,20 +18,20 @@ export default function Navbar() {
                 gap: 2,
                 maxWidth: 400,
                 margin: 'auto',
-                marginTop: 4
+                marginTop: 2
             }}
                 variant="menu"
                 position="static"
             >
                 <Box textAlign={"center"} width={'100vw'}>
-                    
+
                     <Button variant='contained' sx={{
                         backgroundColor: 'grey',
                         borderRadius: '0px',
                         margin: '0px',
                         marginTop: '10px'
                     }}
-                        component={Link} to='/professional'
+                        component={RouterLink} to='/professional/about'
                     >
                         Professional
                     </Button>
@@ -42,7 +42,7 @@ export default function Navbar() {
                         margin: '0px',
                         marginTop: '10px'
                     }}
-                        component={Link} to='/fitness'>
+                        component={RouterLink} to='/fitness/calculator'>
                         Fitness / Nutrition
                     </Button>
 
@@ -52,8 +52,24 @@ export default function Navbar() {
                         margin: '0px',
                         marginTop: '10px'
                     }}
-                        component={Link} to='/gaming'>
+                        component={RouterLink} to='/gaming/about'>
                         Gaming
+                    </Button>
+
+                    <Button variant='contained' sx={{
+                        backgroundColor: 'grey',
+                        borderRadius: '0px',
+                        margin: '0px',
+                        marginTop: '10px'
+                    }}
+                        // we add rel="noopener noreferrer" 
+                        // when using target="_blank" for security
+                        component={MuiLink}
+                        href="https://wp.kofisolutions.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >
+                        Wordpress
                     </Button>
                 </Box>
             </Toolbar>

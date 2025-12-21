@@ -1,16 +1,48 @@
-import { Toolbar, Button, IconButton, Box } from "@mui/material";
+import { Toolbar, Button, Box } from "@mui/material";
 import { Link } from "../../../node_modules/react-router-dom/dist/index";
-import Home from "../Home";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-// export default function Navbar({ loggedIn, setLoggedIn }) {
+
+import { googleLogout } from '@react-oauth/google';
 
 export default function Navbar() {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    const navigate = useNavigate();
 
-    function logoutUser() {
-        localStorage.removeItem('isLoggedIn');
-        console.log('User has been logged out.');
+    const goToRegister = () => {
+        //reload page to clear cache
+        navigate("/register");
+        // window.location.reload()
+    }
+    const goToLogin = () => {
+        //reload page to clear cache
+        navigate("/login");
         // window.location.reload();
+    }
+
+    function handleRegister() {
+        if (localStorage.getItem('isLoggedIn'))
+            alert('Please logout before registering a new account');
+        else
+            goToRegister();
+    }
+
+    function handleLogin() {
+        if (localStorage.getItem('isLoggedIn'))
+            alert('You are currently logged in');
+        else
+            goToLogin();
+    }
+
+    function handleLogout() {
+        if (!localStorage.getItem('isLoggedIn'))
+            alert('You are currently logged out');
+        else {
+            googleLogout(); // disables auto-login
+            alert(`Logged out successfully`);
+            localStorage.removeItem('isLoggedIn');
+            goToLogin();
+        }
     }
 
     return (<>
@@ -40,35 +72,36 @@ export default function Navbar() {
                         Home
                     </Button>
 
-                    <Button variant='contained' sx={{
-                        backgroundColor: 'grey',
-                        borderRadius: '0px',
-                        margin: '0px',
-                        marginTop: '10px'
-                    }}
-                        component={Link} to='/register'>
-                        Register
-                    </Button>
-
-                    <Button variant='contained' sx={{
-                        backgroundColor: 'grey',
-                        borderRadius: '0px',
-                        margin: '0px',
-                        marginTop: '10px'
-                    }}
-                        component={Link} to='/login'>
-                        Login
-                    </Button>
-
                     <Button variant='contained'
-                        onClick={logoutUser}
+                        onClick={handleRegister}
                         sx={{
                             backgroundColor: 'grey',
                             borderRadius: '0px',
                             margin: '0px',
                             marginTop: '10px'
-                        }}
-                        component={Link} to='/login'>
+                        }}>
+                        Register
+                    </Button>
+
+                    <Button variant='contained'
+                        onClick={handleLogin}
+                        sx={{
+                            backgroundColor: 'grey',
+                            borderRadius: '0px',
+                            margin: '0px',
+                            marginTop: '10px'
+                        }}>
+                        Login
+                    </Button>
+
+                    <Button variant='contained'
+                        onClick={handleLogout}
+                        sx={{
+                            backgroundColor: 'grey',
+                            borderRadius: '0px',
+                            margin: '0px',
+                            marginTop: '10px'
+                        }}>
                         Logout
                     </Button>
 

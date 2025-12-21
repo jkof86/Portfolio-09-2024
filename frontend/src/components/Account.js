@@ -29,7 +29,7 @@ export default function Account() {
                 width: '75vw',
                 // height: '85vh'
             }}>
-                <h1>About</h1>
+                <h1>Account</h1>
             </Box>
         </center>
     </>);
