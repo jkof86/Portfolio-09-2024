@@ -39,16 +39,18 @@ export default function FeedHealthDashboard() {
           {entries.map(([feed, state]) => {
             const isOk = state === "ok";
             const label = `${feed}: ${isOk ? "OK" : "Error"}`;
-            const ms = latency[feed];
-            const tooltip = ms ? `${label} (latency: ${ms} ms)` : label;
+            const ms = latency?.[feed];
+            const tooltip = ms ? `${label} (${ms} ms)` : label;
 
             return (
               <Tooltip key={feed} title={tooltip}>
                 <Chip
                   label={label}
-                  color={isOk ? "success" : "error"}
                   size="small"
-                  variant={isOk ? "outlined" : "filled"}
+                  sx={{
+                    backgroundColor: isOk ? "success.main" : "error.main",
+                    color: "white"
+                  }}
                 />
               </Tooltip>
             );

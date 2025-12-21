@@ -9,9 +9,10 @@
 // - Feed health dashboard
 // ------------------------------------------------------------
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
+  Button,
   Toolbar,
   Grid,
   Card,
@@ -19,7 +20,9 @@ import {
   CardMedia,
   CardContent,
   CardActions,
-  Typography
+  Typography,
+  ToggleButton,
+  ToggleButtonGroup
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -27,22 +30,27 @@ import banner from "../images/bg/ksBanner08.jpeg";
 import Navbar from "./navigation/Navbar";
 
 import TabsLayout from "./layouts/TabsLayout";
-import SideNavLayout from "./layouts/SideNavLayout";
 import TickerBar from "./layouts/TickerBar";
 import FeedHealthDashboard from "./FeedHealthDashboard";
 
 import { FeedStatusProvider } from "../context/FeedStatusContext";
 import { GlobalRefreshProvider } from "../context/GlobalRefreshContext";
-import {
-  buildFeedCategoriesWithFavorites
-} from "./data/feedCategories";
+import { feedCategories } from "../data/feedCategories";
+
+// -----------------------------------------
 
 export default function Home() {
+
+  const categories = feedCategories;
+  const [currentCategory, setCurrentCategory] = useState(
+    Object.keys(categories)[0] || ""
+  );
+  const feeds = categories[currentCategory] || [];
+  const safeFeedIndex = 0;
+
+  // ---------------------------------------------------
+
   const navigate = useNavigate();
-
-  const useSidebar = false; // toggle layout here
-
-  const categories = buildFeedCategoriesWithFavorites();
 
   useEffect(() => {
     const loggedIn = localStorage.getItem("isLoggedIn");
@@ -90,8 +98,8 @@ export default function Home() {
               padding: "10px",
               margin: "20px",
               width: "75vw"
-            }}
-          >
+            }}>
+
             <Grid container spacing={0}>
               <Grid item xs={12}>
                 <Typography
@@ -114,11 +122,29 @@ export default function Home() {
                   <CardActionArea>
                     <CardMedia>
                       <CardContent>
-                        {useSidebar ? (
-                          <SideNavLayout categories={categories} />
-                        ) : (
-                          <TabsLayout categories={categories} />
-                        )}
+
+                        {/* Category Selector */}
+                        <Box sx={{ mb: 2 }}>
+                          <ToggleButtonGroup
+                            value={currentCategory}
+                            exclusive
+                            onChange={(e, val) => val && setCurrentCategory(val)}
+                            size="small"
+                          >
+                            {Object.keys(categories).map((cat) => (
+                              <ToggleButton key={cat} value={cat}>
+                                {cat}
+                              </ToggleButton>
+                            ))}
+                          </ToggleButtonGroup>
+                        </Box>
+
+                        {/* Tabs Layout Only */}
+                        <TabsLayout
+                          feeds={feeds}
+                          safeFeedIndex={safeFeedIndex}
+                          currentCategory={currentCategory}
+                        />
                       </CardContent>
                       <CardActions />
                     </CardMedia>
@@ -133,6 +159,6 @@ export default function Home() {
           </Box>
         </center>
       </GlobalRefreshProvider>
-    </FeedStatusProvider>
+    </FeedStatusProvider >
   );
 }
